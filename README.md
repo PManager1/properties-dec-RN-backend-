@@ -15,11 +15,16 @@ make sure you've all the necessary files in the public/ lib folder.
 
 yo meanjs:crud-module properties
 
+copy & replace file from here  :  config/assets/default.js b/config/assets/default.js
 
 
 
 
 
+
+
+
+add cors line from  /config/lib/express.js b/config/lib/express.js 
 
 add capistrano files 
 ====================================
