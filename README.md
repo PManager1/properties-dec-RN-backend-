@@ -13,6 +13,9 @@ make sure you've all the necessary files in the public/ lib folder.
 
 
 
+yo meanjs:crud-module properties
+
+
 
 
 
