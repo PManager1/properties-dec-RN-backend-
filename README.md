@@ -18,6 +18,8 @@ yo meanjs:crud-module properties
 copy & replace file from here  :  config/assets/default.js b/config/assets/default.js
 
 
+copy & replace file from here  : modules/core/client/app/config.js
+
 
 
 
@@ -25,6 +27,9 @@ copy & replace file from here  :  config/assets/default.js b/config/assets/defau
 
 
 add cors line from  /config/lib/express.js b/config/lib/express.js 
+
+if you need replace the gulpfile.js 
+
 
 add capistrano files 
 ====================================
