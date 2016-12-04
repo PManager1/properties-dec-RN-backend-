@@ -43,7 +43,7 @@ properties/server/models/property.server.model.js
 
 modules/properties/server/policies/properties.server.policy.js
 
-
+modules/properties/server/routes/properties.server.routes.js
 
 
 
