@@ -21,6 +21,32 @@ copy & replace file from here  :  config/assets/default.js b/config/assets/defau
 copy & replace file from here  : modules/core/client/app/config.js
 
 
+ >make sure :   modules/properties/client/config/properties.client.config.js
+
+/modules/properties/client/config/properties.client.routes.js
+
+
+IMP :  modules/properties/client/controllers/list-properties.client.controller.js
+
+
+modules/properties/client/services/properties.client.service.js
+
+
+HTML
+modules/properties/client/views/form-property.client.view.html
+modules/properties/client/views/list-properties.client.view.html
+
+
+Imp:
+modules/properties/server/controllers/properties.server.controller.js
+
+
+
+
+
+
+
+
 
 
 

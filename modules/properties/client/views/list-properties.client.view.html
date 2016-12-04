@@ -1,22 +1,321 @@
+
+
+
+
+    <md-content laout="column" flex ng-controller="PropertiesListController">
+    <md-toolbar class="md-whiteframe-1dp">
+      <div class="md-toolbar-tools">
+        <div class="md-title">Liberty Trust Group</div>
+      </div>
+    </md-toolbar>
+
+
+
+    <md-content laout="column" flex ng-controller="PropertiesListController">
+      
+      
+      <md-card>
+        
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
+          <div class="md-toolbar-tools">
+            <span>make your selection</span>
+                 
+
+            <div flex>
+            </div>
+
+            <md-button class="md-icon-button" ng-click="loadStuff()">
+              <md-icon>refresh</md-icon>
+            </md-button>
+
+
+
+          <md-button class="md-icon-button" ng-click="sendEmail()">
+          <i class="material-icons">email</i>
+            </md-button>
+
+
+
+          </div>
+        </md-toolbar>
+
+
+
+<!-- these properties selected -->
+
+       <md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">
+          <div class="md-toolbar-tools">
+            <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+        
+                <md-button class="md-icon-button" ng-click="sendEmail()">
+                          <i class="material-icons">email</i>
+                 </md-button>
+
+                <md-button class="md-icon-button" ng-click="justCalled()">
+                          <i class="material-icons">done</i>
+                 </md-button>
+
+          </div>
+        </md-toolbar>
+<!-- upto here -->
 <section>
-  <div class="page-header">
-    <h1>Properties</h1>
+
+
+
+
+<div class="container">
+  <div class="row">
+           <div id="custom-search-input">
+                            <div class="input-group col-xs-10 col-sm-10 col-md-10">
+                                <input type="text" class="search-query form-control" placeholder="Search" ng-model="searchquery"/>
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button">
+                                        <span class=" glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="property in vm.properties"
-       ui-sref="properties.view({ propertyId: property._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="property.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="property.user" ng-bind="property.user.displayName"></span>
-        <span ng-if="!property.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="property.name"></h4>
-    </a>
-  </div>
-  <div class="alert alert-warning text-center" ng-if="vm.properties.$resolved && !vm.properties.length">
-    No Properties yet, why don't you <a ui-sref="properties.create">create one</a>?
-  </div>
-</section>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div data-ng-repeat="p in pp.rate">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <md-switch ng-change="switchChange(result.price)" ng-model="result.price" ng-true-value="{{p.price}}" ng-false-value="">
+                    {{p.plan}}
+                </md-switch>
+            </div>
+        </div>            Model = {{result.price}}
+    </div>
+</div>
+
+
+
+
+
+<!-- SIDE BAR starts  -->
+
+  <div ng-controller="SideNavCtrl" layout="column" style="height:450px;" ng-cloak="" class="sidenavdemoBasicUsage">
+
+  <section layout="row" flex="">
+
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Sidenav Left</h1>
+
+      </md-toolbar>
+      <md-content layout-padding="" ng-controller="LeftCtrl">
+        <md-button ng-click="close()" class="md-primary" hide-gt-md="">
+          Close Sidenav Left
+        </md-button>
+        <p hide="" show-gt-md="">
+          This sidenav is locked open on your device. To go back to the default behavior,
+          narrow your display.
+        </p>
+      </md-content>
+
+    </md-sidenav>
+
+
+
+
+<!-- exact table from live demo -->
+       <md-table-container>
+          <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+            <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+              <tr md-row>
+                <th md-column md-order-by="address"><span>Realtor</span></th>
+                <th md-column md-numeric md-order-by="fat.value"><span>Phone no</span></th>
+
+                <th md-column md-order-by="type"><span>email_sent</span></th>
+                <th md-column md-order-by="type"><span>Priority</span></th>
+                <th md-column md-order-by="type"><span>Status</span></th>                
+                
+                <th md-column md-numeric md-order-by="carbs.value"><span>Agent</span></th>
+                <th md-column md-numeric md-order-by="protein.value"><span>Email</span></th>
+              <th md-column md-numeric md-order-by="calories.value" md-desc><span>Last Call</span></th> 
+                <th md-column md-order-by="comment">
+                  <md-icon>comments</md-icon>
+                  <span>Comments</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              
+
+              <!-- ng-show="0" class="ng-hide"  -->
+      <!-- ng-hide="property.last_date_call_was_made == currentProperty.Today" -->
+
+              <tr  ng-hide="hideProperty(property)" md-row md-select="property" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400"  ng-repeat="property in properties | filter:searchquery | orderBy: propertyOrder.email_date_it_was_sent | limitTo: query.limit : (query.page -1) * query.limit">
+
+            <td md-cell>{{property.agent_name}}</td>
+            
+            <td md-cell   ng-if="property.cell_phone == '-'"   >   <a href="tel:{{property.phone_no}}"> {{property.phone_no}}</a> </td>
+
+            <td md-cell   ng-if="property.cell_phone != '-'"   >   <a href="tel:{{property.cell_phone}}"> {{property.cell_phone}}</a> </td>
+          
+           <!-- <td md-cell> {{property.address}} {{property.city}} </td> -->
+
+             <td md-cell> {{property.last_date_email_sent_on}} </td>
+
+            <td md-cell>  
+              <md-select  ng-change="selectChangedPriority(dessert.type)"  ng-model="dessert.type" placeholder="{{property.call_priority}}" md-on-select="logItemType" ng-value="{{type}}" > 
+                
+                <md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
+
+              </md-select>
+            </td>            
+
+            <td md-cell> 
+                <md-button class="md-icon-button" ng-click="justCalled()">
+                          <i class="material-icons">done</i>
+                 </md-button>  
+            </td>
+
+ 
+
+          
+                 <!-- <td md-cell>{{property.phone_no}}</td> -->
+                 <td md-cell>{{property.agent_name}}</td>
+                 <!-- <td md-cell>{{property.city}}</td>  -->
+
+                 <td md-cell>{{property.email_address}}</td> 
+
+                 <td md-cell>{{property.last_date_call_was_made}}</td>
+<!--                  <td md-cell hide-gt-xs show-gt-md>{{property.listprice}}</td>
+                 <td md-cell hide-gt-xs show-gt-lg>{{property.listPrice}}%</td> -->
+                                
+               <!--  <td md-cell hide-gt-xs show-gt-md>{{dessert.sodium.value}}</td>
+                <td md-cell hide-gt-xs show-gt-lg>{{dessert.calcium.value}}%</td>
+                <td md-cell hide-gt-xs show-gt-lg>{{dessert.iron.value}}%</td> -->
+                
+                <td md-cell aria-label="comment" ng-click="editComment($event, property)" ng-class="{'md-placeholder': !property.comments}">
+                  {{property.comments || 'Add a comment' | limitTo: 115  }}
+                </td>
+
+         <td md-cell>
+          <i ng-click="toggleLeft()" class="material-icons">chevron_left</i>
+         </td>   
+
+         <td md-cell>
+          <i ng-click="toggleRight()" class="material-icons">chevron_right</i>
+         </td>  
+
+
+
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+
+
+<!-- exact table from live demo  ends -->
+
+
+
+<!--     <md-content flex="" layout-padding="">
+
+      <div layout="column" layout-align="top center">        
+        <div>
+          <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md="">
+            Toggle left
+          </md-button>
+        </div>
+
+        <div>
+          <md-button ng-click="toggleRight()" ng-hide="isOpenRight()" class="md-primary">
+            Toggle right
+          </md-button>
+        </div>
+      </div>
+
+      <div flex=""></div>
+    </md-content> -->
+    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+      <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Sidenav Right  |  
+        </h1>
+<!-- {{obj}} -->
+      </md-toolbar>
+      <md-content ng-controller="RightCtrl" layout-padding="">
+        <form>
+
+          <md-input-container>
+            <label for="testInput">Commentside </label>
+            <input type="text" id="testInput" md-autofocus="" ng-model="obj.comments" value="{{obj.comments | limitTo: 2}}">
+            
+          </md-input-container>
+
+          <md-input-container>
+            <label for="testInput">Phone no</label> 
+            <input type="text" id="testInput" ng-model="obj.phone_no" value="{{obj.phone_no}}" >
+          </md-input-container>
+
+          <md-input-container>
+            <label for="testInput">Cell no</label> 
+            <input type="text" id="testInput" ng-model="obj.cell_phone" value="{{obj.cell_phone}}" >
+          </md-input-container>
+
+
+          <md-input-container>
+            <label for="testInput">Email</label>
+            <input type="text" id="testInput" ng-model="obj.email_address"  value="{{obj.email_address}}">
+          </md-input-container>
+
+          <md-input-container>
+            <label for="testInput">Name</label>
+            <input type="text" id="testInput"  ng-model="obj.agent_name"  value="{{obj.agent_name}}">
+          </md-input-container>
+
+
+         <md-button class="md-icon-button" ng-click="refreshStuff(obj)">
+             <i class="material-icons">cloud_upload</i>
+          </md-button> 
+
+
+<!-- more form elements -->
+
+<!-- more form elements ends  -->
+        </form>
+        <md-button ng-click="close()" class="md-primary">
+          Close Sidenav Right   
+
+           <!--  <md-button class="md-icon-button" ng-click="refreshStuff()">
+              <md-icon>refresh</md-icon>
+            </md-button> -->
+
+
+        </md-button>
+      </md-content>
+
+    </md-sidenav>
+
+  </section>
+
+</div>
+
+<!-- SIDE BAR ENDS  -->
+
+        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{desserts.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+      </md-card>
+    </md-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
