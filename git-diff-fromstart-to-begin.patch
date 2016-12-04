@@ -1,0 +1,4120 @@
+diff --git a/Capfile b/Capfile
+deleted file mode 100644
+index 4667537..0000000
+--- a/Capfile
++++ /dev/null
+@@ -1,27 +0,0 @@
+-# Load DSL and set up stages
+-require "capistrano/setup"
+-
+-# Include default deployment tasks
+-require "capistrano/deploy"
+-
+-# Include tasks from other gems included in your Gemfile
+-#
+-# For documentation on these, see for example:
+-#
+-#   https://github.com/capistrano/rvm
+-#   https://github.com/capistrano/rbenv
+-#   https://github.com/capistrano/chruby
+-#   https://github.com/capistrano/bundler
+-#   https://github.com/capistrano/rails
+-#   https://github.com/capistrano/passenger
+-#
+-# require 'capistrano/rvm'
+-# require 'capistrano/rbenv'
+-# require 'capistrano/chruby'
+-# require 'capistrano/bundler'
+-# require 'capistrano/rails/assets'
+-# require 'capistrano/rails/migrations'
+-# require 'capistrano/passenger'
+-
+-# Load custom tasks from `lib/capistrano/tasks` if you have any defined
+-Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
+diff --git a/Dockerfile b/Dockerfile
+index 47dbaa8..17e4c99 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -54,8 +54,7 @@ RUN npm install --quiet && npm cache clean
+ # Install bower packages
+ COPY bower.json /opt/mean.js/bower.json
+ COPY .bowerrc /opt/mean.js/.bowerrc
+-#RUN bower install --quiet --allow-root --config.interactive=false
+-RUN bower install --allow-root --config.interactive=true
++RUN bower install --quiet --allow-root --config.interactive=false
+ 
+ COPY . /opt/mean.js
+ 
+diff --git a/README.md b/README.md
+index f1961f9..a38ef34 100644
+--- a/README.md
++++ b/README.md
+@@ -1,50 +1,3 @@
+-
+-============
+-
+-PROD   Explore config/env/production.js
+-npm run start:prod
+-
+-To run your application with production environment configuration, execute gulp as follows:
+-
+-$ gulp prod
+-
+-==========
+-https://hub.docker.com/r/meanjs/mean/
+-
+-gulp prod
+-
+-npm run start:prod
+-
+-
+-MONGO_SEED=true npm start:prod
+-
+-In the express.js  fix this in prod: 
+-//    res.header('Access-Control-Allow-Origin', '*');  
+-
+-=====
+-
+-
+-Just add ionic bundle file from the app folder and you shoud be good. 
+-use this page to do it:  https://goo.gl/fPrciV
+-
+-
+-=========
+-
+-change the port in  config/env/default.js 
+-
+-
+-
+-angular utils not being loaded via bower, its copied. 
+-its using angular-moment  not the plain old moment.js 
+-
+-
+-
+-
+-
+-
+-
+-
+-
+ [![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
+ 
+ [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/meanjs/mean?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+diff --git a/bower.json b/bower.json
+index 8a6ffe3..ecfe2fc 100644
+--- a/bower.json
++++ b/bower.json
+@@ -15,13 +15,7 @@
+     "bootstrap": "~3.3.6",
+     "ng-file-upload": "^12.1.0",
+     "ng-img-crop": "ngImgCrop#^0.3.2",
+-    "owasp-password-strength-test": "~1.3.0",
+-    "underscore": "^1.8.3",
+-    "angular-material": "^1.1.1",
+-    "angular-material-data-table": "^0.10.9",
+-    "material-design-icons": "^3.0.1",
+-    "angular-moment": "^1.0.0",
+-    "angular-aria": "^1.5.8"
++    "owasp-password-strength-test": "~1.3.0"
+   },
+   "overrides": {
+     "bootstrap": {
+diff --git a/config/assets/default.js b/config/assets/default.js
+index dcbb254..c8ef19b 100644
+--- a/config/assets/default.js
++++ b/config/assets/default.js
+@@ -10,33 +10,22 @@ module.exports = {
+         'public/lib/bootstrap/dist/css/bootstrap.css',
+         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css',
+-        'public/lib/angular-ui-notification/dist/angular-ui-notification.css',
+-        'public/lib/angular-material/angular-material.min.css',
+-        'public/lib/material-design-icons/iconfont/material-icons.css',
+-        'public/lib/angular-material-data-table/dist/md-data-table.min.css',
+-        'public/lib/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2'
++        'public/lib/angular-ui-notification/dist/angular-ui-notification.css'
+         // endbower
+       ],
+       js: [
+         // bower:js
+-        'public/lib/underscore/underscore.js',
+         'public/lib/angular/angular.js',
+         'public/lib/angular-animate/angular-animate.js',
+         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+         'public/lib/ng-file-upload/ng-file-upload.js',
+         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.js',
+-        'public/lib/angular-aria/angular-aria.min.js',
+         'public/lib/angular-messages/angular-messages.js',
+         'public/lib/angular-mocks/angular-mocks.js',
+         'public/lib/angular-resource/angular-resource.js',
+-        'public/lib/angular-material/angular-material.min.js',
+-        'public/lib/angular-material-data-table/dist/md-data-table.min.js',
+-        'public/lib/moment/min/moment.min.js',
+-        'public/lib/angular-moment/angular-moment.min.js',
+         'public/lib/angular-ui-notification/dist/angular-ui-notification.js',
+         'public/lib/angular-ui-router/release/angular-ui-router.js',
+         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
+-        'public/lib/underscore/underscore.js',
+         // endbower
+       ],
+       tests: ['public/lib/angular-mocks/angular-mocks.js']
+diff --git a/config/assets/production.js b/config/assets/production.js
+index 4ffdb37..ed52e98 100644
+--- a/config/assets/production.js
++++ b/config/assets/production.js
+@@ -7,12 +7,10 @@ module.exports = {
+     lib: {
+       css: [
+         // bower:css
+-        'public/lib/angular-ui-notification/dist/angular-ui-notification.min.css',
+         'public/lib/bootstrap/dist/css/bootstrap.min.css',
+         'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+         'public/lib/ng-img-crop/compile/minified/ng-img-crop.css',
+-        'public/lib/angular-material/angular-material.min.css',
+-        'public/lib/angular-material-data-table/dist/md-data-table.min.css',
++        'public/lib/angular-ui-notification/dist/angular-ui-notification.min.css'
+         // endbower
+       ],
+       js: [
+@@ -28,12 +26,6 @@ module.exports = {
+         'public/lib/ng-file-upload/ng-file-upload.min.js',
+         'public/lib/ng-img-crop/compile/minified/ng-img-crop.js',
+         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
+-        'public/lib/underscore/underscore.js',
+-        'public/lib/angular-aria/angular-aria.min.js',
+-        'public/lib/angular-material/angular-material.min.js',
+-        'public/lib/angular-material-data-table/dist/md-data-table.min.js',
+-        'public/lib/moment/moment.js',
+-        'public/lib/angular-moment/angular-moment.min.js',
+         // endbower
+       ]
+     },
+diff --git a/config/deploy.rb b/config/deploy.rb
+deleted file mode 100644
+index 8abe80d..0000000
+--- a/config/deploy.rb
++++ /dev/null
+@@ -1,158 +0,0 @@
+-# config valid only for current version of Capistrano
+-lock '3.6.1'
+-
+-
+-set :application, "properties-Docker-capi"
+-set :repo_url,  "git@github.com:jpca999/properties-Docker.git" 
+-
+-
+-
+-
+-# Default deploy_to directory is /var/www/my_app_name
+-# set :deploy_to, '/var/www/my_app_name'
+-
+-set :deploy_to, "/home/ubuntu/properties-Docker-capi" 
+-set :use_sudo, true
+-# set :keep_releases, 2
+-
+-# Default value for :scm is :git
+-set :scm, :git
+-
+-# Default value for :format is :airbrussh.
+-set :format, :airbrussh
+-
+-# You can configure the Airbrussh format using :format_options.
+-# These are the defaults.
+-set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
+-
+-# Default value for :pty is false
+-set :pty, true
+-
+-# Default value for :linked_files is []
+-# append :linked_files, 'config/database.yml', 'config/secrets.yml'
+-
+-# Default value for linked_dirs is []
+-# append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system'
+-
+-# Default value for default_env is {}
+-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+-
+-# Default value for keep_releases is 5
+-set :keep_releases, 1
+-
+-
+-
+-
+-# original copy.. 
+-
+-
+-set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
+-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+-
+-
+-role :web, "34.192.106.66"                          # Your HTTP server, Apache/etc
+-role :app, "34.192.106.66"                          # This may be the same as your `Web` server
+-role :db,  "34.192.106.66", :primary => true # This is where Rails migrations will run
+-role :db,  "34.192.106.66"
+-
+-
+-
+-
+-
+-
+-set :deploy_via, :copy
+-set :copy_exclude, [".git", ".DS_Store"]
+-
+-
+-
+-set :branch, "3-OnlineWebsite"
+-
+-
+-set :scm_username, "ubuntu" 
+-# set :scm_password, "Apple123$"
+-
+-#set :runner, user 
+-
+-
+-set :user, "ubuntu"            
+-set :use_sudo, false
+-set :admin_runner, "user"
+-
+-
+-
+-task :execute_on_server do
+-  on "root@34.192.106.66" do
+-    execute "npm install"
+-  end
+-end
+-
+-
+-
+-
+-
+-
+-
+-
+-# this tells capistrano what to do when you deploy
+-# namespace :deploy do
+-
+-  # desc <<-DESC
+-  # A macro-task that updates the code and fixes the symlink.
+-  # DESC
+-  # task :default do
+-  #   transaction do
+-  #     update_code
+-  #     symlink
+-  #   end
+-  # end
+-
+-  # task :update_code, :except => { :no_release => true } do
+-  #   on_rollback { run "rm -rf #{release_path}; true" }
+-  #   strategy.deploy!
+-  # end
+-
+-  # task :after_deploy do
+-  #   cleanup
+-  # end
+-
+-# end
+-
+-# http://stackoverflow.com/questions/18838930/how-to-run-shell-commands-on-server-in-capistrano-v3
+-
+-# task :execute_on_server do
+-#     execute "npm install"
+-# end	
+-
+-
+-
+-
+-# Default branch is :master
+-# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+-
+-# Default deploy_to directory is /var/www/my_app_name
+-# set :deploy_to, '/var/www/my_app_name'
+-
+-# Default value for :scm is :git
+-# set :scm, :git
+-
+-# Default value for :format is :airbrussh.
+-# set :format, :airbrussh
+-
+-# You can configure the Airbrussh format using :format_options.
+-# These are the defaults.
+-# set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
+-
+-# Default value for :pty is false
+-# set :pty, true
+-
+-# Default value for :linked_files is []
+-# append :linked_files, 'config/database.yml', 'config/secrets.yml'
+-
+-# Default value for linked_dirs is []
+-# append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system'
+-
+-# Default value for default_env is {}
+-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+-
+-# Default value for keep_releases is 5
+-# set :keep_releases, 5
+diff --git a/config/deploy/production.rb b/config/deploy/production.rb
+deleted file mode 100644
+index 801105e..0000000
+--- a/config/deploy/production.rb
++++ /dev/null
+@@ -1,145 +0,0 @@
+-role :app, %w{ubuntu@34.192.106.66}
+-
+-server '34.192.106.66', user: 'ubuntu', roles: %w{web app}, my_property: :my_value
+-
+-# set it globally
+-
+- set :ssh_options, {
+-   keys: %w(/Users/jay/.ssh/id_rsa),
+-   forward_agent: false,
+-   user: 'user'
+-   # auth_methods: %w(password)
+- }
+-
+- 
+-
+-
+-
+-
+-# set :rails_env, 'production'     
+-#set :use_sudo, false   #if error delete this
+-
+-
+-# If you are using Passenger mod_rails uncomment this:
+-# namespace :deploy do
+-#   task :start do ; end
+-#   task :stop do ; end
+-#   task :restart, :roles => :app, :except => { :no_release => true } do
+-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+-#   end
+-# end
+-
+-
+-
+-
+-# 
+-# 
+-# 
+-# set :application, "set your application name here"
+-# set :repository,  "set your repository location here"
+-# 
+-# set :scm, :subversion
+-# # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+-# 
+-# role :web, "your web-server here"                          # Your HTTP server, Apache/etc
+-# role :app, "your app-server here"                          # This may be the same as your `Web` server
+-# role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
+-# role :db,  "your slave db-server here"
+-# 
+-# # if you want to clean up old releases on each deploy uncomment this:
+-# # after "deploy:restart", "deploy:cleanup"
+-# 
+-# # if you're still using the script/reaper helper you will need
+-# # these http://github.com/rails/irs_process_scripts
+-# 
+-# # If you are using Passenger mod_rails uncomment this:
+-# # namespace :deploy do
+-# #   task :start do ; end
+-# #   task :stop do ; end
+-# #   task :restart, :roles => :app, :except => { :no_release => true } do
+-# #     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+-# #   end
+-# # end
+-
+-
+-
+-
+-
+-# if you want to clean up old releases on each deploy uncomment this:
+-# after "deploy:restart", "deploy:cleanup"
+-
+-# if you're still using the script/reaper helper you will need
+-# these http://github.com/rails/irs_process_scripts
+-
+-# If you are using Passenger mod_rails uncomment this:
+-# namespace :deploy do
+-#   task :start do ; end
+-#   task :stop do ; end
+-#   task :restart, :roles => :app, :except => { :no_release => true } do
+-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+-#   end
+-# end
+-
+-
+-
+-# server-based syntax
+-# ======================
+-# Defines a single server with a list of roles and multiple properties.
+-# You can define all roles on a single server, or split them:
+-
+-# server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
+-# server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
+-# server 'db.example.com', user: 'deploy', roles: %w{db}
+-
+-
+-
+-# role-based syntax
+-# ==================
+-
+-# Defines a role with one or multiple servers. The primary server in each
+-# group is considered to be the first unless any  hosts have the primary
+-# property set. Specify the username and a domain or IP for the server.
+-# Don't use `:all`, it's a meta role.
+-
+-# role :app, %w{deploy@example.com}, my_property: :my_value
+-# role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
+-# role :db,  %w{deploy@example.com}
+-
+-
+-
+-# Configuration
+-# =============
+-# You can set any configuration variable like in config/deploy.rb
+-# These variables are then only loaded and set in this stage.
+-# For available Capistrano configuration variables see the documentation page.
+-# http://capistranorb.com/documentation/getting-started/configuration/
+-# Feel free to add new variables to customise your setup.
+-
+-
+-
+-# Custom SSH Options
+-# ==================
+-# You may pass any option but keep in mind that net/ssh understands a
+-# limited set of options, consult the Net::SSH documentation.
+-# http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start
+-#
+-# Global options
+-# --------------
+-#  set :ssh_options, {
+-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
+-#    forward_agent: false,
+-#    auth_methods: %w(password)
+-#  }
+-#
+-# The server-based syntax can be used to override options:
+-# ------------------------------------
+-# server 'example.com',
+-#   user: 'user_name',
+-#   roles: %w{web app},
+-#   ssh_options: {
+-#     user: 'user_name', # overrides user setting above
+-#     keys: %w(/home/user_name/.ssh/id_rsa),
+-#     forward_agent: false,
+-#     auth_methods: %w(publickey password)
+-#     # password: 'please use keys'
+-#   }
+diff --git a/config/env/production.js b/config/env/production.js
+index ae75491..f37f36b 100644
+--- a/config/env/production.js
++++ b/config/env/production.js
+@@ -9,7 +9,7 @@ module.exports = {
+     certificate: './config/sslcerts/cert.pem',
+     caBundle: './config/sslcerts/cabundle.crt'
+   },
+-  port: process.env.PORT || 8000,
++  port: process.env.PORT || 8443,
+   // Binding to 127.0.0.1 is safer in production.
+   host: process.env.HOST || '0.0.0.0',
+   db: {
+diff --git a/config/lib/express.js b/config/lib/express.js
+index bba86ef..9330351 100644
+--- a/config/lib/express.js
++++ b/config/lib/express.js
+@@ -19,8 +19,7 @@ var config = require('../config'),
+   hbs = require('express-hbs'),
+   path = require('path'),
+   _ = require('lodash'),
+-  lusca = require('lusca'),
+-  cors = require('cors');  
++  lusca = require('lusca');
+ 
+ /**
+  * Initialize local variables
+@@ -50,42 +49,13 @@ module.exports.initLocalVariables = function (app) {
+     res.locals.url = req.protocol + '://' + req.headers.host + req.originalUrl;
+     next();
+   });
+-
+-
+-
+ };
+ 
+ /**
+  * Initialize application middleware
+- */ 
+-
+-
+-
+-
+-
+-
++ */
+ module.exports.initMiddleware = function (app) {
+   // Should be placed before express.static
+-
+-var corsOptions = {
+-    origin: 'http://34.192.250.112:8000',
+-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+-  };
+-  app.use(cors());
+-
+-
+-
+-
+-app.use(function(req, res, next) {
+-    // res.header('Access-Control-Allow-Origin', 'http://34.192.250.112:81');
+-    res.header('Access-Control-Allow-Origin', '*');
+-    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+-    next();
+-});
+-
+-
+-
+-
+   app.use(compress({
+     filter: function (req, res) {
+       return (/json|text|javascript|css|font|svg/).test(res.getHeader('Content-Type'));
+diff --git a/gulpfile.js b/gulpfile.js
+index 67a44e7..3e6c606 100644
+--- a/gulpfile.js
++++ b/gulpfile.js
+@@ -56,8 +56,6 @@ gulp.task('nodemon', function () {
+   });
+ });
+ 
+-
+-
+ // Nodemon task without verbosity or debugging
+ gulp.task('nodemon-nodebug', function () {
+   return plugins.nodemon({
+diff --git a/modules/articles/client/views/list-articles.client.view.html b/modules/articles/client/views/list-articles.client.view.html
+index 322169a..c117ba8 100644
+--- a/modules/articles/client/views/list-articles.client.view.html
++++ b/modules/articles/client/views/list-articles.client.view.html
+@@ -1,6 +1,6 @@
+ <section>
+   <div class="page-header">
+-    <h1>Articles -git Nov11</h1>
++    <h1>Articles</h1>
+   </div>
+   <div class="list-group">
+     <a ng-repeat="article in vm.articles" ui-sref="articles.view({ articleId: article._id })" class="list-group-item">
+diff --git a/modules/core/client/app/config.js b/modules/core/client/app/config.js
+index 2ea53a8..a8a093a 100644
+--- a/modules/core/client/app/config.js
++++ b/modules/core/client/app/config.js
+@@ -6,7 +6,7 @@
+   var service = {
+     applicationEnvironment: window.env,
+     applicationModuleName: applicationModuleName,
+-    applicationModuleVendorDependencies: ['ngResource', 'ngAria', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ngFileUpload', 'ngMaterial', 'ngImgCrop', 'ui-notification', 'md.data.table','ngMessages','angularMoment'],
++    applicationModuleVendorDependencies: ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ngFileUpload', 'ngImgCrop', 'ui-notification'],
+     registerModule: registerModule
+   };
+ 
+diff --git a/modules/core/client/app/init.js b/modules/core/client/app/init.js
+index 2a9bf05..8ffaef3 100644
+--- a/modules/core/client/app/init.js
++++ b/modules/core/client/app/init.js
+@@ -20,13 +20,6 @@
+ 
+     $httpProvider.interceptors.push('authInterceptor');
+ 
+-// CORS issue
+-    $httpProvider.defaults.headers.common = {};
+-    $httpProvider.defaults.headers.post = {};
+-    $httpProvider.defaults.headers.put = {};
+-    $httpProvider.defaults.headers.patch = {};
+-// CORS issue
+-
+     // Disable debug data for production environment
+     // @link https://docs.angularjs.org/guide/production
+     $compileProvider.debugInfoEnabled(app.applicationEnvironment !== 'production');
+diff --git a/modules/core/client/views/header.client.view.html b/modules/core/client/views/header.client.view.html
+index af13612..d35f961 100644
+--- a/modules/core/client/views/header.client.view.html
++++ b/modules/core/client/views/header.client.view.html
+@@ -6,7 +6,7 @@
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+     </button>
+-    <a ui-sref="home" class="navbar-brand">LTG</a>
++    <a ui-sref="home" class="navbar-brand">MEAN.JS</a>
+   </div>
+   <nav class="navbar-collapse" uib-collapse="!vm.isCollapsed" role="navigation">
+     <ul class="nav navbar-nav" ng-if="vm.menu.shouldRender(vm.authentication.user);">
+diff --git a/modules/core/client/views/home.client.view.html b/modules/core/client/views/home.client.view.html
+index e8b83e0..5d64ed3 100644
+--- a/modules/core/client/views/home.client.view.html
++++ b/modules/core/client/views/home.client.view.html
+@@ -2,80 +2,83 @@
+   <div class="jumbotron text-center">
+     <div class="row">
+       <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
+-        <img alt="MEAN.JS" class="img-responsive text-center" src="http://javascript.tutorialhorizon.com/files/2014/09/nodejs_logo.gif" />
++        <img alt="MEAN.JS" class="img-responsive text-center" src="/modules/core/client/img/brand/logo.png" />
+       </div>
+     </div>
+     <br>
+     <div class="row">
+       <p class="lead">
+-        Agents Organization System 
++        Open-Source Full-Stack Solution For MEAN Applications
+       </p>
+     </div>
+     <div class="row">
+       <p>
+-        <a class="btn btn-primary btn-lg" href="http://libertytrustgroup.com" target="_blank">Learn more</a>
++        <a class="btn btn-primary btn-lg" href="http://meanjs.org" target="_blank">Learn more</a>
+       </p>
+     </div>
+   </div>
+-
+-
+-
+-
+-
+-    <section id="contact">
+-        <div class="container">
+-            <div class="row">
+-                <div class="col-lg-12 text-center">
+-                    <h2 class="section-heading">Contact Us</h2>
+-                    <h3 class="section-subheading text-muted"><a href="tel:954-544-7243">954-544-7243</a></h3>
+-                </div>
+-            </div>
+-            <div class="row">
+-                <div class="col-lg-12">
+-                    <form name="sentMessage" id="contactForm" novalidate>
+-                        <div class="row">
+-                            <div class="col-md-6">
+-                                <div class="form-group">
+-                                    <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
+-                                    <p class="help-block text-danger"></p>
+-                                </div>
+-                                <div class="form-group">
+-                                    <input type="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
+-                                    <p class="help-block text-danger"></p>
+-                                </div>
+-                                <div class="form-group">
+-                                    <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
+-                                    <p class="help-block text-danger"></p>
+-                                </div>
+-                            </div>
+-                            <div class="col-md-6">
+-                                <div class="form-group">
+-                                    <textarea class="form-control" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
+-                                    <p class="help-block text-danger"></p>
+-                                </div>
+-                            </div>
+-                            <div class="clearfix"></div>
+-                            <div class="col-lg-12 text-center">
+-                                <div id="success"></div>
+-                                <button type="submit" class="btn btn-xl">Send Message</button>
+-                            </div>
+-                        </div>
+-                    </form>
+-                </div>
+-            </div>
+-        </div>
+-    </section>
+-
+-
+-
+-
++  <div>
++    <h2>Congrats! You've configured and run the sample application.</h2>
++    <p>MEAN.JS is a web application boilerplate, which means you should start changing everything :-)</p>
++    <p>This sample application tracks users and articles.</p>
++    <ul>
++      <li>
++        Click
++        <em>Sign Up</em> to get started.
++      </li>
++      <li>
++        Configure your app to work with your social accounts, by editing the
++        <em>/config/env/*.js</em> files.
++      </li>
++      <li>
++        Edit your users module.
++      </li>
++      <li>
++        Add new CRUD modules.
++      </li>
++      <li>
++        Have fun...
++      </li>
++    </ul>
++  </div>
+   <div class="row">
+-
++    <div class="col-md-3">
++      <h2><strong>M</strong>ongoDB</h2>
++      <p><a target="_blank" href="http://mongodb.org/">MongoDB</a> is a NoSQL database. MongoDB's <a target="_blank" href="http://docs.mongodb.org/manual/">great manual</a> is the place to get started with NoSQL and MongoDB.</p>
++    </div>
++    <div class="col-md-3">
++      <h2><strong>E</strong>xpress</h2>
++      <p><a target="_blank" href="http://expressjs.com/"> Express</a> is a NodeJS server-side application web framework. Check out <a target="_blank" href="http://expressjs.com/4x/api.html">The ExpressJS API reference for more information</a> or <a target="_blank" href="http://stackoverflow.com/questions/8144214/learning-express-for-node-js">StackOverflow</a> for more info.</p>
++    </div>
++    <div class="col-md-3">
++      <h2><strong>A</strong>ngularJS</h2>
++      <p><a target="_blank" href="http://angularjs.org/">AngularJS</a> is client-side web application framework. The <a target="_blank" href="http://www.thinkster.io/">Thinkster Popular Guide</a> and <a target="_blank" href="https://egghead.io/">Egghead Videos</a> are great resources.</p>
++    </div>
++    <div class="col-md-3">
++      <h2><strong>N</strong>ode.js</h2>
++      <p><a target="_blank" href="http://nodejs.org/">Node.js</a> is a JavaScript run-time, popular for being a web server platform. Node's website and this <a target="_blank" href="http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js">stackOverflow thread</a> offer excellent starting points to get to grasps with node.</p>
++    </div>
+   </div>
+   <div class="well">
+-    <h2>LTG Documentation</h2>
+-
++    <h2>MEAN.JS Documentation</h2>
++    <p>
++      Once you're familiar with the foundation technology, check out the MEAN.JS Documentation:
++      <ul>
++        <li><a target="_blank" href="http://meanjs.org/docs.html">MEAN.JS Documentation</a>
++        </li>
++        <!-- <li><a target="_blank" href="http://meanjs.org/generator.html">Yeoman Generator</a>
++				</li> -->
++        <li><a target="_blank" href="http://meanjs.org/modules.html">Modules</a>
++        </li>
++        <li><a target="_blank" href="http://meanjs.org/changelog.html">Changelog</a>
++        </li>
++        <li><a target="_blank" href="http://meanjs.org/community.html">Community</a>
++        </li>
++        <li><a target="_blank" href="http://blog.meanjs.org">Blog</a>
++        </li>
++      </ul>
++    </p>
+   </div>
+   <br>Enjoy &amp; Keep Us Updated,
+-  <br>The LTG Team.
++  <br>The MEAN.JS Team.
+ </section>
+diff --git a/modules/properties/client/config/properties.client.config.js b/modules/properties/client/config/properties.client.config.js
+deleted file mode 100644
+index b8c8b6d..0000000
+--- a/modules/properties/client/config/properties.client.config.js
++++ /dev/null
+@@ -1,32 +0,0 @@
+-(function () {
+-  'use strict';
+-
+-  angular
+-    .module('properties')
+-    .run(menuConfig);
+-
+-  menuConfig.$inject = ['menuService'];
+-
+-  function menuConfig(menuService) {
+-    // Set top bar menu items
+-    menuService.addMenuItem('topbar', {
+-      title: 'Properties',
+-      state: 'properties',
+-      type: 'dropdown',
+-      roles: ['*']
+-    });
+-
+-    // Add the dropdown list item
+-    menuService.addSubMenuItem('topbar', 'properties', {
+-      title: 'List Properties',
+-      state: 'properties.list'
+-    });
+-
+-    // Add the dropdown create item
+-    menuService.addSubMenuItem('topbar', 'properties', {
+-      title: 'Create Property',
+-      state: 'properties.create',
+-      roles: ['user']
+-    });
+-  }
+-}());
+diff --git a/modules/properties/client/config/properties.client.routes.js b/modules/properties/client/config/properties.client.routes.js
+deleted file mode 100644
+index 6a93d3a..0000000
+--- a/modules/properties/client/config/properties.client.routes.js
++++ /dev/null
+@@ -1,79 +0,0 @@
+-(function () {
+-  'use strict';
+-
+-  angular
+-    .module('properties')
+-    .config(routeConfig);
+-
+-  routeConfig.$inject = ['$stateProvider'];
+-
+-  function routeConfig($stateProvider) {
+-    $stateProvider
+-      .state('properties', {
+-        abstract: true,
+-        url: '/properties',
+-        template: '<ui-view/>'
+-      })
+-      .state('properties.list', {
+-        url: '',
+-        templateUrl: 'modules/properties/client/views/list-properties.client.view.html',
+-        controller: 'PropertiesListController',
+-        controllerAs: 'vm',
+-        data: {
+-          pageTitle: 'Properties List'
+-        }
+-      })
+-      .state('properties.create', {
+-        url: '/create',
+-        templateUrl: 'modules/properties/client/views/form-property.client.view.html',
+-        controller: 'PropertiesController',
+-        controllerAs: 'vm',
+-        resolve: {
+-          propertyResolve: newProperty
+-        },
+-        data: {
+-          roles: ['user', 'admin'],
+-          pageTitle: 'Properties Create'
+-        }
+-      })
+-      .state('properties.edit', {
+-        url: '/:propertyId/edit',
+-        templateUrl: 'modules/properties/client/views/form-property.client.view.html',
+-        controller: 'PropertiesController',
+-        controllerAs: 'vm',
+-        resolve: {
+-          propertyResolve: getProperty
+-        },
+-        data: {
+-          roles: ['user', 'admin'],
+-          pageTitle: 'Edit Property {{ propertyResolve.name }}'
+-        }
+-      })
+-      .state('properties.view', {
+-        url: '/:propertyId',
+-        templateUrl: 'modules/properties/client/views/view-property.client.view.html',
+-        controller: 'PropertiesController',
+-        controllerAs: 'vm',
+-        resolve: {
+-          propertyResolve: getProperty
+-        },
+-        data: {
+-          pageTitle: 'Property {{ propertyResolve.name }}'
+-        }
+-      });
+-  }
+-
+-  getProperty.$inject = ['$stateParams', 'PropertiesService'];
+-
+-  function getProperty($stateParams, PropertiesService) {
+-    return PropertiesService.get({
+-      propertyId: $stateParams.propertyId
+-    }).$promise;
+-  }
+-
+-  newProperty.$inject = ['PropertiesService'];
+-
+-  function newProperty(PropertiesService) {
+-    return new PropertiesService();
+-  }
+-}());
+diff --git a/modules/properties/client/controllers/list-properties.client.controller.js b/modules/properties/client/controllers/list-properties.client.controller.js
+deleted file mode 100644
+index fd21c03..0000000
+--- a/modules/properties/client/controllers/list-properties.client.controller.js
++++ /dev/null
+@@ -1,540 +0,0 @@
+-(function () {
+-  'use strict';
+-
+-  angular
+-    .module('properties')
+-
+-
+-
+-// SIDE BAR stuff BEGINS 
+-  .controller('SideNavCtrl', function ($scope, $rootScope, $timeout, $mdSidenav, $log, shareDataService, Data) {
+-    $scope.toggleLeft = buildDelayedToggler('left');
+-    $scope.toggleRight = buildToggler('right'); 
+-
+-$scope.lists = shareDataService.getList();
+-
+-$scope.Data = Data;
+-
+-
+-    $scope.isOpenRight = function(){
+-      return $mdSidenav('right').isOpen();
+-    };
+- 
+-    /**
+-     * Supplies a function that will continue to operate until the
+-     * time is up.
+-     */
+-    function debounce(func, wait, context) {
+-      var timer;
+-
+-      return function debounced() {
+-        var context = $scope,
+-            args = Array.prototype.slice.call(arguments);
+-        $timeout.cancel(timer);
+-        timer = $timeout(function() {
+-          timer = undefined;
+-          func.apply(context, args);
+-        }, wait || 10);
+-      };
+-    }
+-
+-    /**
+-     * Build handler to open/close a SideNav; when animation finishes
+-     * report completion in console
+-     */
+-    function buildDelayedToggler(navID) {
+-      
+-      return debounce(function() {
+-        // Component lookup should always be available since we are not using `ng-if`
+-        $mdSidenav(navID)
+-          .toggle()
+-          .then(function () {
+-            console.log( '152 -  navID =  ' , navID); 
+-            $log.debug("inside buildDelayedToggler is done");
+-            $log.debug("toggle " + navID + " is done");
+-          });
+-      }, 200);
+-    }
+-
+-    function buildToggler(navID) {
+-      
+-      return function() {
+-        // Component lookup should always be available since we are not using `ng-if`
+-        $mdSidenav(navID)
+-          .toggle()
+-          .then(function () {
+-            $log.debug("inside buildToggler is done");            
+-            $log.debug("toggle " + navID + " is done");
+-          });
+-      }
+-    }
+-
+-  })
+-
+-
+-
+-
+-  .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log, shareDataService) {
+-    console.log( '112 - Left Ctrl initiated'); 
+-    $scope.close = function () {
+-      // Component lookup should always be available since we are not using `ng-if`
+-      $mdSidenav('left').close()
+-        .then(function () {
+-          $log.debug("close LEFT is done");
+-        });
+-
+-    };
+-  })
+-
+-
+-
+-  .controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log, shareDataService) {
+-    $scope.close = function () {
+-      // Component lookup should always be available since we are not using `ng-if`
+-      $mdSidenav('right').close()
+-        .then(function () {
+-          $log.debug("close RIGHT is done");
+-        });
+-    };
+-  })
+-
+-// SIDE BAR stuff ENDS 
+-
+-
+-
+-
+-  .controller('PropertiesListController', PropertiesListController);
+-  console.log( ' inside the list-properties-client-controller');                                                                       
+-  PropertiesListController.$inject = ['$scope','$rootScope', '$q', '$location', '$http','$filter','PropertiesService', 'shareDataService', 'Data', '$mdToast','$mdEditDialog','$timeout', '$mdSidenav', '$log','dates_two_weeks_before'];
+-  function PropertiesListController($scope, $rootScope, $q, $location, $http, $filter, PropertiesService, shareDataService, Data, $mdToast, $mdEditDialog, $timeout, $mdSidenav, $log, dates_two_weeks_before) {
+-  console.log( ' loading PropertiesListController  ========== for mdToast =>', $mdToast); 
+-
+-    var vm = this;
+-    console.log( '120 -- this  VM = ', vm); 
+-
+-
+-
+-// $scope.two_weeks_before_dates = function () {
+-
+-// };
+-
+-
+-
+-$scope.hideProperty = function (property) {
+-  console.log( '124 - initiate  hideProperty fun'); 
+-
+-  var nowMoment = moment();
+-  var todayDate = nowMoment.format('YYYY-M-D');
+-
+-if ( _.contains(dates_two_weeks_before, property.last_date_call_was_made))  {  
+-  return true; 
+-}
+-else { 
+-    return false
+-}
+-  return false; 
+-}
+-
+-
+-
+-
+-
+-
+-    vm.properties = PropertiesService.query();
+-    $scope.properties = vm.properties; 
+-
+-    console.log(' vm.properties =',vm.properties); 
+-
+-
+-  $scope.selected = [];
+-  
+-  $rootScope.propertiesSelected = []; 
+-
+-
+-  $scope.limitOptions = [5, 10, 15, 30, 50, 80];
+-  
+-  $scope.options = {
+-    rowSelection: true,
+-    multiSelect: true,
+-    autoSelect: true,
+-    decapitate: false,
+-    largeEditDialog: false,
+-    boundaryLinks: false,
+-    limitSelect: true,
+-    pageSelect: true
+-  };
+-
+- // $scope.data = {
+- //    today: true,
+- //    vmLeft: false,
+- //    closingSoon: false
+- //  };
+-
+-$scope.propertyOrder = {
+-    email_date_it_was_sent: '-last_date_email_sent_on',
+-    call_last_it_was_made: '-last_date_call_was_made',
+-    page: 1
+-};
+-
+-$scope.result = {};
+-  $scope.pp = { 
+-    rate: [{
+-      plan: 'Just Today',
+-      price: '11'
+-      
+-    }, {
+-      plan: 'VM left',
+-      price: '12'
+-    }, {
+-      plan: 'Closing soon',
+-      price: '13'
+-      
+-    }]
+-  };
+-
+-$scope.switchChange = function (value) {
+-
+-
+-  console.log( ' the value fired  =', value); 
+-}
+-
+-// if ($scope.data.today == 'true') {
+-//     console.log(' today is true');
+-// } else if ($scope.data.vmLeft == 'true') {
+-//       console.log( ' vmLeft is true'); 
+-// } else {
+-//      console.log( ' closingSoon is true');
+-// }
+-
+-
+-
+-
+-  $scope.query = {
+-    order: 'address',
+-    limit: 70,
+-    page: 1
+-  };
+-
+-$scope.rowSelected; 
+-  
+-
+-
+-
+-
+-// ***** TOAST *****
+-  var last = {
+-      bottom: false,
+-      top: true,
+-      left: false,
+-      right: true
+-    };
+-
+-  $scope.toastPosition = angular.extend({},last);
+-
+-  $scope.getToastPosition = function() {
+-    sanitizePosition();
+-
+-    return Object.keys($scope.toastPosition)
+-      .filter(function(pos) { return $scope.toastPosition[pos]; })
+-      .join(' ');
+-  };
+-
+-  function sanitizePosition() {
+-    var current = $scope.toastPosition;
+-
+-    if ( current.bottom && last.top ) current.top = false;
+-    if ( current.top && last.bottom ) current.bottom = false;
+-    if ( current.right && last.left ) current.left = false;
+-    if ( current.left && last.right ) current.right = false;
+-
+-    last = angular.extend({},current);
+-  }
+-
+-  $scope.showSimpleToast = function(e) {
+-    var pinTo = $scope.getToastPosition();
+-
+-    $mdToast.show(
+-      $mdToast.simple()
+-        .textContent(e)
+-        .position(pinTo )
+-        .hideDelay(3000)
+-    );
+-  };
+-
+-// ***** TOAST end *****
+-
+-// ************
+-  
+-  $scope.editComment = function (event, dessert) {
+-    event.stopPropagation(); // in case autoselect is enabled
+-
+-
+-    var arrSelectedProperties = $rootScope.propertiesSelected;
+-    console.log( ' inside editComments arrSelectedProperties =', arrSelectedProperties); 
+-    
+-    var editDialog = {
+-      modelValue: arrSelectedProperties.comment,
+-      placeholder: 'Add a comment..',
+-      // save: function (input) {
+-      //   if(input.$modelValue === 'Donald Trump') {
+-      //     input.$invalid = true;
+-      //     console.log( '116 -  calling the save function'); 
+-      //     return $q.reject();
+-      //   }
+-      //   if(input.$modelValue === 'Bernie Sanders') {
+-      //     return dessert.comment = 'FEEL THE BERN!'
+-      //   }
+-      //   arrSelectedProperties.comment = input.$modelValue;
+-      // },
+-      targetEvent: event,
+-      title: 'Add a comment',
+-      validators: {
+-        'md-maxlength': 1000
+-      }
+-    };
+-    
+-    var promise;
+-    
+-    // if($scope.options.largeEditDialog) {
+-    //   promise = $mdEditDialog.large(editDialog);
+-    // } else {
+-    //   promise = $mdEditDialog.small(editDialog);
+-    // }
+-    
+-    // promise.then(function (ctrl) {
+-    //   var input = ctrl.getInput();
+-      
+-    //   input.$viewChangeListeners.push(function () {
+-    //     input.$setValidity('test', input.$modelValue !== 'test');
+-    //   });
+-    // });
+-  };
+-  
+-
+-
+-
+-  $scope.toggleLimitOptions = function () {
+-    $scope.limitOptions = $scope.limitOptions ? undefined : [5, 10, 15];
+-  };
+-
+-
+-  $scope.getTypes = function () {
+-    return ['Bi_weekly','Bi_wee_Polite','Red-Priority','wrong-no','Left-VM', 'Orange','Closing','Sold','Grey'];
+-  };
+-
+-
+-
+-  /* DELETE this func - if nobody is using it.  */
+-  $scope.loadStuff = function () {
+-    $scope.promise = $timeout(function () {
+-      // loading
+-    }, 2000);
+-  }
+-  
+-
+-
+-
+-
+-
+-  $scope.logItem = function (item) {
+-    console.log( '298 - initiate  logItem fun'); 
+-    $rootScope.propertiesSelected = $scope.selected;
+-    // console.log ( ' $rootScope.propertiesSelected  = ', $rootScope.propertiesSelected); 
+-
+-  var someData = $rootScope.propertiesSelected;  
+-
+-  window.someData = someData; 
+-  var obj = someData[0]; 
+-   $scope.obj = obj; 
+-  shareDataService.addList(obj);
+-
+- 
+-// $scope.Data = $rootScope.propertiesSelected; 
+-  
+-
+-    // shareDataService.popList(); 
+-    // shareDataService.addList($rootScope.propertiesSelected);
+-  };
+-
+-
+-
+-  $scope.refreshStuff = function (obj) {
+-    console.log ( ' refresh Stuff clicked', obj); 
+-
+-    // NOW UPDATE IN BACKEND 
+-
+-    console.log('312 - -  updated obj = ', obj); 
+-
+-    // PropertiesService.update({ propertyId: currentProperty._id }, currentProperty);
+-
+-    PropertiesService.update({ propertyId: obj._id }, obj);
+-    console.log( ' SideNav Updated!! ')
+-
+-  }
+-
+-
+-
+-
+-  
+-  $scope.logOrder = function (order) {
+-    console.log('order: ', order);
+-  };
+-  
+-
+-  $scope.logPagination = function (page, limit) {
+-    console.log('page: ', page);
+-    console.log('limit: ', limit);
+-  }
+-
+-
+-
+-
+-
+-
+-$scope.selectChangedPriority = function(type) {
+-    console.log(' 397 - selectChangedPriority  triggered   & selected Priority = ', type);
+-
+-    var arrSelectedProperties = $rootScope.propertiesSelected;
+-
+-    console.log('169 - arrSelectedProperties  169 = ', arrSelectedProperties);
+-
+-    window.arrSelectedProperties = arrSelectedProperties; 
+-
+-    // angular.forEach(arrSelectedProperties, function(value) {
+-
+-    // console.log(' values = ', value);  [arrSelectedProperties.length-1]
+-    var currentProperty = arrSelectedProperties[arrSelectedProperties.length-1];
+-
+-    console.log(  '  367 -  currentProperty ', currentProperty); 
+-    currentProperty.call_priority = type;
+-
+-
+-    // var nowMoment = moment();
+-    // var nowMomentFormatted = nowMoment.format('YYYY-M-D');
+-
+-    // console.log('  182- nowMomentFormatted =', nowMomentFormatted);
+-
+-    // currentProperty.last_date_call_was_made = nowMoment.format('YYYY-M-D');
+-    // console.log(' BEFORE property update sent backend - >  currentProperty.call_priority', currentProperty);
+-
+-    PropertiesService.update({ propertyId: currentProperty._id }, currentProperty);
+-
+-    console.log(' property update sent backend');
+-}
+-
+-
+-
+-
+-  $scope.logItemType = function (item) {
+-    console.log( ' Priority  selected'); 
+-
+-
+-    var properties = $rootScope.propertiesSelected;  // delete this line.
+-    var arrSelectedProperties = $rootScope.propertiesSelected;
+-
+-    angular.forEach(arrSelectedProperties, function(value) {
+-        console.log(' values = ', value);
+-        var currentProperty = value;
+-
+-      currentProperty.last_date_call_was_made = nowMoment.format('YYYY-M-D');
+-      PropertiesService.update({propertyId: currentProperty._id}, currentProperty), function (error) {
+-        console.log(' error found =' , error); 
+-      };
+-    });
+-
+-
+-
+-  }; 
+-  
+-
+-  
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-$scope.justCalled = function() {
+-    // console.log(' inside the  $scope.justCalled');
+-
+-    var nowMoment = moment();
+-    var nowMomentFormatted = nowMoment.format('YYYY-M-D');
+-
+-    // console.log(' nowMomentFormatted =', nowMomentFormatted);
+-
+-    moment().subtract(30, 'days'); // or...
+-    moment().add(-30, 'days');
+-
+-    var add = moment().add(30, 'days').format('YYYY-M-D');
+-    // console.log(' add = ', add);
+-
+-    var properties = $rootScope.propertiesSelected;
+-    var arrSelectedProperties = $rootScope.propertiesSelected;
+-
+-    angular.forEach(arrSelectedProperties, function(value) {
+-        // console.log(' values = ', value);
+-        var currentProperty = value;
+-
+-      currentProperty.last_date_call_was_made = nowMoment.format('YYYY-M-D');
+-      PropertiesService.update({propertyId: currentProperty._id}, currentProperty), function (error) {
+-        // console.log(' error found =' , error); 
+-      };
+-    });
+-};
+-
+-
+-
+-
+-
+-
+-  $scope.sendEmail = function () {
+-
+-    console.log( ' insdie the  $scope.sendEmail'); 
+-    var properties = $rootScope.propertiesSelected; 
+-    
+-    var arrSelectedProperties=$rootScope.propertiesSelected; 
+-
+-    angular.forEach(arrSelectedProperties, function(value) {
+-      console.log( ' values = ', value); 
+-      var currentProperty = value; 
+-    $http.post( '/sendEmailToSelectedProperties', value). 
+-
+-     success( function (value,status,headers, config) {
+-       console.log(' 230 - value of "value" inside the success =',value); 
+-       var to = "Email sent to " + value.mailOptions.to; 
+-        $scope.showSimpleToast(to);
+-        // value.last_date_email_sent_on = "today"; 
+-        // $scope.update(value); 
+-        // debugger; 
+-        console.log('just before updating.... value._id=', value);
+-        console.log('just before updating.... currentProperty=', currentProperty);
+-  
+-    currentProperty.county = "South LA";
+-    currentProperty.address = "111 - Urban estate";     
+-    PropertiesService.update({propertyId: currentProperty._id}, currentProperty);
+-
+-
+-    console.log('just after updating....'); 
+-
+-     }). 
+-     error(function (value,status,headers,config) {
+-       var to = value.email_address; 
+-       console.log( ' to  = ', to); 
+-
+-       console.log( ' inside error func of sendEmail');
+-        $scope.showSimpleToast("Email FAIL.");      
+-     }); 
+-    }); 
+-
+-}; 
+-
+-
+-
+-
+-
+-
+-      }
+-  }());
+diff --git a/modules/properties/client/controllers/properties.client.controller.js b/modules/properties/client/controllers/properties.client.controller.js
+deleted file mode 100644
+index 156c38b..0000000
+--- a/modules/properties/client/controllers/properties.client.controller.js
++++ /dev/null
+@@ -1,53 +0,0 @@
+-(function () {
+-  'use strict';
+-
+-  // Properties controller
+-  angular
+-    .module('properties')
+-    .controller('PropertiesController', PropertiesController);
+-
+-  PropertiesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'propertyResolve'];
+-
+-  function PropertiesController ($scope, $state, $window, Authentication, property) {
+-    var vm = this;
+-
+-    vm.authentication = Authentication;
+-    vm.property = property;
+-    vm.error = null;
+-    vm.form = {};
+-    vm.remove = remove;
+-    vm.save = save;
+-
+-    // Remove existing Property
+-    function remove() {
+-      if ($window.confirm('Are you sure you want to delete?')) {
+-        vm.property.$remove($state.go('properties.list'));
+-      }
+-    }
+-
+-    // Save Property
+-    function save(isValid) {
+-      if (!isValid) {
+-        $scope.$broadcast('show-errors-check-validity', 'vm.form.propertyForm');
+-        return false;
+-      }
+-
+-      // TODO: move create/update logic to service
+-      if (vm.property._id) {
+-        vm.property.$update(successCallback, errorCallback);
+-      } else {
+-        vm.property.$save(successCallback, errorCallback);
+-      }
+-
+-      function successCallback(res) {
+-        $state.go('properties.view', {
+-          propertyId: res._id
+-        });
+-      }
+-
+-      function errorCallback(res) {
+-        vm.error = res.data.message;
+-      }
+-    }
+-  }
+-}());
+diff --git a/modules/properties/client/properties.client.module.js b/modules/properties/client/properties.client.module.js
+deleted file mode 100644
+index d888d67..0000000
+--- a/modules/properties/client/properties.client.module.js
++++ /dev/null
+@@ -1,5 +0,0 @@
+-(function (app) {
+-  'use strict';
+-
+-  app.registerModule('properties');
+-}(ApplicationConfiguration));
+diff --git a/modules/properties/client/services/properties.client.service.js b/modules/properties/client/services/properties.client.service.js
+deleted file mode 100644
+index 62ebcda..0000000
+--- a/modules/properties/client/services/properties.client.service.js
++++ /dev/null
+@@ -1,103 +0,0 @@
+-// Properties service used to communicate Properties REST endpoints
+-(function() {
+-    'use strict';
+-
+-    angular
+-        .module('properties')
+-        .service('shareDataService', ['_', function(_) {
+-            // console.log('Hi from 8- shareDataService _=',_);
+-            
+-            var myList;
+-
+-            var addList = function(newObj) {
+-                // myList.push(newObj);
+-                myList = newObj; 
+-                // myList = _.flatten(myList); 
+-                // console.log('Added properteis inside the myList ', myList);
+-            }
+-
+-            var getList = function() {
+-                // var my = _.flatten(myList);
+-                // console.log( ' getList  my = ', my); 
+-
+-                return myList;
+-            }
+-
+-            var lastonList = function() {
+-                var lastinList = myList[myList - 1];
+-                return lastinList;
+-            }
+-            var popList = function() {
+-                myList = [];
+-                return myList;
+-            }
+-
+-            return {
+-                addList: addList,
+-                getList: getList,
+-                popList: popList,
+-                lastonList: lastonList
+-            };
+-        }])
+-
+-
+-
+-      .factory('_', ['$window', function($window) {
+-        return $window._; // assumes underscore has already been loaded on the page
+-      }])
+-
+-
+-      .factory('dates_two_weeks_before', ['moment', function(moment) {
+-          console.log('52- service calling facotry dates_two_weeks_before');
+-
+-          // console.log(' calling  $scope.two_weeks_before_dates ');
+-          var nowMoment = moment();
+-          var todayDate = nowMoment.format('YYYY-M-D');
+-
+-          var d = moment().subtract(14, 'day').format('YYYY-M-D');
+-
+-          var datesArr = [];
+-
+-          for (var i = 0; i < 14; i++) {
+-              datesArr.push(moment().subtract(i, 'day').format('YYYY-M-D'));
+-              // console.log( '143-- datesArr = ', datesArr); 
+-          }
+-          // console.log(' todayDate = ', todayDate);
+-          // console.log('66 datesArr = ', datesArr);          
+-          return datesArr;
+-      }])
+-
+-
+-
+-
+-      .factory("Data", ['_', function(_) {
+-        // console.log(  ' inside Data  value of _  =', _); 
+-
+-          return { FirstName: '' };
+-
+-      }])
+-
+-
+-
+-
+-    .factory('PropertiesService', PropertiesService);
+-
+-    PropertiesService.$inject = ['$resource'];
+-
+-    function PropertiesService($resource) {
+-        return $resource('api/properties/:propertyId', {
+-            propertyId: '@_id'
+-        }, {
+-            update: {
+-                method: 'PUT'
+-            }
+-        });
+-    }
+-
+-
+-
+-
+-
+-
+-
+-}());
+diff --git a/modules/properties/client/views/form-property.client.view.html b/modules/properties/client/views/form-property.client.view.html
+deleted file mode 100644
+index 10ced23..0000000
+--- a/modules/properties/client/views/form-property.client.view.html
++++ /dev/null
+@@ -1,24 +0,0 @@
+-<section>
+-  <div class="page-header">
+-    <h1>{{vm.property._id ? 'Edit Property' : 'New Property'}}</h1>
+-  </div>
+-  <div class="col-md-12">
+-    <form name="vm.form.propertyForm" class="form-horizontal" ng-submit="vm.save(vm.form.propertyForm.$valid)" novalidate>
+-      <fieldset>
+-        <div class="form-group" show-errors>
+-          <label class="control-label" for="name">Name</label>
+-          <input name="name" type="text" ng-model="vm.property.name" id="name" class="form-control" placeholder="Name" required>
+-          <div ng-messages="vm.form.propertyForm.name.$error" role="alert">
+-            <p class="help-block error-text" ng-message="required">Property name is required.</p>
+-          </div>
+-        </div>
+-        <div class="form-group">
+-          <button type="submit" class="btn btn-default">{{vm.property._id ? 'Update' : 'Create'}}</button>
+-        </div>
+-        <div ng-show="vm.error" class="text-danger">
+-          <strong ng-bind="vm.error"></strong>
+-        </div>
+-      </fieldset>
+-    </form>
+-  </div>
+-</section>
+diff --git a/modules/properties/client/views/list-properties.client.view.html b/modules/properties/client/views/list-properties.client.view.html
+deleted file mode 100644
+index 2c28160..0000000
+--- a/modules/properties/client/views/list-properties.client.view.html
++++ /dev/null
+@@ -1,321 +0,0 @@
+-
+-
+-
+-
+-    <md-content laout="column" flex ng-controller="PropertiesListController">
+-    <md-toolbar class="md-whiteframe-1dp">
+-      <div class="md-toolbar-tools">
+-        <div class="md-title">Liberty Trust Group</div>
+-      </div>
+-    </md-toolbar>
+-
+-
+-
+-    <md-content laout="column" flex ng-controller="PropertiesListController">
+-      
+-      
+-      <md-card>
+-        
+-        <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
+-          <div class="md-toolbar-tools">
+-            <span>make your selection</span>
+-                 
+-
+-            <div flex>
+-            </div>
+-
+-            <md-button class="md-icon-button" ng-click="loadStuff()">
+-              <md-icon>refresh</md-icon>
+-            </md-button>
+-
+-
+-
+-          <md-button class="md-icon-button" ng-click="sendEmail()">
+-          <i class="material-icons">email</i>
+-            </md-button>
+-
+-
+-
+-          </div>
+-        </md-toolbar>
+-
+-
+-
+-<!-- these properties selected -->
+-
+-       <md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">
+-          <div class="md-toolbar-tools">
+-            <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+-        
+-                <md-button class="md-icon-button" ng-click="sendEmail()">
+-                          <i class="material-icons">email</i>
+-                 </md-button>
+-
+-                <md-button class="md-icon-button" ng-click="justCalled()">
+-                          <i class="material-icons">done</i>
+-                 </md-button>
+-
+-          </div>
+-        </md-toolbar>
+-<!-- upto here -->
+-<section>
+-
+-
+-
+-
+-<div class="container">
+-  <div class="row">
+-           <div id="custom-search-input">
+-                            <div class="input-group col-xs-10 col-sm-10 col-md-10">
+-                                <input type="text" class="search-query form-control" placeholder="Search" ng-model="searchquery"/>
+-
+-                                <span class="input-group-btn">
+-                                    <button class="btn btn-danger" type="button">
+-                                        <span class=" glyphicon glyphicon-search"></span>
+-                                    </button>
+-                                </span>
+-                            </div>
+-                        </div>
+-  </div>
+-</div>
+-
+-
+-
+-<div class="container">
+-    <div class="row">
+-        <div data-ng-repeat="p in pp.rate">
+-            <div class="col-xs-3 col-sm-3 col-md-3">
+-                <md-switch ng-change="switchChange(result.price)" ng-model="result.price" ng-true-value="{{p.price}}" ng-false-value="">
+-                    {{p.plan}}
+-                </md-switch>
+-            </div>
+-        </div>            Model = {{result.price}}
+-    </div>
+-</div>
+-
+-
+-
+-
+-
+-<!-- SIDE BAR starts  -->
+-
+-  <div ng-controller="SideNavCtrl" layout="column" style="height:450px;" ng-cloak="" class="sidenavdemoBasicUsage">
+-
+-  <section layout="row" flex="">
+-
+-    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+-
+-      <md-toolbar class="md-theme-indigo">
+-        <h1 class="md-toolbar-tools">Sidenav Left</h1>
+-
+-      </md-toolbar>
+-      <md-content layout-padding="" ng-controller="LeftCtrl">
+-        <md-button ng-click="close()" class="md-primary" hide-gt-md="">
+-          Close Sidenav Left
+-        </md-button>
+-        <p hide="" show-gt-md="">
+-          This sidenav is locked open on your device. To go back to the default behavior,
+-          narrow your display.
+-        </p>
+-      </md-content>
+-
+-    </md-sidenav>
+-
+-
+-
+-
+-<!-- exact table from live demo -->
+-       <md-table-container>
+-          <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+-            <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+-              <tr md-row>
+-                <th md-column md-order-by="address"><span>Realtor</span></th>
+-                <th md-column md-numeric md-order-by="fat.value"><span>Phone no</span></th>
+-
+-                <th md-column md-order-by="type"><span>email_sent</span></th>
+-                <th md-column md-order-by="type"><span>Priority</span></th>
+-                <th md-column md-order-by="type"><span>Status</span></th>                
+-                
+-                <th md-column md-numeric md-order-by="carbs.value"><span>Agent</span></th>
+-                <th md-column md-numeric md-order-by="protein.value"><span>Email</span></th>
+-              <th md-column md-numeric md-order-by="calories.value" md-desc><span>Last Call</span></th> 
+-                <th md-column md-order-by="comment">
+-                  <md-icon>comments</md-icon>
+-                  <span>Comments</span>
+-                </th>
+-              </tr>
+-            </thead>
+-            <tbody md-body>
+-              
+-
+-              <!-- ng-show="0" class="ng-hide"  -->
+-      <!-- ng-hide="property.last_date_call_was_made == currentProperty.Today" -->
+-
+-              <tr  ng-hide="hideProperty(property)" md-row md-select="property" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400"  ng-repeat="property in properties | filter:searchquery | orderBy: propertyOrder.email_date_it_was_sent | limitTo: query.limit : (query.page -1) * query.limit">
+-
+-            <td md-cell>{{property.agent_name}}</td>
+-            
+-            <td md-cell   ng-if="property.cell_phone == '-'"   >   <a href="tel:{{property.phone_no}}"> {{property.phone_no}}</a> </td>
+-
+-            <td md-cell   ng-if="property.cell_phone != '-'"   >   <a href="tel:{{property.cell_phone}}"> {{property.cell_phone}}</a> </td>
+-          
+-           <!-- <td md-cell> {{property.address}} {{property.city}} </td> -->
+-
+-             <td md-cell> {{property.last_date_email_sent_on}} </td>
+-
+-            <td md-cell>  
+-              <md-select  ng-change="selectChangedPriority(dessert.type)"  ng-model="dessert.type" placeholder="{{property.call_priority}}" md-on-select="logItemType" ng-value="{{type}}" > 
+-                
+-                <md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
+-
+-              </md-select>
+-            </td>            
+-
+-            <td md-cell> 
+-                <md-button class="md-icon-button" ng-click="justCalled()">
+-                          <i class="material-icons">done</i>
+-                 </md-button>  
+-            </td>
+-
+- 
+-
+-          
+-                 <!-- <td md-cell>{{property.phone_no}}</td> -->
+-                 <td md-cell>{{property.agent_name}}</td>
+-                 <!-- <td md-cell>{{property.city}}</td>  -->
+-
+-                 <td md-cell>{{property.email_address}}</td> 
+-
+-                 <td md-cell>{{property.last_date_call_was_made}}</td>
+-<!--                  <td md-cell hide-gt-xs show-gt-md>{{property.listprice}}</td>
+-                 <td md-cell hide-gt-xs show-gt-lg>{{property.listPrice}}%</td> -->
+-                                
+-               <!--  <td md-cell hide-gt-xs show-gt-md>{{dessert.sodium.value}}</td>
+-                <td md-cell hide-gt-xs show-gt-lg>{{dessert.calcium.value}}%</td>
+-                <td md-cell hide-gt-xs show-gt-lg>{{dessert.iron.value}}%</td> -->
+-                
+-                <td md-cell aria-label="comment" ng-click="editComment($event, property)" ng-class="{'md-placeholder': !property.comments}">
+-                  {{property.comments || 'Add a comment' | limitTo: 115  }}
+-                </td>
+-
+-         <td md-cell>
+-          <i ng-click="toggleLeft()" class="material-icons">chevron_left</i>
+-         </td>   
+-
+-         <td md-cell>
+-          <i ng-click="toggleRight()" class="material-icons">chevron_right</i>
+-         </td>  
+-
+-
+-
+-              </tr>
+-            </tbody>
+-          </table>
+-        </md-table-container>
+-
+-
+-
+-<!-- exact table from live demo  ends -->
+-
+-
+-
+-<!--     <md-content flex="" layout-padding="">
+-
+-      <div layout="column" layout-align="top center">        
+-        <div>
+-          <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md="">
+-            Toggle left
+-          </md-button>
+-        </div>
+-
+-        <div>
+-          <md-button ng-click="toggleRight()" ng-hide="isOpenRight()" class="md-primary">
+-            Toggle right
+-          </md-button>
+-        </div>
+-      </div>
+-
+-      <div flex=""></div>
+-    </md-content> -->
+-    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+-      <md-toolbar class="md-theme-light">
+-        <h1 class="md-toolbar-tools">Sidenav Right  |  
+-        </h1>
+-<!-- {{obj}} -->
+-      </md-toolbar>
+-      <md-content ng-controller="RightCtrl" layout-padding="">
+-        <form>
+-
+-          <md-input-container>
+-            <label for="testInput">Commentside </label>
+-            <input type="text" id="testInput" md-autofocus="" ng-model="obj.comments" value="{{obj.comments | limitTo: 2}}">
+-            
+-          </md-input-container>
+-
+-          <md-input-container>
+-            <label for="testInput">Phone no</label> 
+-            <input type="text" id="testInput" ng-model="obj.phone_no" value="{{obj.phone_no}}" >
+-          </md-input-container>
+-
+-          <md-input-container>
+-            <label for="testInput">Cell no</label> 
+-            <input type="text" id="testInput" ng-model="obj.cell_phone" value="{{obj.cell_phone}}" >
+-          </md-input-container>
+-
+-
+-          <md-input-container>
+-            <label for="testInput">Email</label>
+-            <input type="text" id="testInput" ng-model="obj.email_address"  value="{{obj.email_address}}">
+-          </md-input-container>
+-
+-          <md-input-container>
+-            <label for="testInput">Name</label>
+-            <input type="text" id="testInput"  ng-model="obj.agent_name"  value="{{obj.agent_name}}">
+-          </md-input-container>
+-
+-
+-         <md-button class="md-icon-button" ng-click="refreshStuff(obj)">
+-             <i class="material-icons">cloud_upload</i>
+-          </md-button> 
+-
+-
+-<!-- more form elements -->
+-
+-<!-- more form elements ends  -->
+-        </form>
+-        <md-button ng-click="close()" class="md-primary">
+-          Close Sidenav Right   
+-
+-           <!--  <md-button class="md-icon-button" ng-click="refreshStuff()">
+-              <md-icon>refresh</md-icon>
+-            </md-button> -->
+-
+-
+-        </md-button>
+-      </md-content>
+-
+-    </md-sidenav>
+-
+-  </section>
+-
+-</div>
+-
+-<!-- SIDE BAR ENDS  -->
+-
+-        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{desserts.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+-      </md-card>
+-    </md-content>
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+diff --git a/modules/properties/client/views/view-property.client.view.html b/modules/properties/client/views/view-property.client.view.html
+deleted file mode 100644
+index 5612f75..0000000
+--- a/modules/properties/client/views/view-property.client.view.html
++++ /dev/null
+@@ -1,26 +0,0 @@
+-<section>
+-  <div class="page-header">
+-    <h1 ng-bind="vm.property.name"></h1>
+-  </div>
+-  <div class="pull-right"
+-       ng-show="vm.property.isCurrentUserOwner">
+-    <a class="btn btn-primary"
+-       ui-sref="properties.edit({ propertyId: vm.property._id })">
+-      <i class="glyphicon glyphicon-edit"></i>
+-    </a>
+-    <a class="btn btn-primary" ng-click="vm.remove()">
+-      <i class="glyphicon glyphicon-trash"></i>
+-    </a>
+-  </div>
+-  <small>
+-    <em class="text-muted">
+-      Posted on
+-      <span ng-bind="vm.property.created | date:'mediumDate'"></span>
+-      by
+-      <span ng-if="vm.property.user"
+-            ng-bind="vm.property.user.displayName"></span>
+-      <span ng-if="!vm.property.user">Deleted User</span>
+-    </em>
+-  </small>
+-  <p class="lead" ng-bind="vm.property.content"></p>
+-</section>
+diff --git a/modules/properties/server/config/properties.server.config.js b/modules/properties/server/config/properties.server.config.js
+deleted file mode 100644
+index f0fae3f..0000000
+--- a/modules/properties/server/config/properties.server.config.js
++++ /dev/null
+@@ -1,14 +0,0 @@
+-'use strict';
+-
+-/**
+- * Module dependencies
+- */
+-var path = require('path'),
+-  config = require(path.resolve('./config/config'));
+-
+-/**
+- * Properties module init function.
+- */
+-module.exports = function (app, db) {
+-
+-};
+diff --git a/modules/properties/server/controllers/properties.server.controller.js b/modules/properties/server/controllers/properties.server.controller.js
+deleted file mode 100644
+index 875c78d..0000000
+--- a/modules/properties/server/controllers/properties.server.controller.js
++++ /dev/null
+@@ -1,117 +0,0 @@
+-'use strict';
+-
+-/**
+- * Module dependencies.
+- */
+-var path = require('path'),
+-  mongoose = require('mongoose'),
+-  Property = mongoose.model('Property'),
+-  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+-  _ = require('lodash');
+-
+-/**
+- * Create a Property
+- */
+-exports.create = function(req, res) {
+-  var property = new Property(req.body);
+-  property.user = req.user;
+-
+-  property.save(function(err) {
+-    if (err) {
+-      return res.status(400).send({
+-        message: errorHandler.getErrorMessage(err)
+-      });
+-    } else {
+-      res.jsonp(property);
+-    }
+-  });
+-};
+-
+-/**
+- * Show the current Property
+- */
+-exports.read = function(req, res) {
+-  // convert mongoose document to JSON
+-  var property = req.property ? req.property.toJSON() : {};
+-
+-  // Add a custom field to the Article, for determining if the current User is the "owner".
+-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
+-  property.isCurrentUserOwner = req.user && property.user && property.user._id.toString() === req.user._id.toString();
+-
+-  res.jsonp(property);
+-};
+-
+-/**
+- * Update a Property
+- */
+-exports.update = function(req, res) {
+-  var property = req.property;
+-
+-  property = _.extend(property, req.body);
+-
+-  property.save(function(err) {
+-    if (err) {
+-      return res.status(400).send({
+-        message: errorHandler.getErrorMessage(err)
+-      });
+-    } else {
+-      res.jsonp(property);
+-    }
+-  });
+-};
+-
+-/**
+- * Delete an Property
+- */
+-exports.delete = function(req, res) {
+-  var property = req.property;
+-
+-  property.remove(function(err) {
+-    if (err) {
+-      return res.status(400).send({
+-        message: errorHandler.getErrorMessage(err)
+-      });
+-    } else {
+-      res.jsonp(property);
+-    }
+-  });
+-};
+-
+-/**
+- * List of Properties
+- */
+-exports.list = function(req, res) {
+-  Property.find().sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+-    if (err) {
+-      return res.status(400).send({
+-        message: errorHandler.getErrorMessage(err)
+-      });
+-    } else {
+-      res.jsonp(properties);
+-    }
+-  });
+-};
+-
+-/**
+- * Property middleware
+- */
+-exports.propertyByID = function(req, res, next, id) {
+-
+-  if (!mongoose.Types.ObjectId.isValid(id)) {
+-    return res.status(400).send({
+-      message: 'Property is invalid'
+-    });
+-  }
+-
+-  Property.findById(id).populate('user', 'displayName').exec(function (err, property) {
+-    if (err) {
+-      return next(err);
+-    } else if (!property) {
+-      return res.status(404).send({
+-        message: 'No Property with that identifier has been found'
+-      });
+-    }
+-    req.property = property;
+-    next();
+-  });
+-};
+diff --git a/modules/properties/server/models/property.server.model.js b/modules/properties/server/models/property.server.model.js
+deleted file mode 100644
+index 3e40b11..0000000
+--- a/modules/properties/server/models/property.server.model.js
++++ /dev/null
+@@ -1,163 +0,0 @@
+-'use strict';
+-
+-/**
+- * Module dependencies.
+- */
+-var mongoose = require('mongoose'),
+-  Schema = mongoose.Schema;
+-
+-/**
+- * Property Schema
+- */
+-var PropertySchema = new Schema({
+-  address: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill address',
+-    trim: true
+-  },
+-  county: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill county',
+-    trim: true
+-  },
+-  city: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill city ',
+-    trim: true
+-  },
+-  phone_no: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill phone_no',
+-    trim: true
+-  },
+-  cell_phone: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill phone_no',
+-    trim: true
+-  },  
+-  email_address: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill email_address ',
+-    trim: true
+-  }, 
+-  listPrice: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill listPrice ',
+-    trim: true
+-  }, 
+-  offerPrice: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill offerPrice ',
+-    trim: true
+-  }, 
+-  agent_name: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fillin comments',     
+-    trim: true
+-  },   
+-  comments: {
+-    type: String,
+-    default: 'default',
+-    required: false,
+-    trim: true
+-  },   
+-  dateAdded: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill dom',
+-    trim: true
+-  }, 
+-  DOM: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill dom',
+-    trim: true
+-  }, 
+-  owner: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill owner',
+-    trim: true
+-  },
+-  status: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill status',
+-    trim: true
+-  },  
+-  last_date_email_sent_on: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill last_date_email_sent_on',
+-    trim: true
+-  }, 
+-  dates_email_were_sent_on: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill dates_email_were_sent_on',
+-    trim: true
+-  }, 
+-  no_of_emails_sent: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill no_of_emails_sent',
+-    trim: true
+-  }, 
+-  last_date_email_open: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill last_date_email_open',
+-    trim: true
+-  }, 
+-  no_of_emails_open: {
+-    type: String,
+-    default: 'default',
+-    required: 'Please fill no_of_emails_open',
+-    trim: true
+-  },   
+-  last_date_call_was_made: {
+-    type: String,
+-    default: 'default',
+-    required: 'please fill last_date_call_was_made',
+-    trim: true
+-  }, 
+-  propStatus: {
+-    type: String,
+-    default: 'default',
+-    required: 'please fill propStatus',
+-    trim: true
+-  }, 
+-  agent_State: {
+-    type: String,
+-    default: 'default',
+-    required: 'please fill agent_State',
+-    trim: true
+-  },      
+-  agentType: {
+-    type: String,
+-    default: 'default',
+-    required: 'please fill agentStatus',
+-    trim: true
+-  },    
+-  call_priority: {
+-    type: String,
+-    default: 'Bi_weekly',
+-    required: 'Please fill call_priority',
+-    trim: true
+-  },      
+-  user: {
+-    type: Schema.ObjectId,
+-    ref: 'User'
+-  }
+-});
+-
+-mongoose.model('Property', PropertySchema);
+diff --git a/modules/properties/server/policies/properties.server.policy.js b/modules/properties/server/policies/properties.server.policy.js
+deleted file mode 100644
+index d380b66..0000000
+--- a/modules/properties/server/policies/properties.server.policy.js
++++ /dev/null
+@@ -1,72 +0,0 @@
+-'use strict';
+-
+-/**
+- * Module dependencies
+- */
+-var acl = require('acl');
+-
+-// Using the memory backend
+-acl = new acl(new acl.memoryBackend());
+-
+-/**
+- * Invoke Properties Permissions
+- */
+-exports.invokeRolesPolicies = function () {
+-  acl.allow([{
+-    roles: ['guest'],
+-    allows: [{
+-      resources: '/api/properties',
+-      permissions: '*'
+-    }, {
+-      resources: '/api/properties/:propertyId',
+-      permissions: '*'
+-    }]
+-  }, {
+-    roles: ['user'],
+-    allows: [{
+-      resources: '/api/properties',
+-      permissions: ['get', 'post']
+-    }, {
+-      resources: '/api/properties/:propertyId',
+-      permissions: ['get']
+-    }]
+-  }, {
+-    roles: ['guest'],
+-    allows: [{
+-      resources: '/api/properties',
+-      permissions: ['get']
+-    }, {
+-      resources: '/api/properties/:propertyId',
+-      permissions: ['get']
+-    }]
+-  }]);
+-};
+-
+-/**
+- * Check If Properties Policy Allows
+- */
+-exports.isAllowed = function (req, res, next) {
+-  var roles = (req.user) ? req.user.roles : ['guest'];
+-
+-  // If an Property is being processed and the current user created it then allow any manipulation
+-  if (req.property && req.user && req.property.user && req.property.user.id === req.user.id) {
+-    return next();
+-  }
+-
+-  // Check for user roles
+-  acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
+-    if (err) {
+-      // An authorization error occurred
+-      return res.status(500).send('Unexpected authorization error');
+-    } else {
+-      if (isAllowed) {
+-        // Access granted! Invoke next middleware
+-        return next();
+-      } else {
+-        return res.status(403).json({
+-          message: 'User is not authorized'
+-        });
+-      }
+-    }
+-  });
+-};
+diff --git a/modules/properties/server/routes/properties.server.routes.js b/modules/properties/server/routes/properties.server.routes.js
+deleted file mode 100644
+index 8368b63..0000000
+--- a/modules/properties/server/routes/properties.server.routes.js
++++ /dev/null
+@@ -1,22 +0,0 @@
+-'use strict';
+-
+-/**
+- * Module dependencies
+- */
+-var propertiesPolicy = require('../policies/properties.server.policy'),
+-  properties = require('../controllers/properties.server.controller');
+-
+-module.exports = function(app) {
+-  // Properties Routes
+-  app.route('/api/properties').all(propertiesPolicy.isAllowed)
+-    .get(properties.list)
+-    .post(properties.create);
+-
+-  app.route('/api/properties/:propertyId').all(propertiesPolicy.isAllowed)
+-    .get(properties.read)
+-    .put(properties.update)
+-    .delete(properties.delete);
+-
+-  // Finish by binding the Property middleware
+-  app.param('propertyId', properties.propertyByID);
+-};
+diff --git a/modules/properties/tests/client/list-properties.client.controller.tests.js b/modules/properties/tests/client/list-properties.client.controller.tests.js
+deleted file mode 100644
+index 1df6833..0000000
+--- a/modules/properties/tests/client/list-properties.client.controller.tests.js
++++ /dev/null
+@@ -1,91 +0,0 @@
+-(function () {
+-  'use strict';
+-
+-  describe('Properties List Controller Tests', function () {
+-    // Initialize global variables
+-    var PropertiesListController,
+-      $scope,
+-      $httpBackend,
+-      $state,
+-      Authentication,
+-      PropertiesService,
+-      mockProperty;
+-
+-    // The $resource service augments the response object with methods for updating and deleting the resource.
+-    // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
+-    // the responses exactly. To solve the problem, we define a new toEqualData Jasmine matcher.
+-    // When the toEqualData matcher compares two objects, it takes only object properties into
+-    // account and ignores methods.
+-    beforeEach(function () {
+-      jasmine.addMatchers({
+-        toEqualData: function (util, customEqualityTesters) {
+-          return {
+-            compare: function (actual, expected) {
+-              return {
+-                pass: angular.equals(actual, expected)
+-              };
+-            }
+-          };
+-        }
+-      });
+-    });
+-
+-    // Then we can start by loading the main application module
+-    beforeEach(module(ApplicationConfiguration.applicationModuleName));
+-
+-    // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
+-    // This allows us to inject a service but then attach it to a variable
+-    // with the same name as the service.
+-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _PropertiesService_) {
+-      // Set a new global scope
+-      $scope = $rootScope.$new();
+-
+-      // Point global variables to injected services
+-      $httpBackend = _$httpBackend_;
+-      $state = _$state_;
+-      Authentication = _Authentication_;
+-      PropertiesService = _PropertiesService_;
+-
+-      // create mock article
+-      mockProperty = new PropertiesService({
+-        _id: '525a8422f6d0f87f0e407a33',
+-        name: 'Property Name'
+-      });
+-
+-      // Mock logged in user
+-      Authentication.user = {
+-        roles: ['user']
+-      };
+-
+-      // Initialize the Properties List controller.
+-      PropertiesListController = $controller('PropertiesListController as vm', {
+-        $scope: $scope
+-      });
+-
+-      // Spy on state go
+-      spyOn($state, 'go');
+-    }));
+-
+-    describe('Instantiate', function () {
+-      var mockPropertyList;
+-
+-      beforeEach(function () {
+-        mockPropertyList = [mockProperty, mockProperty];
+-      });
+-
+-      it('should send a GET request and return all Properties', inject(function (PropertiesService) {
+-        // Set POST response
+-        $httpBackend.expectGET('api/properties').respond(mockPropertyList);
+-
+-
+-        $httpBackend.flush();
+-
+-        // Test form inputs are reset
+-        expect($scope.vm.properties.length).toEqual(2);
+-        expect($scope.vm.properties[0]).toEqual(mockProperty);
+-        expect($scope.vm.properties[1]).toEqual(mockProperty);
+-
+-      }));
+-    });
+-  });
+-}());
+diff --git a/modules/properties/tests/client/properties.client.controller.tests.js b/modules/properties/tests/client/properties.client.controller.tests.js
+deleted file mode 100644
+index ff279c2..0000000
+--- a/modules/properties/tests/client/properties.client.controller.tests.js
++++ /dev/null
+@@ -1,170 +0,0 @@
+-(function () {
+-  'use strict';
+-
+-  describe('Properties Controller Tests', function () {
+-    // Initialize global variables
+-    var PropertiesController,
+-      $scope,
+-      $httpBackend,
+-      $state,
+-      Authentication,
+-      PropertiesService,
+-      mockProperty;
+-
+-    // The $resource service augments the response object with methods for updating and deleting the resource.
+-    // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
+-    // the responses exactly. To solve the problem, we define a new toEqualData Jasmine matcher.
+-    // When the toEqualData matcher compares two objects, it takes only object properties into
+-    // account and ignores methods.
+-    beforeEach(function () {
+-      jasmine.addMatchers({
+-        toEqualData: function (util, customEqualityTesters) {
+-          return {
+-            compare: function (actual, expected) {
+-              return {
+-                pass: angular.equals(actual, expected)
+-              };
+-            }
+-          };
+-        }
+-      });
+-    });
+-
+-    // Then we can start by loading the main application module
+-    beforeEach(module(ApplicationConfiguration.applicationModuleName));
+-
+-    // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
+-    // This allows us to inject a service but then attach it to a variable
+-    // with the same name as the service.
+-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _PropertiesService_) {
+-      // Set a new global scope
+-      $scope = $rootScope.$new();
+-
+-      // Point global variables to injected services
+-      $httpBackend = _$httpBackend_;
+-      $state = _$state_;
+-      Authentication = _Authentication_;
+-      PropertiesService = _PropertiesService_;
+-
+-      // create mock Property
+-      mockProperty = new PropertiesService({
+-        _id: '525a8422f6d0f87f0e407a33',
+-        name: 'Property Name'
+-      });
+-
+-      // Mock logged in user
+-      Authentication.user = {
+-        roles: ['user']
+-      };
+-
+-      // Initialize the Properties controller.
+-      PropertiesController = $controller('PropertiesController as vm', {
+-        $scope: $scope,
+-        propertyResolve: {}
+-      });
+-
+-      // Spy on state go
+-      spyOn($state, 'go');
+-    }));
+-
+-    describe('vm.save() as create', function () {
+-      var samplePropertyPostData;
+-
+-      beforeEach(function () {
+-        // Create a sample Property object
+-        samplePropertyPostData = new PropertiesService({
+-          name: 'Property Name'
+-        });
+-
+-        $scope.vm.property = samplePropertyPostData;
+-      });
+-
+-      it('should send a POST request with the form input values and then locate to new object URL', inject(function (PropertiesService) {
+-        // Set POST response
+-        $httpBackend.expectPOST('api/properties', samplePropertyPostData).respond(mockProperty);
+-
+-        // Run controller functionality
+-        $scope.vm.save(true);
+-        $httpBackend.flush();
+-
+-        // Test URL redirection after the Property was created
+-        expect($state.go).toHaveBeenCalledWith('properties.view', {
+-          propertyId: mockProperty._id
+-        });
+-      }));
+-
+-      it('should set $scope.vm.error if error', function () {
+-        var errorMessage = 'this is an error message';
+-        $httpBackend.expectPOST('api/properties', samplePropertyPostData).respond(400, {
+-          message: errorMessage
+-        });
+-
+-        $scope.vm.save(true);
+-        $httpBackend.flush();
+-
+-        expect($scope.vm.error).toBe(errorMessage);
+-      });
+-    });
+-
+-    describe('vm.save() as update', function () {
+-      beforeEach(function () {
+-        // Mock Property in $scope
+-        $scope.vm.property = mockProperty;
+-      });
+-
+-      it('should update a valid Property', inject(function (PropertiesService) {
+-        // Set PUT response
+-        $httpBackend.expectPUT(/api\/properties\/([0-9a-fA-F]{24})$/).respond();
+-
+-        // Run controller functionality
+-        $scope.vm.save(true);
+-        $httpBackend.flush();
+-
+-        // Test URL location to new object
+-        expect($state.go).toHaveBeenCalledWith('properties.view', {
+-          propertyId: mockProperty._id
+-        });
+-      }));
+-
+-      it('should set $scope.vm.error if error', inject(function (PropertiesService) {
+-        var errorMessage = 'error';
+-        $httpBackend.expectPUT(/api\/properties\/([0-9a-fA-F]{24})$/).respond(400, {
+-          message: errorMessage
+-        });
+-
+-        $scope.vm.save(true);
+-        $httpBackend.flush();
+-
+-        expect($scope.vm.error).toBe(errorMessage);
+-      }));
+-    });
+-
+-    describe('vm.remove()', function () {
+-      beforeEach(function () {
+-        // Setup Properties
+-        $scope.vm.property = mockProperty;
+-      });
+-
+-      it('should delete the Property and redirect to Properties', function () {
+-        // Return true on confirm message
+-        spyOn(window, 'confirm').and.returnValue(true);
+-
+-        $httpBackend.expectDELETE(/api\/properties\/([0-9a-fA-F]{24})$/).respond(204);
+-
+-        $scope.vm.remove();
+-        $httpBackend.flush();
+-
+-        expect($state.go).toHaveBeenCalledWith('properties.list');
+-      });
+-
+-      it('should should not delete the Property and not redirect', function () {
+-        // Return false on confirm message
+-        spyOn(window, 'confirm').and.returnValue(false);
+-
+-        $scope.vm.remove();
+-
+-        expect($state.go).not.toHaveBeenCalled();
+-      });
+-    });
+-  });
+-}());
+diff --git a/modules/properties/tests/client/properties.client.routes.tests.js b/modules/properties/tests/client/properties.client.routes.tests.js
+deleted file mode 100644
+index 174cfb7..0000000
+--- a/modules/properties/tests/client/properties.client.routes.tests.js
++++ /dev/null
+@@ -1,193 +0,0 @@
+-(function () {
+-  'use strict';
+-
+-  describe('Properties Route Tests', function () {
+-    // Initialize global variables
+-    var $scope,
+-      PropertiesService;
+-
+-    // We can start by loading the main application module
+-    beforeEach(module(ApplicationConfiguration.applicationModuleName));
+-
+-    // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
+-    // This allows us to inject a service but then attach it to a variable
+-    // with the same name as the service.
+-    beforeEach(inject(function ($rootScope, _PropertiesService_) {
+-      // Set a new global scope
+-      $scope = $rootScope.$new();
+-      PropertiesService = _PropertiesService_;
+-    }));
+-
+-    describe('Route Config', function () {
+-      describe('Main Route', function () {
+-        var mainstate;
+-        beforeEach(inject(function ($state) {
+-          mainstate = $state.get('properties');
+-        }));
+-
+-        it('Should have the correct URL', function () {
+-          expect(mainstate.url).toEqual('/properties');
+-        });
+-
+-        it('Should be abstract', function () {
+-          expect(mainstate.abstract).toBe(true);
+-        });
+-
+-        it('Should have template', function () {
+-          expect(mainstate.template).toBe('<ui-view/>');
+-        });
+-      });
+-
+-      describe('View Route', function () {
+-        var viewstate,
+-          PropertiesController,
+-          mockProperty;
+-
+-        beforeEach(inject(function ($controller, $state, $templateCache) {
+-          viewstate = $state.get('properties.view');
+-          $templateCache.put('modules/properties/client/views/view-property.client.view.html', '');
+-
+-          // create mock Property
+-          mockProperty = new PropertiesService({
+-            _id: '525a8422f6d0f87f0e407a33',
+-            name: 'Property Name'
+-          });
+-
+-          // Initialize Controller
+-          PropertiesController = $controller('PropertiesController as vm', {
+-            $scope: $scope,
+-            propertyResolve: mockProperty
+-          });
+-        }));
+-
+-        it('Should have the correct URL', function () {
+-          expect(viewstate.url).toEqual('/:propertyId');
+-        });
+-
+-        it('Should have a resolve function', function () {
+-          expect(typeof viewstate.resolve).toEqual('object');
+-          expect(typeof viewstate.resolve.propertyResolve).toEqual('function');
+-        });
+-
+-        it('should respond to URL', inject(function ($state) {
+-          expect($state.href(viewstate, {
+-            propertyId: 1
+-          })).toEqual('/properties/1');
+-        }));
+-
+-        it('should attach an Property to the controller scope', function () {
+-          expect($scope.vm.property._id).toBe(mockProperty._id);
+-        });
+-
+-        it('Should not be abstract', function () {
+-          expect(viewstate.abstract).toBe(undefined);
+-        });
+-
+-        it('Should have templateUrl', function () {
+-          expect(viewstate.templateUrl).toBe('modules/properties/client/views/view-property.client.view.html');
+-        });
+-      });
+-
+-      describe('Create Route', function () {
+-        var createstate,
+-          PropertiesController,
+-          mockProperty;
+-
+-        beforeEach(inject(function ($controller, $state, $templateCache) {
+-          createstate = $state.get('properties.create');
+-          $templateCache.put('modules/properties/client/views/form-property.client.view.html', '');
+-
+-          // create mock Property
+-          mockProperty = new PropertiesService();
+-
+-          // Initialize Controller
+-          PropertiesController = $controller('PropertiesController as vm', {
+-            $scope: $scope,
+-            propertyResolve: mockProperty
+-          });
+-        }));
+-
+-        it('Should have the correct URL', function () {
+-          expect(createstate.url).toEqual('/create');
+-        });
+-
+-        it('Should have a resolve function', function () {
+-          expect(typeof createstate.resolve).toEqual('object');
+-          expect(typeof createstate.resolve.propertyResolve).toEqual('function');
+-        });
+-
+-        it('should respond to URL', inject(function ($state) {
+-          expect($state.href(createstate)).toEqual('/properties/create');
+-        }));
+-
+-        it('should attach an Property to the controller scope', function () {
+-          expect($scope.vm.property._id).toBe(mockProperty._id);
+-          expect($scope.vm.property._id).toBe(undefined);
+-        });
+-
+-        it('Should not be abstract', function () {
+-          expect(createstate.abstract).toBe(undefined);
+-        });
+-
+-        it('Should have templateUrl', function () {
+-          expect(createstate.templateUrl).toBe('modules/properties/client/views/form-property.client.view.html');
+-        });
+-      });
+-
+-      describe('Edit Route', function () {
+-        var editstate,
+-          PropertiesController,
+-          mockProperty;
+-
+-        beforeEach(inject(function ($controller, $state, $templateCache) {
+-          editstate = $state.get('properties.edit');
+-          $templateCache.put('modules/properties/client/views/form-property.client.view.html', '');
+-
+-          // create mock Property
+-          mockProperty = new PropertiesService({
+-            _id: '525a8422f6d0f87f0e407a33',
+-            name: 'Property Name'
+-          });
+-
+-          // Initialize Controller
+-          PropertiesController = $controller('PropertiesController as vm', {
+-            $scope: $scope,
+-            propertyResolve: mockProperty
+-          });
+-        }));
+-
+-        it('Should have the correct URL', function () {
+-          expect(editstate.url).toEqual('/:propertyId/edit');
+-        });
+-
+-        it('Should have a resolve function', function () {
+-          expect(typeof editstate.resolve).toEqual('object');
+-          expect(typeof editstate.resolve.propertyResolve).toEqual('function');
+-        });
+-
+-        it('should respond to URL', inject(function ($state) {
+-          expect($state.href(editstate, {
+-            propertyId: 1
+-          })).toEqual('/properties/1/edit');
+-        }));
+-
+-        it('should attach an Property to the controller scope', function () {
+-          expect($scope.vm.property._id).toBe(mockProperty._id);
+-        });
+-
+-        it('Should not be abstract', function () {
+-          expect(editstate.abstract).toBe(undefined);
+-        });
+-
+-        it('Should have templateUrl', function () {
+-          expect(editstate.templateUrl).toBe('modules/properties/client/views/form-property.client.view.html');
+-        });
+-
+-        xit('Should go to unauthorized route', function () {
+-
+-        });
+-      });
+-
+-    });
+-  });
+-}());
+diff --git a/modules/properties/tests/e2e/properties.e2e.tests.js b/modules/properties/tests/e2e/properties.e2e.tests.js
+deleted file mode 100644
+index 08c5d42..0000000
+--- a/modules/properties/tests/e2e/properties.e2e.tests.js
++++ /dev/null
+@@ -1,10 +0,0 @@
+-'use strict';
+-
+-describe('Properties E2E Tests:', function () {
+-  describe('Test Properties page', function () {
+-    it('Should report missing credentials', function () {
+-      browser.get('http://localhost:3001/properties');
+-      expect(element.all(by.repeater('property in properties')).count()).toEqual(0);
+-    });
+-  });
+-});
+diff --git a/modules/properties/tests/server/property.server.model.tests.js b/modules/properties/tests/server/property.server.model.tests.js
+deleted file mode 100644
+index 1e8b4ef..0000000
+--- a/modules/properties/tests/server/property.server.model.tests.js
++++ /dev/null
+@@ -1,67 +0,0 @@
+-'use strict';
+-
+-/**
+- * Module dependencies.
+- */
+-var should = require('should'),
+-  mongoose = require('mongoose'),
+-  User = mongoose.model('User'),
+-  Property = mongoose.model('Property');
+-
+-/**
+- * Globals
+- */
+-var user,
+-  property;
+-
+-/**
+- * Unit tests
+- */
+-describe('Property Model Unit Tests:', function() {
+-  beforeEach(function(done) {
+-    user = new User({
+-      firstName: 'Full',
+-      lastName: 'Name',
+-      displayName: 'Full Name',
+-      email: 'test@test.com',
+-      username: 'username',
+-      password: 'password'
+-    });
+-
+-    user.save(function() {
+-      property = new Property({
+-        name: 'Property Name',
+-        user: user
+-      });
+-
+-      done();
+-    });
+-  });
+-
+-  describe('Method Save', function() {
+-    it('should be able to save without problems', function(done) {
+-      this.timeout(0);
+-      return property.save(function(err) {
+-        should.not.exist(err);
+-        done();
+-      });
+-    });
+-
+-    it('should be able to show an error when try to save without name', function(done) {
+-      property.name = '';
+-
+-      return property.save(function(err) {
+-        should.exist(err);
+-        done();
+-      });
+-    });
+-  });
+-
+-  afterEach(function(done) {
+-    Property.remove().exec(function() {
+-      User.remove().exec(function() {
+-        done();
+-      });
+-    });
+-  });
+-});
+diff --git a/modules/properties/tests/server/property.server.routes.tests.js b/modules/properties/tests/server/property.server.routes.tests.js
+deleted file mode 100644
+index d9f4fcc..0000000
+--- a/modules/properties/tests/server/property.server.routes.tests.js
++++ /dev/null
+@@ -1,411 +0,0 @@
+-'use strict';
+-
+-var should = require('should'),
+-  request = require('supertest'),
+-  path = require('path'),
+-  mongoose = require('mongoose'),
+-  User = mongoose.model('User'),
+-  Property = mongoose.model('Property'),
+-  express = require(path.resolve('./config/lib/express'));
+-
+-/**
+- * Globals
+- */
+-var app,
+-  agent,
+-  credentials,
+-  user,
+-  property;
+-
+-/**
+- * Property routes tests
+- */
+-describe('Property CRUD tests', function () {
+-
+-  before(function (done) {
+-    // Get application
+-    app = express.init(mongoose);
+-    agent = request.agent(app);
+-
+-    done();
+-  });
+-
+-  beforeEach(function (done) {
+-    // Create user credentials
+-    credentials = {
+-      username: 'username',
+-      password: 'M3@n.jsI$Aw3$0m3'
+-    };
+-
+-    // Create a new user
+-    user = new User({
+-      firstName: 'Full',
+-      lastName: 'Name',
+-      displayName: 'Full Name',
+-      email: 'test@test.com',
+-      username: credentials.username,
+-      password: credentials.password,
+-      provider: 'local'
+-    });
+-
+-    // Save a user to the test db and create new Property
+-    user.save(function () {
+-      property = {
+-        name: 'Property name'
+-      };
+-
+-      done();
+-    });
+-  });
+-
+-  it('should be able to save a Property if logged in', function (done) {
+-    agent.post('/api/auth/signin')
+-      .send(credentials)
+-      .expect(200)
+-      .end(function (signinErr, signinRes) {
+-        // Handle signin error
+-        if (signinErr) {
+-          return done(signinErr);
+-        }
+-
+-        // Get the userId
+-        var userId = user.id;
+-
+-        // Save a new Property
+-        agent.post('/api/properties')
+-          .send(property)
+-          .expect(200)
+-          .end(function (propertySaveErr, propertySaveRes) {
+-            // Handle Property save error
+-            if (propertySaveErr) {
+-              return done(propertySaveErr);
+-            }
+-
+-            // Get a list of Properties
+-            agent.get('/api/properties')
+-              .end(function (propertiesGetErr, propertiesGetRes) {
+-                // Handle Properties save error
+-                if (propertiesGetErr) {
+-                  return done(propertiesGetErr);
+-                }
+-
+-                // Get Properties list
+-                var properties = propertiesGetRes.body;
+-
+-                // Set assertions
+-                (properties[0].user._id).should.equal(userId);
+-                (properties[0].name).should.match('Property name');
+-
+-                // Call the assertion callback
+-                done();
+-              });
+-          });
+-      });
+-  });
+-
+-  it('should not be able to save an Property if not logged in', function (done) {
+-    agent.post('/api/properties')
+-      .send(property)
+-      .expect(403)
+-      .end(function (propertySaveErr, propertySaveRes) {
+-        // Call the assertion callback
+-        done(propertySaveErr);
+-      });
+-  });
+-
+-  it('should not be able to save an Property if no name is provided', function (done) {
+-    // Invalidate name field
+-    property.name = '';
+-
+-    agent.post('/api/auth/signin')
+-      .send(credentials)
+-      .expect(200)
+-      .end(function (signinErr, signinRes) {
+-        // Handle signin error
+-        if (signinErr) {
+-          return done(signinErr);
+-        }
+-
+-        // Get the userId
+-        var userId = user.id;
+-
+-        // Save a new Property
+-        agent.post('/api/properties')
+-          .send(property)
+-          .expect(400)
+-          .end(function (propertySaveErr, propertySaveRes) {
+-            // Set message assertion
+-            (propertySaveRes.body.message).should.match('Please fill Property name');
+-
+-            // Handle Property save error
+-            done(propertySaveErr);
+-          });
+-      });
+-  });
+-
+-  it('should be able to update an Property if signed in', function (done) {
+-    agent.post('/api/auth/signin')
+-      .send(credentials)
+-      .expect(200)
+-      .end(function (signinErr, signinRes) {
+-        // Handle signin error
+-        if (signinErr) {
+-          return done(signinErr);
+-        }
+-
+-        // Get the userId
+-        var userId = user.id;
+-
+-        // Save a new Property
+-        agent.post('/api/properties')
+-          .send(property)
+-          .expect(200)
+-          .end(function (propertySaveErr, propertySaveRes) {
+-            // Handle Property save error
+-            if (propertySaveErr) {
+-              return done(propertySaveErr);
+-            }
+-
+-            // Update Property name
+-            property.name = 'WHY YOU GOTTA BE SO MEAN?';
+-
+-            // Update an existing Property
+-            agent.put('/api/properties/' + propertySaveRes.body._id)
+-              .send(property)
+-              .expect(200)
+-              .end(function (propertyUpdateErr, propertyUpdateRes) {
+-                // Handle Property update error
+-                if (propertyUpdateErr) {
+-                  return done(propertyUpdateErr);
+-                }
+-
+-                // Set assertions
+-                (propertyUpdateRes.body._id).should.equal(propertySaveRes.body._id);
+-                (propertyUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
+-
+-                // Call the assertion callback
+-                done();
+-              });
+-          });
+-      });
+-  });
+-
+-  it('should be able to get a list of Properties if not signed in', function (done) {
+-    // Create new Property model instance
+-    var propertyObj = new Property(property);
+-
+-    // Save the property
+-    propertyObj.save(function () {
+-      // Request Properties
+-      request(app).get('/api/properties')
+-        .end(function (req, res) {
+-          // Set assertion
+-          res.body.should.be.instanceof(Array).and.have.lengthOf(1);
+-
+-          // Call the assertion callback
+-          done();
+-        });
+-
+-    });
+-  });
+-
+-  it('should be able to get a single Property if not signed in', function (done) {
+-    // Create new Property model instance
+-    var propertyObj = new Property(property);
+-
+-    // Save the Property
+-    propertyObj.save(function () {
+-      request(app).get('/api/properties/' + propertyObj._id)
+-        .end(function (req, res) {
+-          // Set assertion
+-          res.body.should.be.instanceof(Object).and.have.property('name', property.name);
+-
+-          // Call the assertion callback
+-          done();
+-        });
+-    });
+-  });
+-
+-  it('should return proper error for single Property with an invalid Id, if not signed in', function (done) {
+-    // test is not a valid mongoose Id
+-    request(app).get('/api/properties/test')
+-      .end(function (req, res) {
+-        // Set assertion
+-        res.body.should.be.instanceof(Object).and.have.property('message', 'Property is invalid');
+-
+-        // Call the assertion callback
+-        done();
+-      });
+-  });
+-
+-  it('should return proper error for single Property which doesnt exist, if not signed in', function (done) {
+-    // This is a valid mongoose Id but a non-existent Property
+-    request(app).get('/api/properties/559e9cd815f80b4c256a8f41')
+-      .end(function (req, res) {
+-        // Set assertion
+-        res.body.should.be.instanceof(Object).and.have.property('message', 'No Property with that identifier has been found');
+-
+-        // Call the assertion callback
+-        done();
+-      });
+-  });
+-
+-  it('should be able to delete an Property if signed in', function (done) {
+-    agent.post('/api/auth/signin')
+-      .send(credentials)
+-      .expect(200)
+-      .end(function (signinErr, signinRes) {
+-        // Handle signin error
+-        if (signinErr) {
+-          return done(signinErr);
+-        }
+-
+-        // Get the userId
+-        var userId = user.id;
+-
+-        // Save a new Property
+-        agent.post('/api/properties')
+-          .send(property)
+-          .expect(200)
+-          .end(function (propertySaveErr, propertySaveRes) {
+-            // Handle Property save error
+-            if (propertySaveErr) {
+-              return done(propertySaveErr);
+-            }
+-
+-            // Delete an existing Property
+-            agent.delete('/api/properties/' + propertySaveRes.body._id)
+-              .send(property)
+-              .expect(200)
+-              .end(function (propertyDeleteErr, propertyDeleteRes) {
+-                // Handle property error error
+-                if (propertyDeleteErr) {
+-                  return done(propertyDeleteErr);
+-                }
+-
+-                // Set assertions
+-                (propertyDeleteRes.body._id).should.equal(propertySaveRes.body._id);
+-
+-                // Call the assertion callback
+-                done();
+-              });
+-          });
+-      });
+-  });
+-
+-  it('should not be able to delete an Property if not signed in', function (done) {
+-    // Set Property user
+-    property.user = user;
+-
+-    // Create new Property model instance
+-    var propertyObj = new Property(property);
+-
+-    // Save the Property
+-    propertyObj.save(function () {
+-      // Try deleting Property
+-      request(app).delete('/api/properties/' + propertyObj._id)
+-        .expect(403)
+-        .end(function (propertyDeleteErr, propertyDeleteRes) {
+-          // Set message assertion
+-          (propertyDeleteRes.body.message).should.match('User is not authorized');
+-
+-          // Handle Property error error
+-          done(propertyDeleteErr);
+-        });
+-
+-    });
+-  });
+-
+-  it('should be able to get a single Property that has an orphaned user reference', function (done) {
+-    // Create orphan user creds
+-    var _creds = {
+-      username: 'orphan',
+-      password: 'M3@n.jsI$Aw3$0m3'
+-    };
+-
+-    // Create orphan user
+-    var _orphan = new User({
+-      firstName: 'Full',
+-      lastName: 'Name',
+-      displayName: 'Full Name',
+-      email: 'orphan@test.com',
+-      username: _creds.username,
+-      password: _creds.password,
+-      provider: 'local'
+-    });
+-
+-    _orphan.save(function (err, orphan) {
+-      // Handle save error
+-      if (err) {
+-        return done(err);
+-      }
+-
+-      agent.post('/api/auth/signin')
+-        .send(_creds)
+-        .expect(200)
+-        .end(function (signinErr, signinRes) {
+-          // Handle signin error
+-          if (signinErr) {
+-            return done(signinErr);
+-          }
+-
+-          // Get the userId
+-          var orphanId = orphan._id;
+-
+-          // Save a new Property
+-          agent.post('/api/properties')
+-            .send(property)
+-            .expect(200)
+-            .end(function (propertySaveErr, propertySaveRes) {
+-              // Handle Property save error
+-              if (propertySaveErr) {
+-                return done(propertySaveErr);
+-              }
+-
+-              // Set assertions on new Property
+-              (propertySaveRes.body.name).should.equal(property.name);
+-              should.exist(propertySaveRes.body.user);
+-              should.equal(propertySaveRes.body.user._id, orphanId);
+-
+-              // force the Property to have an orphaned user reference
+-              orphan.remove(function () {
+-                // now signin with valid user
+-                agent.post('/api/auth/signin')
+-                  .send(credentials)
+-                  .expect(200)
+-                  .end(function (err, res) {
+-                    // Handle signin error
+-                    if (err) {
+-                      return done(err);
+-                    }
+-
+-                    // Get the Property
+-                    agent.get('/api/properties/' + propertySaveRes.body._id)
+-                      .expect(200)
+-                      .end(function (propertyInfoErr, propertyInfoRes) {
+-                        // Handle Property error
+-                        if (propertyInfoErr) {
+-                          return done(propertyInfoErr);
+-                        }
+-
+-                        // Set assertions
+-                        (propertyInfoRes.body._id).should.equal(propertySaveRes.body._id);
+-                        (propertyInfoRes.body.name).should.equal(property.name);
+-                        should.equal(propertyInfoRes.body.user, undefined);
+-
+-                        // Call the assertion callback
+-                        done();
+-                      });
+-                  });
+-              });
+-            });
+-        });
+-    });
+-  });
+-
+-  afterEach(function (done) {
+-    User.remove().exec(function () {
+-      Property.remove().exec(done);
+-    });
+-  });
+-});
+diff --git a/mongoData/real-properties.json b/mongoData/real-properties.json
+deleted file mode 100644
+index 07c3215..0000000
+--- a/mongoData/real-properties.json
++++ /dev/null
+@@ -1,661 +0,0 @@
+-[
+-    {
+-      "status": "Active",
+-      "Folio #": "5.042E+11",
+-      "address": "13423 NW 5TH PL",
+-      "city": "PLANTATION",
+-      "Zip Code": "33325",
+-      "agent_name": "Carlos Gutierrez PA",
+-      "dom": "97",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "290000",
+-      "offerPrice": "63.35",
+-      "Offer": "183710",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "(305) 710-9655",
+-      "email_address": "Carlos@GGMiamiRE.com",
+-      "cell_phone": "999-999-9999",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/25/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.1427E+11",
+-      "address": "3709 WASHINGTON ST",
+-      "city": "HOLLYWOOD",
+-      "Zip Code": "33021",
+-      "agent_name": "Jeanne M. Towne",
+-      "dom": "3",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "259000",
+-      "offerPrice": "63.35",
+-      "Offer": "164070",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "(954) 234-7653",
+-      "email_address": "jeanne@gigimyway.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/25/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.0416E+11",
+-      "address": "217 NW 101ST AVE",
+-      "city": "PLANTATION",
+-      "Zip Code": "33324",
+-      "agent_name": "Courtney R. Nelson",
+-      "dom": "53",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "270000",
+-      "offerPrice": "63.35",
+-      "Offer": "171040",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "7542149534",
+-      "email_address": "mr_nelson12000@yahoo.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/25/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "4.84128E+11",
+-      "address": "1109 NW 97TH DR",
+-      "city": "CORAL SPRINGS",
+-      "Zip Code": "33071",
+-      "agent_name": "Hila B. Kipnis",
+-      "dom": "71",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "299000",
+-      "offerPrice": "63.35",
+-      "Offer": "189410",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "(954) 699-4442",
+-      "email_address": "hilakipnis@gmail.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/25/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.04111E+11",
+-      "address": "5300 SW 5TH ST",
+-      "city": "PLANTATION",
+-      "Zip Code": "33317",
+-      "agent_name": "Tamekia Daniels",
+-      "dom": "7",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "299000",
+-      "offerPrice": "63.35",
+-      "Offer": "189410",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "866 8977862",
+-      "email_address": "income1013@yahoo.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/25/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "4.94114E+11",
+-      "address": "5715 BAYBERRY LN",
+-      "city": "TAMARAC",
+-      "Zip Code": "33319",
+-      "agent_name": "Mark S. Lentz",
+-      "dom": "15",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "249900",
+-      "offerPrice": "63.35",
+-      "Offer": "158310",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "954 3005633",
+-      "email_address": "marklentz@bellsouth.net",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/25/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.0412E+11",
+-      "address": "9121 LAKE PARK CIR N",
+-      "city": "DAVIE",
+-      "Zip Code": "33328",
+-      "agent_name": "James A. Rinehart",
+-      "dom": "178",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "299000",
+-      "offerPrice": "63.35",
+-      "Offer": "189410",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "(954) 967-6767",
+-      "email_address": "jamesbuysandsells@gmail.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "10/27/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.03914E+11",
+-      "address": "2410 DEER CREEK RD",
+-      "city": "WESTON",
+-      "Zip Code": "33327",
+-      "agent_name": "Stephen P. Sibiga",
+-      "dom": "113",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "128000",
+-      "offerPrice": "60",
+-      "Offer": "76800",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "(888) 876-3372",
+-      "email_address": "broker@rhss.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "10/26/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.14126E+11",
+-      "address": "3541 SW 70TH AVE",
+-      "city": "MIRAMAR",
+-      "Zip Code": "33023",
+-      "agent_name": "Sandra E. Fader",
+-      "dom": "137",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "250000",
+-      "offerPrice": "63.35",
+-      "Offer": "158370",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "954 2370401",
+-      "email_address": "sanchez.s@ewm.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "10/25/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "4.94116E+11",
+-      "address": "8341 NW 52ND ST",
+-      "city": "LAUDERHILL",
+-      "Zip Code": "33351",
+-      "agent_name": "Alessandra C. Livingston",
+-      "dom": "51",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "250000",
+-      "offerPrice": "63.35",
+-      "Offer": "158370",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "(561) 750-0005",
+-      "email_address": "broker.primechoice@gmail.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "10/24/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.14115E+11",
+-      "address": "410 NW 77TH WAY",
+-      "city": "PEMBROKE PINES",
+-      "Zip Code": "33024",
+-      "agent_name": "Hilda Gonzalez",
+-      "dom": "8",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "200000",
+-      "offerPrice": "63.35",
+-      "Offer": "126700",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "(305) 377-9501",
+-      "email_address": "hgonzalez@capitalbrokersusa.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "4.9418E+11",
+-      "address": "9803 N GRAND DUKE CIR",
+-      "city": "TAMARAC",
+-      "Zip Code": "33321",
+-      "agent_name": "Daniel Maldonado",
+-      "dom": "10",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "270000",
+-      "offerPrice": "63.35",
+-      "Offer": "171040",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "email_address": "realtordan305@gmail.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.0411E+11",
+-      "address": "490 NW 46TH AVE",
+-      "city": "PLANTATION",
+-      "Zip Code": "33317",
+-      "agent_name": "Uvanne C. Rose",
+-      "dom": "4",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "250000",
+-      "offerPrice": "63.35",
+-      "Offer": "158370",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "(954) 709-5558",
+-      "email_address": "uvannerose@ubarrealty.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "4.94117E+11",
+-      "address": "9418 NW 46TH CT",
+-      "city": "SUNRISE",
+-      "Zip Code": "33351",
+-      "agent_name": "Juan Carlos C. Garcia",
+-      "dom": "38",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "235030",
+-      "offerPrice": "63.35",
+-      "Offer": "148890",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "954 4043262",
+-      "email_address": "jc@jcgarcia.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.04218E+11",
+-      "address": "3620 SW 21ST CT",
+-      "city": "FORT LAUDERDALE",
+-      "Zip Code": "33312",
+-      "agent_name": "Lucia D. Javier",
+-      "dom": "23",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "279000",
+-      "offerPrice": "63.35",
+-      "Offer": "176740",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "954 6605222",
+-      "email_address": "luciajavier@bellsouth.net",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.1423E+11",
+-      "address": "234 SE 3RD TER",
+-      "city": "DANIA BEACH",
+-      "Zip Code": "33004",
+-      "agent_name": "Daniel W. Barton",
+-      "dom": "23",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "299700",
+-      "offerPrice": "63.35",
+-      "Offer": "189850",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "954 7355000",
+-      "email_address": "info@flhomefinders.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "4.84121E+11",
+-      "address": "2366 NW 91ST AVE",
+-      "city": "CORAL SPRINGS",
+-      "Zip Code": "33065",
+-      "agent_name": "Evelyn Castro",
+-      "dom": "171",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "285000",
+-      "offerPrice": "63.35",
+-      "Offer": "180540",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "(954) 450-2000",
+-      "email_address": "castroe7@bellsouth.net",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.0401E+11",
+-      "address": "261 ASPEN WAY",
+-      "city": "DAVIE",
+-      "Zip Code": "33325",
+-      "agent_name": "Scott M. Arbogast",
+-      "dom": "14",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "285000",
+-      "offerPrice": "63.35",
+-      "Offer": "180540",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "954 2370401",
+-      "email_address": "AskArbo58@gmail.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "4.94115E+11",
+-      "address": "7374 NW 49TH ST",
+-      "city": "LAUDERHILL",
+-      "Zip Code": "33319",
+-      "agent_name": "Marcia Jones",
+-      "dom": "10",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "185000",
+-      "offerPrice": "63.35",
+-      "Offer": "117190",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "305 9316710",
+-      "email_address": "marciayjones@gmail.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    },
+-    {
+-      "status": "Active",
+-      "Folio #": "5.04127E+11",
+-      "address": "4250 SW 72ND WAY",
+-      "city": "DAVIE",
+-      "Zip Code": "33314",
+-      "agent_name": "David Wong",
+-      "dom": "125",
+-      "dates_email_were_sent_on": "-",
+-      "listPrice": "279900",
+-      "offerPrice": "63.35",
+-      "Offer": "177310",
+-      "C. Offer": "0",
+-      "LU": "0",
+-      "C": "Y",
+-      "P": "N",
+-      "E": "Y",
+-      "A": "Y",
+-      "Agent Type": "Agent",
+-      "phone_no": "9548038191",
+-      "email_address": "7428889@gmail.com",
+-      "cell_phone": "-",
+-      "comments": "-",
+-      "county": "-",
+-      "owner": "-",
+-      "last_date_email_sent_on": "11/4/16",
+-      "no_of_emails_sent": "1",
+-      "last_date_email_open": "-",
+-      "no_of_emails_open": "-",
+-      "last_date_call_was_made": "-",
+-      "call_priority": "-",
+-      "user_logged_in": "-"
+-    }
+-  ]
+diff --git a/mongoData/real-users.json b/mongoData/real-users.json
+deleted file mode 100644
+index ccc3544..0000000
+--- a/mongoData/real-users.json
++++ /dev/null
+@@ -1 +0,0 @@
+-[{"_id":{"$oid":"582395e71e6a7f002bd05e52"},"salt":"r/odnbEJjQis/mBFpdX7eg==","displayName":"j p","provider":"local","username":"jp_ca","created":{"$date":"2016-11-09T21:32:23.622Z"},"roles":["user","admin"],"profileImageURL":"modules/users/client/img/profile/default.png","password":"rHcegDEgVMS5o2WkwT9t3t52kkSUaXs/XkbEJGRGxhD1Kq8vH0O1sNHiOY+ehj+rwrigm9JmiSz3Zv8vfxsaUg==","email":"jp_ca@ymail.com","lastName":"p","firstName":"j","__v":0}]
+diff --git a/package.json b/package.json
+index dd5ff94..05802e9 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "meanjs",
+-  "description": "jay - Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
++  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
+   "version": "0.5.0",
+   "meanjs-version": "0.5.0",
+   "private": false,
+@@ -42,7 +42,6 @@
+     "connect-flash": "~0.1.1",
+     "connect-mongo": "~1.3.2",
+     "cookie-parser": "~1.4.1",
+-    "cors": "^2.8.1",
+     "crypto": "0.0.3",
+     "express": "~4.14.0",
+     "express-hbs": "^1.0.2",

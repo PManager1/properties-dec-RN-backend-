@@ -1,3 +1,72 @@
+
+
+
+
+====================================
+GETTING STARTED FROM BEGINNING - 
+
+
+copy the packeage.json & then   npm install 
+copy the bower.json  & then  bower install 
+
+make sure you've all the necessary files in the public/ lib folder. 
+
+
+
+
+
+
+
+
+add capistrano files 
+====================================
+
+
+
+
+
+============
+
+PROD   Explore config/env/production.js
+npm run start:prod
+
+To run your application with production environment configuration, execute gulp as follows:
+
+$ gulp prod
+
+==========
+https://hub.docker.com/r/meanjs/mean/
+
+gulp prod
+
+npm run start:prod
+
+
+MONGO_SEED=true npm start:prod
+
+In the express.js  fix this in prod: 
+//    res.header('Access-Control-Allow-Origin', '*');  
+
+=====
+
+
+Just add ionic bundle file from the app folder and you shoud be good. 
+use this page to do it:  https://goo.gl/fPrciV
+
+
+=========
+
+change the port in  config/env/default.js 
+
+
+
+angular utils not being loaded via bower, its copied. 
+its using angular-moment  not the plain old moment.js 
+
+
+
+
+
 [![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/meanjs/mean?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
