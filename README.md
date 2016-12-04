@@ -1,5 +1,15 @@
+==========
+
+PROD   Explore config/env/production.js
+npm run start:prod
+
+To run your application with production environment configuration, execute gulp as follows:
+
+$ sudo gulp prod
 
 
+seedadmin
+F34ms6EafcAb69jgZ1HC5eYjknSWXFGt13sBDN
 
 
 ====================================
@@ -67,14 +77,6 @@ add capistrano files
 
 ============
 
-PROD   Explore config/env/production.js
-npm run start:prod
-
-To run your application with production environment configuration, execute gulp as follows:
-
-$ gulp prod
-
-==========
 https://hub.docker.com/r/meanjs/mean/
 
 gulp prod
@@ -83,6 +85,8 @@ npm run start:prod
 
 
 MONGO_SEED=true npm start:prod
+
+sudo MONGO_SEED=true gulp prod
 
 In the express.js  fix this in prod: 
 //    res.header('Access-Control-Allow-Origin', '*');  

@@ -19,7 +19,8 @@ var config = require('../config'),
   hbs = require('express-hbs'),
   path = require('path'),
   _ = require('lodash'),
-  lusca = require('lusca');
+  lusca = require('lusca'),
+  cors = require('cors');    
 
 /**
  * Initialize local variables
@@ -56,6 +57,15 @@ module.exports.initLocalVariables = function (app) {
  */
 module.exports.initMiddleware = function (app) {
   // Should be placed before express.static
+
+var corsOptions = {
+    origin: 'http://34.192.250.112:8443',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
+  app.use(cors());
+
+
+
   app.use(compress({
     filter: function (req, res) {
       return (/json|text|javascript|css|font|svg/).test(res.getHeader('Content-Type'));
