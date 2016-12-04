@@ -39,6 +39,9 @@ modules/properties/client/views/list-properties.client.view.html
 
 Imp:
 modules/properties/server/controllers/properties.server.controller.js
+properties/server/models/property.server.model.js
+
+
 
 
 
