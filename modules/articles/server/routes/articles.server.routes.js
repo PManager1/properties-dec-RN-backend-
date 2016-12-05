@@ -10,6 +10,7 @@ module.exports = function (app) {
   // Articles collection routes
   app.route('/api/articles').all(articlesPolicy.isAllowed)
     .get(articles.list)
+    // .get(articles.list_by_userID)    
     .post(articles.create);
 
   // Single article routes
@@ -17,6 +18,9 @@ module.exports = function (app) {
     .get(articles.read)
     .put(articles.update)
     .delete(articles.delete);
+
+
+
 
   // Finish by binding the article middleware
   app.param('articleId', articles.articleByID);

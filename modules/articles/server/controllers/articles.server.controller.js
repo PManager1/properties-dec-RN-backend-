@@ -95,23 +95,39 @@ exports.list = function (req, res) {
 /**
  * Article middleware
  */
+
+
 exports.articleByID = function (req, res, next, id) {
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Article is invalid'
-    });
-  }
-
-  Article.findById(id).populate('user', 'displayName').exec(function (err, article) {
+   Article.find({ user_id: id}).sort('-created').populate('user', 'displayName').exec(function (err, articles) {
     if (err) {
-      return next(err);
-    } else if (!article) {
-      return res.status(404).send({
-        message: 'No article with that identifier has been found'
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
       });
+    } else {
+      res.json(articles);
     }
-    req.article = article;
-    next();
   });
 };
+
+
+
+// exports.articleByID = function (req, res, next, id) {
+
+//   if (!mongoose.Types.ObjectId.isValid(id)) {
+//     return res.status(400).send({
+//       message: 'Article is invalid'
+//     });
+//   }
+
+//   Article.findById(id).populate('user', 'displayName').exec(function (err, article) {
+//     if (err) {
+//       return next(err);
+//     } else if (!article) {
+//       return res.status(404).send({
+//         message: 'No article with that identifier has been found'
+//       });
+//     }
+//     req.article = article;
+//     next();
+//   });
+// };
