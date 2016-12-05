@@ -81,7 +81,7 @@ exports.delete = function (req, res) {
  * List of Articles
  */
 exports.list = function (req, res) {
-  Article.find().sort('-created').populate('user', 'displayName').exec(function (err, articles) {
+  Article.find({ user_id: 'jp_ca'}).sort('-created').populate('user', 'displayName').exec(function (err, articles) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
