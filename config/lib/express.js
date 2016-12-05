@@ -20,7 +20,7 @@ var config = require('../config'),
   path = require('path'),
   _ = require('lodash'),
   lusca = require('lusca'),
-  cors = require('cors');    
+  cors = require('cors');
 
 /**
  * Initialize local variables

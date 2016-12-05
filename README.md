@@ -7,11 +7,6 @@ To run your application with production environment configuration, execute gulp 
 
 $ sudo gulp prod
 
-
-seedadmin
-F34ms6EafcAb69jgZ1HC5eYjknSWXFGt13sBDN
-
-
 ====================================
 GETTING STARTED FROM BEGINNING - 
 
