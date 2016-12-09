@@ -94,7 +94,7 @@ exports.list = function(req, res) {
 
 
 
-exports.propertiesListByUser = function(req, res) {
+exports.propertiesListByUser = function(req, res, next, id) {
   Property.find({user_logged_in: 'jp'}).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
     if (err) {
       return res.status(400).send({

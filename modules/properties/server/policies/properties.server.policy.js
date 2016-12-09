@@ -18,7 +18,7 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/properties',
       permissions: '*'
     },{
-      resources: '/api/propertiesListByUser',
+      resources: '/api/propertiesListByUser/:userId',
       permissions: '*'
     },{
       resources: '/api/properties/:propertyId',
