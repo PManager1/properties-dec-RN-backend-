@@ -14,7 +14,7 @@ module.exports = function(app) {
   // Properties Routes
  
   app.route('/api/propertiesListByUser').all(propertiesPolicy.isAllowed)
-    .get(properties.list)
+    .get(properties.propertiesListByUser)
     .post(properties.create);    
 
   app.route('/api/properties/:propertyId').all(propertiesPolicy.isAllowed)
