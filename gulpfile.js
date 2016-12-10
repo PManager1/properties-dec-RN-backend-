@@ -65,6 +65,26 @@ gulp.task('nodemon-nodebug', function () {
   });
 });
 
+
+var pm2 = require('pm2');
+
+gulp.task('pm2', function () {
+    pm2.connect(true, function () {
+        pm2.start({
+            name: 'server',
+            script: 'server.js',
+            env: {  
+                "NODE_ENV": 'production'
+            }
+        }, function () {
+            console.log('pm2 started');
+            pm2.streamLogs('all', 0);
+        });
+    });
+});
+
+
+
 // Watch Files For Changes
 gulp.task('watch', function () {
   // Start livereload
@@ -396,6 +416,13 @@ gulp.task('protractor', ['webdriver_update'], function () {
       process.exit(1);
     });
 });
+
+
+
+
+
+
+
 
 // Lint CSS and JavaScript files.
 gulp.task('lint', function (done) {

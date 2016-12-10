@@ -5,6 +5,7 @@ or i can individually copy the files there.
 
 
 
+
 ==========
 
 PROD   Explore config/env/production.js
@@ -13,6 +14,8 @@ npm run start:prod
 To run your application with production environment configuration, execute gulp as follows:
 
 $ sudo gulp prod
+
+$ gulp pm2 
 
 ====================================
 GETTING STARTED FROM BEGINNING - 
