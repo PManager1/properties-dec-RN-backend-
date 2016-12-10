@@ -116,6 +116,7 @@
     "node-inspector": "~0.12.8",
     "run-sequence": "~1.2.2",
     "semver": "~5.3.0",
+    "shipit-cli": "^2.0.0",
     "should": "~11.1.0",
     "supertest": "~2.0.0"
   }
