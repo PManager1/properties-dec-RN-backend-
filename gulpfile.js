@@ -474,3 +474,10 @@ gulp.task('debug', function (done) {
 gulp.task('prod', function (done) {
   runSequence(['copyLocalEnvConfig', 'makeUploadsDir', 'templatecache'], 'build', 'env:prod', 'lint', ['nodemon-nodebug', 'watch'], done);
 });
+
+
+gulp.task('pp', function (done) {
+  runSequence(['copyLocalEnvConfig', 'makeUploadsDir', 'templatecache'], 'build', 'env:prod', 'lint', ['pm2', 'watch'], done);
+});
+
+
