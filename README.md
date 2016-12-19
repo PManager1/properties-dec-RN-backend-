@@ -1,3 +1,4 @@
+
 either i can copy the lib foler to the new folder from the old one. 
 
 or i can individually copy the files there. 
@@ -15,7 +16,10 @@ To run your application with production environment configuration, execute gulp 
 
 $ sudo gulp prod
 
-$ gulp pm2 
+$ gulp p1 
+
+
+
 
 ====================================
 GETTING STARTED FROM BEGINNING - 
