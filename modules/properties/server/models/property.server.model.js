@@ -63,7 +63,13 @@ var PropertySchema = new Schema({
     default: 'default',
     required: 'Please fillin comments',     
     trim: true
-  },   
+  },
+  calls_stack: {
+    type: Array,
+    default: [],
+    required: 'Please fillin call_stack',     
+    trim: true
+  },    
   comments: {
     type: String,
     default: 'default',
