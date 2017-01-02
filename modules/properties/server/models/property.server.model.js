@@ -67,9 +67,9 @@ var PropertySchema = new Schema({
   calls_stack: {
     type: Array,
     default: [],
-    required: 'Please fillin call_stack',     
+    required: false,
     trim: true
-  },    
+  },
   comments: {
     type: String,
     default: 'default',
