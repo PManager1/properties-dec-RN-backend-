@@ -34,6 +34,17 @@ var PropertySchema = new Schema({
     required: 'Please fill phone_no',
     trim: true
   },
+  CounterOffer: {
+    type: String,
+    default: 'default',
+    required: false,
+    required: 'Please fill CounterOffer',
+    trim: true
+  },  
+  next_call_Date : {
+    type : Date,
+    default : Date.now
+  },
   cell_phone: {
     type: String,
     default: 'default',
@@ -66,6 +77,12 @@ var PropertySchema = new Schema({
   },
   calls_stack: {
     type: Array,
+    default: [],
+    required: false,
+    trim: true
+  },
+  FollowUp_Date: {
+    type: Date,
     default: [],
     required: false,
     trim: true
