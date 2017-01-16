@@ -38,8 +38,30 @@ var PropertySchema = new Schema({
     type: String,
     default: 'default',
     required: false,
-    required: 'Please fill CounterOffer',
+    // required: 'Please fill CounterOffer',
     trim: true
+  },  
+
+// red : { 
+//   type: String, 
+//   required: false
+//   },
+// blue : { 
+//   type: String, 
+//   required: false
+//   },
+// green : { 
+//   type: String, 
+//   required: false
+//   },
+  Call_PrioritiesArr: {
+      red: String,
+      green: String,
+      blue: String,      
+      // default: [],
+    required: false
+    // required: 'Please fill Call_PrioritiesArr',
+    // trim: true
   },  
   next_call_Date : {
     type : Date,
