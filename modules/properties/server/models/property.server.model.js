@@ -31,8 +31,7 @@ var PropertySchema = new Schema({
   phone_no: {
     type: String,
     default: 'default',
-    required: 'Please fill phone_no',
-    trim: true
+    required: false
   },
   CounterOffer: {
     type: String,
@@ -42,18 +41,6 @@ var PropertySchema = new Schema({
     trim: true
   },  
 
-// red : { 
-//   type: String, 
-//   required: false
-//   },
-// blue : { 
-//   type: String, 
-//   required: false
-//   },
-// green : { 
-//   type: String, 
-//   required: false
-//   },
   Call_PrioritiesArr: {
       red: String,
       green: String,
@@ -63,6 +50,38 @@ var PropertySchema = new Schema({
     // required: 'Please fill Call_PrioritiesArr',
     // trim: true
   },  
+
+
+ 
+ Red_Priority: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+ Continue: {
+    type: String,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+  
+ Later: {
+    type: String,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+  
+ No_Updated: {
+    type: String,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+  
+
   next_call_Date : {
     type : Date,
     default : Date.now
@@ -70,7 +89,7 @@ var PropertySchema = new Schema({
   cell_phone: {
     type: String,
     default: 'default',
-    required: 'Please fill phone_no',
+    required: 'Please fill cell_no',
     trim: true
   },  
   email_address: {
