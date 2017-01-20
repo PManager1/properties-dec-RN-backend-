@@ -55,7 +55,7 @@ var PropertySchema = new Schema({
  
  Red_Priority_P: {
     type: Boolean,
-    default: true,
+    default: false,
     required: false,
     // required: 'Please fill CounterOffer',
   },  
@@ -80,7 +80,7 @@ var PropertySchema = new Schema({
     required: false,
     // required: 'Please fill CounterOffer',
   },  
- TodayLater_P: {
+ Later_Today_P: {
     type: Boolean,
     default: 'false',
     required: false,
@@ -88,14 +88,17 @@ var PropertySchema = new Schema({
   },    
 
 
- No_Updated_P: {
+
+
+   Left_VM_P: {
     type: Boolean,
     default: 'false',
     required: false,
     // required: 'Please fill CounterOffer',
   },  
 
-   Left_VM_P: {
+
+   Motivated_Seller_P: {
     type: Boolean,
     default: 'false',
     required: false,
@@ -104,6 +107,58 @@ var PropertySchema = new Schema({
   
 
 
+   Bi_Weekly_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+Polite_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+
+
+
+Wrong_NO_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+
+
+
+Grey_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+
+
+
+
+Negotiation_Willing_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+
+Counter_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  }, 
 
   next_call_Date: {
     type : Date,
