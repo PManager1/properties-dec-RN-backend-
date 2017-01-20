@@ -131,9 +131,6 @@ Wrong_NO_P: {
     // required: 'Please fill CounterOffer',
   },  
 
-
-
-
 Grey_P: {
     type: Boolean,
     default: 'false',
