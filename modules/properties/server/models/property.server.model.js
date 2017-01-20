@@ -53,36 +53,59 @@ var PropertySchema = new Schema({
 
 
  
- Red_Priority: {
+ Red_Priority_P: {
+    type: Boolean,
+    default: true,
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+ Continue_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+  
+ Later_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+  
+ No_Updated_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+ TodayLater_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },    
+
+
+ No_Updated_P: {
     type: Boolean,
     default: 'false',
     required: false,
     // required: 'Please fill CounterOffer',
   },  
 
- Continue: {
-    type: String,
-    default: 'false',
-    required: false,
-    // required: 'Please fill CounterOffer',
-  },  
-  
- Later: {
-    type: String,
-    default: 'false',
-    required: false,
-    // required: 'Please fill CounterOffer',
-  },  
-  
- No_Updated: {
-    type: String,
+   Left_VM_P: {
+    type: Boolean,
     default: 'false',
     required: false,
     // required: 'Please fill CounterOffer',
   },  
   
 
-  next_call_Date : {
+
+
+  next_call_Date: {
     type : Date,
     default : Date.now
   },
@@ -194,7 +217,7 @@ var PropertySchema = new Schema({
     required: 'please fill last_date_call_was_made',
     trim: true
   }, 
-  propStatus: {
+  propertyStatus: {
     type: String,
     default: 'default',
     required: 'please fill propStatus',
