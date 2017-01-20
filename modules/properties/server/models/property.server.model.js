@@ -31,13 +31,140 @@ var PropertySchema = new Schema({
   phone_no: {
     type: String,
     default: 'default',
-    required: 'Please fill phone_no',
+    required: false
+  },
+  CounterOffer: {
+    type: String,
+    default: 'default',
+    required: false,
+    // required: 'Please fill CounterOffer',
     trim: true
+  },  
+
+  Call_PrioritiesArr: {
+      red: String,
+      green: String,
+      blue: String,      
+      // default: [],
+    required: false
+    // required: 'Please fill Call_PrioritiesArr',
+    // trim: true
+  },  
+
+
+ 
+ Red_Priority_P: {
+    type: Boolean,
+    default: false,
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+ Continue_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+  
+ Later_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+  
+ No_Updated_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+ Later_Today_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },    
+
+
+
+
+   Left_VM_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+
+   Motivated_Seller_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+  
+
+
+   Bi_Weekly_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+Polite_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+
+
+
+Wrong_NO_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+Grey_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+
+
+
+
+Negotiation_Willing_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
+
+Counter_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  }, 
+
+  next_call_Date: {
+    type : Date,
+    default : Date.now
   },
   cell_phone: {
     type: String,
     default: 'default',
-    required: 'Please fill phone_no',
+    required: 'Please fill cell_no',
     trim: true
   },  
   email_address: {
@@ -63,7 +190,19 @@ var PropertySchema = new Schema({
     default: 'default',
     required: 'Please fillin comments',     
     trim: true
-  },   
+  },
+  calls_stack: {
+    type: Array,
+    default: [],
+    required: false,
+    trim: true
+  },
+  FollowUp_Date: {
+    type: Date,
+    default: [],
+    required: false,
+    trim: true
+  },
   comments: {
     type: String,
     default: 'default',
@@ -130,7 +269,7 @@ var PropertySchema = new Schema({
     required: 'please fill last_date_call_was_made',
     trim: true
   }, 
-  propStatus: {
+  propertyStatus: {
     type: String,
     default: 'default',
     required: 'please fill propStatus',
