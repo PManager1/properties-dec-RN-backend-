@@ -1,3 +1,24 @@
+====================================================
+PASSWORD FORGOT 
+
+users.client.service.js 
+
+
+      sendPasswordResetToken: {
+        method: 'POST',
+        url: '/api/auth/forgot'
+      },
+
+
+
+====================================================
+
+
+
+
+====================================================
+
+
 before deploying 
 in controller 
   var todayDate = nowMoment.format('M/D/YY');
