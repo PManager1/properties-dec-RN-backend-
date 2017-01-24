@@ -121,7 +121,44 @@ Negotiation_Willing_P: {
     default: 'false',
     required: false,
     // required: 'Please fill CounterOffer',
-  },  
+  }, 
+
+
+This_Grey_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  }, 
+
+
+Require_Work_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  }, 
+
+
+Awesome_Person_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  }, 
+
+
+
+Send_Contract_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  }, 
+
+
+
+
 Counter_P: {
     type: Boolean,
     default: 'false',
@@ -237,7 +274,7 @@ Counter_P: {
   last_date_call_was_made: {
     type: String,
     default: 'default',
-    required: 'please fill last_date_call_was_made',
+    required: false,
     trim: true
   }, 
   propertyStatus: {
