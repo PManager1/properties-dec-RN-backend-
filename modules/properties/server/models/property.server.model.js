@@ -35,7 +35,7 @@ var PropertySchema = new Schema({
   },
   CounterOffer: {
     type: String,
-    default: 'default',
+    default: '-',
     required: false,
     // required: 'Please fill CounterOffer',
     trim: true
@@ -157,17 +157,15 @@ Send_Contract_P: {
   }, 
 
 
-
-
 Counter_P: {
     type: Boolean,
     default: 'false',
-    required: false,
+    required: false
     // required: 'Please fill CounterOffer',
   }, 
   next_call_Date: {
     type : Date,
-    default : Date.now
+    default : null
   },
   cell_phone: {
     type: String,
@@ -291,8 +289,8 @@ Counter_P: {
   },      
   agent_Type: {
     type: String,
-    default: 'default',
-    required: 'please fill agentStatus',
+    default: '-',
+    required: 'please fill agent_Type',
     trim: true
   },    
   call_priority: {
