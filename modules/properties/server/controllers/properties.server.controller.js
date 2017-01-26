@@ -131,10 +131,10 @@ exports.propertyByID = function(req, res, next, id) {
 };
 
 
-
+// .populate('user', 'displayName')
 
 exports.propertiesListByToday = function(req, res, next, id) {
-  Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+  Property.find({ last_date_email_sent_on: 1/25/17 }).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
