@@ -136,8 +136,34 @@ exports.propertyByID = function(req, res, next, id) {
 // Property.find({ next_call_Date: {$regex : id}}).exec(function(err, properties) {
   // Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
 exports.propertiesListByToday = function(req, res, next, id) {
-  console.log( ' 139-Properties server controller  =', id );
   Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(properties);
+    }
+  });
+};
+
+
+
+exports.propertiesSearchAPI = function(req, res, next, id) {
+  Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(properties);
+    }
+  });
+};
+
+
+exports.prioritySearch = function(req, res, next, id) {
+  Property.find({ id : true }).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

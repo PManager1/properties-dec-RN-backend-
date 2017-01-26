@@ -27,6 +27,15 @@ module.exports = function(app) {
     .get(properties.propertiesListByToday); 
 
 
+  app.route('/api/propertiesSearchAPI/:term').all(propertiesPolicy.isAllowed)
+    .get(properties.propertiesSearchAPI); 
+
+
+  app.route('/api/prioritySearch/:Later_Today_P').all(propertiesPolicy.isAllowed)
+    .get(properties.prioritySearch); 
+
+
+
 
   app.route('/api/properties/:propertyId').all(propertiesPolicy.isAllowed)
     .get(properties.read)

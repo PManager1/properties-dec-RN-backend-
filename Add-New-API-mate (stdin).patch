@@ -1,0 +1,71 @@
+diff --git a/modules/properties/server/controllers/properties.server.controller.js b/modules/properties/server/controllers/properties.server.controller.js
+index 2975377..f27e8b8 100644
+--- a/modules/properties/server/controllers/properties.server.controller.js
++++ b/modules/properties/server/controllers/properties.server.controller.js
+@@ -6,6 +6,7 @@
+ var path = require('path'),
+   mongoose = require('mongoose'),
+   Property = mongoose.model('Property'),
++  Article = mongoose.model('Article'),  
+   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+   _ = require('lodash');
+ 
+@@ -129,3 +130,20 @@ exports.propertyByID = function(req, res, next, id) {
+     next();
+   });
+ };
++
++  console.log( ' 139-Properties server controller  =', id );
++  Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
++    if (err) {
++      return res.status(400).send({n(err, properties) {
++        message: errorHandler.getErrorMessage(err)
++      });
++    } else {
++      res.jsonp(exports.propertiesListByToday = function(req, res, next, id) {properties);
++    }
++  });
++};
++exports.propertiesListByToday = function(req, res, next, id) {
++  console.log( ' 139-Properties server controller  =', id );
++  Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
++    if (err) {
++      return res.status(400).send({
+diff --git a/modules/properties/server/models/property.server.model.js b/modules/properties/server/models/property.server.model.js
+index 9906f3d..e2fcb5f 100644
+--- a/modules/properties/server/models/property.server.model.js
++++ b/modules/properties/server/models/property.server.model.js
+@@ -236,8 +236,9 @@ Counter_P: {
+   },   
+   last_date_call_was_made: {
+     type: String,
+-    default: 'default',
+-    required: 'please fill last_date_call_was_made',
++    // default: 'default',
++    default : Date.now,
++    required: false,
+     trim: true
+   }, 
+   propertyStatus: {
+diff --git a/modules/properties/server/routes/properties.server.routes.js b/modules/properties/server/routes/properties.server.routes.js
+index c05a52d..ac83706 100644
+--- a/modules/properties/server/routes/properties.server.routes.js
++++ b/modules/properties/server/routes/properties.server.routes.js
+@@ -23,6 +23,10 @@ module.exports = function(app) {
+     .post(properties.create);
+ 
+ 
++  app.route('/api/propertiesListByToday/:date').all(propertiesPolicy.isAllowed)
++    .get(properties.propertiesListByToday); 
++
++
+ 
+   app.route('/api/properties/:propertyId').all(propertiesPolicy.isAllowed)
+     .get(properties.read)
+@@ -33,4 +37,6 @@ module.exports = function(app) {
+   app.param('propertyId', properties.propertyByID);
+   
+   app.param('userId', properties.propertiesListByUser);  
++
++  app.param('date', properties.propertiesListByToday);  
+ };
