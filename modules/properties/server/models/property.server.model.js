@@ -235,8 +235,8 @@ Counter_P: {
     trim: true
   },   
   last_date_call_was_made: {
-    type: String,
-    default: 'default',
+    type: Date,
+    default : Date.now,
     required: false,
     trim: true
   }, 
