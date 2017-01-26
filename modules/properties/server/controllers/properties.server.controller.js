@@ -129,3 +129,18 @@ exports.propertyByID = function(req, res, next, id) {
     next();
   });
 };
+
+
+
+
+exports.propertiesListByToday = function(req, res, next, id) {
+  Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(properties);
+    }
+  });
+};

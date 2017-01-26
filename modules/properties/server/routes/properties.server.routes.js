@@ -23,6 +23,10 @@ module.exports = function(app) {
     .post(properties.create);
 
 
+  app.route('/api/propertiesListByToday/:date').all(propertiesPolicy.isAllowed)
+    .get(properties.propertiesListByToday); 
+
+
 
   app.route('/api/properties/:propertyId').all(propertiesPolicy.isAllowed)
     .get(properties.read)
@@ -33,4 +37,6 @@ module.exports = function(app) {
   app.param('propertyId', properties.propertyByID);
   
   app.param('userId', properties.propertiesListByUser);  
+
+  app.param('date', properties.propertiesListByToday);  
 };
