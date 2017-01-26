@@ -237,7 +237,7 @@ Counter_P: {
   last_date_call_was_made: {
     type: String,
     default: 'default',
-    required: 'please fill last_date_call_was_made',
+    required: false,
     trim: true
   }, 
   propertyStatus: {
