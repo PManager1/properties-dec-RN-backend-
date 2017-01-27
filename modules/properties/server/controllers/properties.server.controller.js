@@ -6,7 +6,6 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Property = mongoose.model('Property'),
-  Article = mongoose.model('Article'),  
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -163,7 +162,13 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 
 
 exports.prioritySearch = function(req, res, next, id) {
-  Property.find({ id : true }).exec(function(err, properties) {
+  console.log( 'prioritySearch-API  id = ', id); 
+
+  console.log( ' req.params  = ', req.params); 
+  // console.log( ' req  = ', req);   
+  // Property.find({ Left_VM_P : 'true' }).exec(function(err, properties) {
+
+  Property.find({ id : 'true' }).exec(function(err, properties) {    
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -173,3 +178,19 @@ exports.prioritySearch = function(req, res, next, id) {
     }
   });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
