@@ -183,6 +183,26 @@ exports.prioritySearch = function(req, res, next, id) {
 
 
 
+exports.FollowUpSearch = function(req, res, next, id) {
+  console.log( 'prioritySearch-API  id = ', id); 
+
+  console.log( ' req.params  = ', req.params); 
+  // Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
+
+  Property.find({ "FollowUp_Call_Date.$date": {"$gte": new Date(2016, 7, 14) }}).exec(function(err, properties) {  
+
+  // {"created_on": {"$gte": new Date(2012, 7, 14), "$lt": new Date(2012, 7, 15)}}
+
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(properties);
+    }
+  });
+};
+
 
 
 
