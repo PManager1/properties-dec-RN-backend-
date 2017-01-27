@@ -162,9 +162,9 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 
 
 exports.prioritySearch = function(req, res, next, id) {
-  console.log( 'prioritySearch-API  id = ', id); 
+  // console.log( 'prioritySearch-API  id = ', id); 
 
-  console.log( ' req.params  = ', req.params); 
+  // console.log( ' req.params  = ', req.params); 
   // console.log( ' req  = ', req);   Later_Today_P 
   
   Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
@@ -184,20 +184,28 @@ exports.prioritySearch = function(req, res, next, id) {
 
 
 exports.FollowUpSearch = function(req, res, next, id) {
-  console.log( 'prioritySearch-API  id = ', id); 
 
-  console.log( ' req.params  = ', req.params); 
+  console.log( 'FollowUpSearch-API  id = ', id); 
+  console.log( ' FollowUpSearch-API  req.params  = ', req.params); 
+
   // Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
+                                               // "$gte": new Date(2012, 7, 14), "$lt": new Date(2012, 7, 15)}
+                                               // {"$gte": new Date(2017, 1, 24), "$lt": new Date(2017, 1, 25) }})
+// { "FollowUp_Call_Date.$date": {"$gte": new Date(2017, 2, 03), "$lt": new Date(2017, 2, 04)}
 
-  Property.find({ "FollowUp_Call_Date.$date": {"$gte": new Date(2016, 7, 14) }}).exec(function(err, properties) {  
+  // Property.find({ "FollowUp_Call_Date.$date": {"$gte": new Date(2017, 0, 26) }}).exec(function(err, properties) {  
 
-  // {"created_on": {"$gte": new Date(2012, 7, 14), "$lt": new Date(2012, 7, 15)}}
+Property.find({ "FollowUp_Call_Date.date": {"$gte": new Date(2017, 1, 27) }}).exec(function(err, properties) {  
 
+
+// Property.find({"FollowUp_call_date":{"date":{"$gte": new Date(2017,1,27)}}}).exec(function(err, properties) {  
     if (err) {
+      console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      console.log('FollowUp Date properties = ', properties);
       res.jsonp(properties);
     }
   });

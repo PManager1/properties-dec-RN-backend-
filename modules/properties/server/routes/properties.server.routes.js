@@ -34,7 +34,7 @@ module.exports = function(app) {
     .get(properties.prioritySearch); 
 
 
-  app.route('/api/FollowUpSearch/:date').all(propertiesPolicy.isAllowed)
+  app.route('/api/FollowUpSearch/:follUp').all(propertiesPolicy.isAllowed)
     .get(properties.FollowUpSearch); 
 
 
@@ -47,16 +47,12 @@ module.exports = function(app) {
 
   // Finish by binding the Property middleware
   app.param('propertyId', properties.propertyByID);
-  
   app.param('userId', properties.propertiesListByUser);  
-
   app.param('date', properties.propertiesListByToday);  
-
   app.param('Search_term', properties.propertiesSearchAPI);  
+  app.param('Left_VM_P', properties.prioritySearch); 
 
-  app.param('Left_VM_P', properties.prioritySearch);  
-
-  app.param('date', properties.FollowUpSearch);  
+  app.param('follUp', properties.FollowUpSearch);  
   
 
 };

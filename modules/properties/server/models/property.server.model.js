@@ -170,7 +170,6 @@ Counter_P: {
   },
   FollowUp_Call_Date: {
     type: Date,
-    default: [],
     required: false,
     trim: true
   },
