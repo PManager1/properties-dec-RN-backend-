@@ -27,13 +27,11 @@ module.exports = function(app) {
     .get(properties.propertiesListByToday); 
 
 
-  app.route('/api/propertiesSearchAPI/:term').all(propertiesPolicy.isAllowed)
+  app.route('/api/propertiesSearchAPI/:Search_term').all(propertiesPolicy.isAllowed)
     .get(properties.propertiesSearchAPI); 
 
-
-  app.route('/api/prioritySearch/:Later_Today_P').all(propertiesPolicy.isAllowed)
+  app.route('/api/prioritySearch/:Left_VM_P').all(propertiesPolicy.isAllowed)
     .get(properties.prioritySearch); 
-
 
 
 
@@ -48,4 +46,9 @@ module.exports = function(app) {
   app.param('userId', properties.propertiesListByUser);  
 
   app.param('date', properties.propertiesListByToday);  
+
+  app.param('Search_term', properties.propertiesSearchAPI);  
+
+  app.param('Left_VM_P', properties.prioritySearch);  
+
 };
