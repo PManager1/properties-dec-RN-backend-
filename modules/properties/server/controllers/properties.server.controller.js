@@ -165,10 +165,12 @@ exports.prioritySearch = function(req, res, next, id) {
   console.log( 'prioritySearch-API  id = ', id); 
 
   console.log( ' req.params  = ', req.params); 
-  // console.log( ' req  = ', req);   
+  // console.log( ' req  = ', req);   Later_Today_P 
+  
+  Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
   // Property.find({ Left_VM_P : 'true' }).exec(function(err, properties) {
 
-  Property.find({ id : 'true' }).exec(function(err, properties) {    
+  // Property.find({ id : 'true' }).exec(function(err, properties) {    
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
