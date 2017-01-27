@@ -35,7 +35,7 @@ var PropertySchema = new Schema({
   },
   CounterOffer: {
     type: String,
-    default: 'default',
+    default: '-',
     required: false,
     // required: 'Please fill CounterOffer',
     trim: true
