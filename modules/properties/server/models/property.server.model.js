@@ -130,7 +130,7 @@ Counter_P: {
   }, 
   next_call_Date: {
     type : Date,
-    default : Date.now
+    required: false,
   },
   cell_phone: {
     type: String,
