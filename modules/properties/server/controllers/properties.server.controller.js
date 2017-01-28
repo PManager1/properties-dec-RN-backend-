@@ -176,8 +176,12 @@ exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
 
 
 
-exports.queryPrioritySearch = function(req, res, next, id) {  
-  Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
+exports.queryPrioritySearch = function(req, res, next, id) { 
+
+console.log( 'queryPrioritySearch  id = ', id); 
+console.log( ' queryPrioritySearch  req.params  = ', req.params); 
+
+  Property.find({ Left_VM_P : 'true' }).exec(function(err, properties) {      
 
     if (err) {
       return res.status(400).send({
@@ -193,20 +197,20 @@ exports.queryPrioritySearch = function(req, res, next, id) {
 
 exports.FollowUpSearch = function(req, res, next, id) {
 
-console.log( 'FollowUpSearch-API  id = ', id); 
-console.log( ' FollowUpSearch-API  req.params  = ', req.params); 
+// console.log( 'FollowUpSearch-API  id = ', id); 
+// console.log( ' FollowUpSearch-API  req.params  = ', req.params); 
 // works
 // Property.find({ "FollowUp_Call_Date": {"$gte": new Date(2017, 0, 27) }}).exec(function(err, properties) {
 var today = new Date(); 
 
    Property.find({ "FollowUp_Call_Date": {"$gte": today }}).exec(function(err, properties) {  
     if (err) {
-      console.log(err);
+      // console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      console.log('FollowUp Date properties = ', properties);
+      // console.log('FollowUp Date properties = ', properties);
       res.jsonp(properties);
     }
   });

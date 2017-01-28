@@ -34,7 +34,15 @@ module.exports = function(app) {
     .get(properties.Later_Today_P_prioritySearch); 
 
 
-  app.route('/api/FollowUpSearch/:follUp').all(propertiesPolicy.isAllowed)
+  app.route('/api/queryPrioritySearch/:query_P').all(propertiesPolicy.isAllowed)
+    .get(properties.queryPrioritySearch); 
+
+
+
+
+
+
+  app.route('/api/FollowUpSearch/:followUp').all(propertiesPolicy.isAllowed)
     .get(properties.FollowUpSearch); 
 
 
@@ -50,7 +58,10 @@ module.exports = function(app) {
   app.param('Search_term', properties.propertiesSearchAPI);  
   app.param('Later_Today_P', properties.Later_Today_P_prioritySearch); 
 
-  app.param('follUp', properties.FollowUpSearch);  
+  app.param('query_P', properties.queryPrioritySearch);  
+  
+  app.param('followUp', properties.FollowUpSearch);  
+  
   
 
 };
