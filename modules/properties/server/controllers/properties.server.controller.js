@@ -9,6 +9,11 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
+
+
+
+
+
 /**
  * Create a Property
  */
@@ -224,6 +229,23 @@ var today = new Date();
 };
 
 
+
+exports.sendEmail = function(req, res, next, id) {
+
+  console.log( '  id = ', id); 
+  console.log('res.data', res.data); 
+
+
+  Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(properties);
+    }
+  });
+};
 
 
 
