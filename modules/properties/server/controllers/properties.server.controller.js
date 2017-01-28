@@ -253,10 +253,58 @@ Property.find({ _id : id }).exec(function(err, properties) {
       });
     } else {
       console.log( ' prop =', properties);
-
 //  From here on send the email via Node MAiler. 
-
       res.jsonp(properties);
+
+
+
+
+
+
+
+
+// create reusable transporter object using the default SMTP transport
+var transporter = nodemailer.createTransport('smtps://libertytrustgroupllc@gmail.com:sharejim@smtp.gmail.com');
+
+
+
+var  httpTransport = 'https://';
+// setup e-mail data with unicode symbols
+
+
+ var mailOptions = {
+        to: 'jpca999@gmail.com',
+        from: config.mailer.from,
+        subject: 'Password Reset',
+        text: 'Hello world ?' // plaintext body        
+        // html: emailHTML
+ };
+
+
+// send mail with defined transport object
+transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        return console.log(error);
+    }
+    console.log('Message sent: ' + info.response);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
   });
 };
