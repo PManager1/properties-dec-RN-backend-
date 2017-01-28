@@ -54,6 +54,8 @@ module.exports = function(app) {
   .post(properties.sendEmail);
 
 
+  // app.route('/api/forgoto').all(propertiesPolicy.isAllowed)
+  // .post(properties.forgoto);
 
 
   // Finish by binding the Property middleware
