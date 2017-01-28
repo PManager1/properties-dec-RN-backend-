@@ -38,7 +38,6 @@ module.exports = function(app) {
     .get(properties.FollowUpSearch); 
 
 
-
   app.route('/api/properties/:propertyId').all(propertiesPolicy.isAllowed)
     .get(properties.read)
     .put(properties.update)
