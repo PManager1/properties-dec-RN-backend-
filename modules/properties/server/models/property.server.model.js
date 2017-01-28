@@ -169,9 +169,8 @@ Counter_P: {
     required: false,
     trim: true
   },
-  FollowUp_Date: {
+  FollowUp_Call_Date: {
     type: Date,
-    default: [],
     required: false,
     trim: true
   },

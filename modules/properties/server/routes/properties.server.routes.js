@@ -27,6 +27,18 @@ module.exports = function(app) {
     .get(properties.propertiesListByToday); 
 
 
+  app.route('/api/propertiesSearchAPI/:Search_term').all(propertiesPolicy.isAllowed)
+    .get(properties.propertiesSearchAPI); 
+
+  app.route('/api/prioritySearch/:Left_VM_P').all(propertiesPolicy.isAllowed)
+    .get(properties.prioritySearch); 
+
+
+  app.route('/api/FollowUpSearch/:follUp').all(propertiesPolicy.isAllowed)
+    .get(properties.FollowUpSearch); 
+
+
+
 
   app.route('/api/properties/:propertyId').all(propertiesPolicy.isAllowed)
     .get(properties.read)
@@ -35,8 +47,12 @@ module.exports = function(app) {
 
   // Finish by binding the Property middleware
   app.param('propertyId', properties.propertyByID);
-  
   app.param('userId', properties.propertiesListByUser);  
-
   app.param('date', properties.propertiesListByToday);  
+  app.param('Search_term', properties.propertiesSearchAPI);  
+  app.param('Left_VM_P', properties.prioritySearch); 
+
+  app.param('follUp', properties.FollowUpSearch);  
+  
+
 };

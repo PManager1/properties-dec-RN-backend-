@@ -6,7 +6,6 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Property = mongoose.model('Property'),
-  Article = mongoose.model('Article'),  
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -136,7 +135,6 @@ exports.propertyByID = function(req, res, next, id) {
 // Property.find({ next_call_Date: {$regex : id}}).exec(function(err, properties) {
   // Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
 exports.propertiesListByToday = function(req, res, next, id) {
-  console.log( ' 139-Properties server controller  =', id );
   Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
@@ -147,3 +145,74 @@ exports.propertiesListByToday = function(req, res, next, id) {
     }
   });
 };
+
+
+
+exports.propertiesSearchAPI = function(req, res, next, id) {
+  Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(properties);
+    }
+  });
+};
+
+
+exports.prioritySearch = function(req, res, next, id) {
+  // console.log( 'prioritySearch-API  id = ', id); 
+
+  // console.log( ' req.params  = ', req.params); 
+  // console.log( ' req  = ', req);   Later_Today_P 
+  
+  Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
+  // Property.find({ Left_VM_P : 'true' }).exec(function(err, properties) {
+
+  // Property.find({ id : 'true' }).exec(function(err, properties) {    
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(properties);
+    }
+  });
+};
+
+
+
+exports.FollowUpSearch = function(req, res, next, id) {
+
+console.log( 'FollowUpSearch-API  id = ', id); 
+console.log( ' FollowUpSearch-API  req.params  = ', req.params); 
+// works
+// Property.find({ "FollowUp_Call_Date": {"$gte": new Date(2017, 0, 27) }}).exec(function(err, properties) {
+
+   Property.find({ "FollowUp_Call_Date": {"$gte": new Date() }}).exec(function(err, properties) {  
+    if (err) {
+      console.log(err);
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log('FollowUp Date properties = ', properties);
+      res.jsonp(properties);
+    }
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
