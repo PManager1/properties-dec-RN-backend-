@@ -189,13 +189,9 @@ exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
 
 
 exports.queryPrioritySearch = function(req, res, next, id) { 
-
 console.log( '  id = ', id); 
-// console.log( '  query_P = ', query_P); 
 console.log( ' queryPrioritySearch query_P  req.params  = ', req.params); 
-  
-
-  Property.find({ "Left_VM_P" : true }).exec(function(err, properties) {  //works
+Property.find({ "Left_VM_P" : true }).exec(function(err, properties) {  //works
 
   // Property.find( { $where: "this.Left_VM_P == true" } ).exec(function(err, properties) {   
   // Property.find({ id : true }).exec(function(err, properties) {              
@@ -232,6 +228,10 @@ var today = new Date();
     }
   });
 };
+
+
+
+
 
 
 
