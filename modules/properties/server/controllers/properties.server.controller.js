@@ -185,20 +185,12 @@ exports.prioritySearch = function(req, res, next, id) {
 
 exports.FollowUpSearch = function(req, res, next, id) {
 
-  console.log( 'FollowUpSearch-API  id = ', id); 
-  console.log( ' FollowUpSearch-API  req.params  = ', req.params); 
+console.log( 'FollowUpSearch-API  id = ', id); 
+console.log( ' FollowUpSearch-API  req.params  = ', req.params); 
+// works
+// Property.find({ "FollowUp_Call_Date": {"$gte": new Date(2017, 0, 27) }}).exec(function(err, properties) {
 
-  // Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
-                                               // "$gte": new Date(2012, 7, 14), "$lt": new Date(2012, 7, 15)}
-                                               // {"$gte": new Date(2017, 1, 24), "$lt": new Date(2017, 1, 25) }})
-// { "FollowUp_Call_Date.$date": {"$gte": new Date(2017, 2, 03), "$lt": new Date(2017, 2, 04)}
-
-  // Property.find({ "FollowUp_Call_Date.$date": {"$gte": new Date(2017, 0, 26) }}).exec(function(err, properties) {  
-
-Property.find({ "FollowUp_Call_Date.date": {"$gte": new Date(2017, 1, 27) }}).exec(function(err, properties) {  
-
-
-// Property.find({"FollowUp_call_date":{"date":{"$gte": new Date(2017,1,27)}}}).exec(function(err, properties) {  
+   Property.find({ "FollowUp_Call_Date": {"$gte": new Date() }}).exec(function(err, properties) {  
     if (err) {
       console.log(err);
       return res.status(400).send({
