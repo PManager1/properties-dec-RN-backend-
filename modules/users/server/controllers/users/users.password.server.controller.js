@@ -28,9 +28,11 @@ exports.forgot = function (req, res, next) {
     },
     // Lookup user by username
     function (token, done) {
-      if (req.body.username) {
+      // if (req.body.username) {      
+      if (true) {
         User.findOne({
-          username: req.body.username.toLowerCase()
+          // username: req.body.username.toLowerCase()
+          username: 'jpca999'          
         }, '-salt -password', function (err, user) {
           if (err || !user) {
             return res.status(400).send({
