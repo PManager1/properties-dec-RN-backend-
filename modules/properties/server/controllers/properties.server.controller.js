@@ -190,7 +190,7 @@ console.log( '  id = ', id);
 console.log( ' queryPrioritySearch query_P  req.params  = ', req.params); 
   
 
-  Property.find({ "Left_VM_P" : ob.t }).exec(function(err, properties) {  //works
+  Property.find({ "Left_VM_P" : true }).exec(function(err, properties) {  //works
 
   // Property.find( { $where: "this.Left_VM_P == true" } ).exec(function(err, properties) {   
   // Property.find({ id : true }).exec(function(err, properties) {              
