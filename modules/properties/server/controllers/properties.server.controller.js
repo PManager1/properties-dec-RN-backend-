@@ -161,8 +161,22 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 };
 
 
-exports.prioritySearch = function(req, res, next, id) {
-  
+exports.Later_Today_P_prioritySearch = function(req, res, next, id) {  
+  Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
+
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(properties);
+    }
+  });
+};
+
+
+
+exports.queryPrioritySearch = function(req, res, next, id) {  
   Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
 
     if (err) {
