@@ -233,19 +233,27 @@ var today = new Date();
 exports.sendEmail = function(req, res, next, id) {
 
   console.log( '  id = ', id); 
-  console.log('res.data', res.data); 
+  // console.log('res.data', res.data); 
 
+  // Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+  
+  // Property.findById(id).populate('user', 'displayName').exec(function (err, property) {
+  Property.find({ _id : id }).exec(function(err, properties) {      
 
-  Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      console.log( ' prop =', properties);
+
+//  From here on send the email via Node MAiler. 
+
       res.jsonp(properties);
     }
   });
 };
+
 
 
 
