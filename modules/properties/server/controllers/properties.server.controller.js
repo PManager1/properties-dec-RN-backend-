@@ -267,6 +267,7 @@ exports.sendEmail = function(req, res, next, id) {
                 } else {
                   console.log('properties = ', properties);
                   res.jsonp(properties);
+                  
                   callback(null, properties, 'two');  
                 }
               });                  
@@ -326,7 +327,7 @@ exports.sendEmail = function(req, res, next, id) {
         html: emailHTML
       };
       smtpTransport.sendMail(mailOptions, function (err) {
-        
+
         if (!err) {
           console.log( ' 328- psc   = inside smtp Transport '); 
 
