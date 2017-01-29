@@ -276,13 +276,69 @@ exports.sendEmail = function(req, res, next, id) {
         }
         function mySecondFunction(properties, arg2, callback) {
             // arg1 now equals 'one' and arg2 now equals 'two'
-          console.log( ' my-2-Function properties.agent_name =', properties[0].agent_name);     
+          console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
           console.log( ' my-2-Function arg2 =', arg2);      
-            callback(null, 'three');
+    
+
+          var httpTransport = 'http://';
+          if (config.secure && config.secure.ssl === true) {
+              httpTransport = 'https://';
+          }
+          var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+          res.render(path.resolve('modules/users/server/templates/reset-password-email'), {
+              name: properties[0].agent_name,
+              appName: "some Project Title",
+              url: 'baseUrl'
+          }, function(err, emailHTML) {
+                 if (err) {
+                     // console.log(err);
+                     return res.status(400).send({
+                         message: errorHandler.getErrorMessage(err)
+                     });
+                 } else {
+                     console.log('emailHTML = ', emailHTML);
+                     // res.jsonp(properties);
+                      callback(null, emailHTML);
+                 }
+
+
+          });
+
+
+
         }
+
         function myLastFunction(arg1, callback) {
             // arg1 now equals 'three'
-                              console.log( ' my-3- Function arg1 =', arg1);       
+                              console.log( ' my-3- Function arg1 =', arg1);
+
+
+
+
+      // var mailOptions = {
+      //   to: user.email,
+      //   from: config.mailer.from,
+      //   subject: 'Password Reset',
+      //   html: emailHTML
+      // };
+      // smtpTransport.sendMail(mailOptions, function (err) {
+      //   if (!err) {
+      //     res.send({
+      //       message: 'An email has been sent to the provided email with further instructions.'
+      //     });
+      //   } else {
+      //     return res.status(400).send({
+      //       message: 'Failure sending email'
+      //     });
+      //   }
+
+      //   done(err);
+      // });
+
+
+
+
+
             callback(null, 'done');
         }
 
