@@ -327,8 +327,9 @@ exports.sendEmail = function(req, res, next, id) {
       smtpTransport.sendMail(mailOptions, function (err) {
         if (!err) {
           console.log( ' 328- psc   = inside smtp Transport '); 
-          
-          res.json({ message: 'post created!' });
+
+        return res.send();
+        res.json({ message: 'post created!' });
 
           res.send({
             message: 'An email has been sent to the provided email with further instructions.'
