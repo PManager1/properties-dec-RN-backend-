@@ -329,11 +329,12 @@ exports.sendEmail = function(req, res, next, id) {
           console.log( ' 328- psc   = inside smtp Transport '); 
 
         return res.send();
-        res.json({ message: 'post created!' });
 
           res.send({
             message: 'An email has been sent to the provided email with further instructions.'
           });
+
+
         } else {
           return res.status(400).send({
             message: 'Failure sending email'
