@@ -192,16 +192,8 @@ exports.queryPrioritySearch = function(req, res, next, id) {
 console.log( '192- PSC  id = ', id); 
 console.log( ' queryPrioritySearch query_P  req.params  = ', req.params); 
 
+
 var id_2  = id; 
-
-
-// var dynamicId={};
-// dynamicId[id]=true;
-
-// var Left_VM_P={};
-// Left_VM_P[id] = true;
-
-
 var dynamicId={};
 dynamicId[id_2]=true;
 
@@ -211,8 +203,7 @@ Property.find(dynamicId).exec(function(err, properties) {
 // Property.find(Left_VM_P).exec(function(err, properties) {  //works
 // Property.find({ Left_VM_P : true }).exec(function(err, properties) {  //works
 
-  // Property.find( { $where: "this.Left_VM_P == true" } ).exec(function(err, properties) {   
-  
+  // Property.find( { $where: "this.Left_VM_P == true" } ).exec(function(err, properties) {     
 
     if (err) {   
       return res.status(400).send({
