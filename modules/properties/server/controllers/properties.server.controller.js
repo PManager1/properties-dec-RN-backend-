@@ -15,7 +15,7 @@ var path = require('path'),
   async = require('async'),
   crypto = require('crypto');
 
-
+var smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 
 
@@ -244,10 +244,10 @@ var today = new Date();
 
 
 
-exports.sendEmail = function(req, res, next, id) {
-  console.log( '  id = ', id); 
+// exports.sendEmail = function(req, res, next, id) {
+//   console.log( '  id = ', id); 
 
-
+/*
 
     async.waterfall([
       function(callback){
@@ -313,10 +313,11 @@ Property.find({ _id : id }).exec(function(err, properties) {
 
 exports.forgoto = function (req, res, next) {
 
+*/
 
 
-  console.log(' req.o', res); 
-  console.log(' req.body.o', res.body); 
+exports.sendEmail = function(req, res, next, id) {
+  console.log( '  id = ', id); 
 
   async.waterfall([
     // Generate random token
@@ -327,13 +328,17 @@ exports.forgoto = function (req, res, next) {
       });
     },
     // Lookup user by username
+
+
     function (token, done) {
       // if (req.body.username) {      
       if (true) {
         User.findOne({
           // username: req.body.username.toLowerCase()
           username: 'jpca999'          
-        }, '-salt -password', function (err, user) {
+        },  '-salt -password', function (err, user) {
+
+
           if (err || !user) {
             return res.status(400).send({
               message: 'No account with that username has been found'
@@ -350,6 +355,8 @@ exports.forgoto = function (req, res, next) {
               done(err, token, user);
             });
           }
+
+
         });
       } else {
         return res.status(422).send({
@@ -357,6 +364,9 @@ exports.forgoto = function (req, res, next) {
         });
       }
     },
+
+
+
     function (token, user, done) {
 
       var httpTransport = 'http://';
