@@ -27,14 +27,19 @@ module.exports = function(app) {
     .get(properties.propertiesListByToday); 
 
 
-  app.route('/api/propertiesSearchAPI/:term').all(propertiesPolicy.isAllowed)
+  app.route('/api/propertiesSearchAPI/:Search_term').all(propertiesPolicy.isAllowed)
     .get(properties.propertiesSearchAPI); 
 
+  app.route('/api/Later_Today_P_prioritySearch/:Later_Today_P').all(propertiesPolicy.isAllowed)
+    .get(properties.Later_Today_P_prioritySearch); 
 
-  app.route('/api/prioritySearch/:Later_Today_P').all(propertiesPolicy.isAllowed)
-    .get(properties.prioritySearch); 
+
+  app.route('/api/queryPrioritySearch/:query_P').all(propertiesPolicy.isAllowed)
+    .get(properties.queryPrioritySearch); 
 
 
+  app.route('/api/FollowUpSearch/:followUp').all(propertiesPolicy.isAllowed)
+    .get(properties.FollowUpSearch); 
 
 
   app.route('/api/properties/:propertyId').all(propertiesPolicy.isAllowed)
@@ -42,10 +47,37 @@ module.exports = function(app) {
     .put(properties.update)
     .delete(properties.delete);
 
+
+
+//  EMAIL 
+  app.route('/api/sendEmail/:user').all(propertiesPolicy.isAllowed)
+  .post(properties.sendEmail);
+
+
+  // app.route('/api/forgoto').all(propertiesPolicy.isAllowed)
+  // .post(properties.forgoto);
+
+
   // Finish by binding the Property middleware
   app.param('propertyId', properties.propertyByID);
-  
   app.param('userId', properties.propertiesListByUser);  
-
   app.param('date', properties.propertiesListByToday);  
+  app.param('Search_term', properties.propertiesSearchAPI);  
+  app.param('Later_Today_P', properties.Later_Today_P_prioritySearch); 
+  app.param('query_P', properties.queryPrioritySearch);  
+  app.param('followUp', properties.FollowUpSearch);  
+//  EMAIL   
+  app.param('user', properties.sendEmail);  
+
 };
+
+
+
+
+
+
+
+
+
+
+
