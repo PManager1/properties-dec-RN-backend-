@@ -245,15 +245,31 @@ var today = new Date();
 
 
 exports.sendEmail = function(req, res, next, id) {
-
   console.log( '  id = ', id); 
-  // console.log('res.data', res.data); 
 
-  // Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
-  
-  // Property.findById(id).populate('user', 'displayName').exec(function (err, property) {
-  
-  // Property.find({ "Left_VM_P" : true }).exec(function(err, properties) {        
+
+
+    async.waterfall([
+      function(callback){
+                          console.log( 'inside  one '); 
+        callback(null, 'one', 'two');
+      },
+      function(arg1, arg2, callback){
+                          console.log( 'inside  2 ');         
+        callback(null, 'three');
+      },
+      function(arg1, callback){
+                          console.log( 'inside  3 ');                 
+        callback(null, 'done');
+      }
+    ], function (err, result) {
+                          console.log( 'inside  4 ');                       
+      // result now equals 'done' 
+    });
+
+
+
+
 Property.find({ _id : id }).exec(function(err, properties) { 
   
     if (err) {
@@ -266,51 +282,24 @@ Property.find({ _id : id }).exec(function(err, properties) {
       res.jsonp(properties);
 
 
-
-
-
-
-
-
 // create reusable transporter object using the default SMTP transport
-var transporter = nodemailer.createTransport('smtps://libertytrustgroupllc@gmail.com:sharejim@smtp.gmail.com');
+      var transporter = nodemailer.createTransport('smtps://libertytrustgroupllc@gmail.com:sharejim@smtp.gmail.com');
 
-
-
-var  httpTransport = 'https://';
-// setup e-mail data with unicode symbols
-
-
- var mailOptions = {
-        to: 'jpca999@gmail.com',
-        from: config.mailer.from,
-        subject: 'Password Reset',
-        text: 'Hello world ?' // plaintext body        
-        // html: emailHTML
- };
-
-
-// send mail with defined transport object
-transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-        return console.log(error);
-    }
-    console.log('Message sent: ' + info.response);
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      var  httpTransport = 'https://';
+      // setup e-mail data with unicode symbols
+       var mailOptions = {
+              to: 'jpca999@gmail.com',
+              from: config.mailer.from,
+              subject: 'Password Reset',
+              text: 'Hello world ?' // plaintext body        
+       };
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, function(error, info){
+          if(error){
+              return console.log(error);
+          }
+          console.log('Message sent: ' + info.response);
+      });
 
 
 
@@ -323,6 +312,8 @@ transporter.sendMail(mailOptions, function(error, info){
 
 
 exports.forgoto = function (req, res, next) {
+
+
 
   console.log(' req.o', res); 
   console.log(' req.body.o', res.body); 
