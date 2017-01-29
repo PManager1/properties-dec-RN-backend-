@@ -242,31 +242,61 @@ var today = new Date();
 
 
 
+exports.sendEmail = function(req, res, next, id) {
+  console.log( 'calling sendEmail & id = ', id); 
+
+
+
+        async.waterfall([
+            myFirstFunction,
+            mySecondFunction,
+            myLastFunction,
+        ], function (err, result) {
+            // result now equals 'done'
+        });
+
+        function myFirstFunction(callback) {
+                              console.log( ' myFirstFunction'); 
+
+             Property.find({"address" : {$regex : ".*1721 SW 116TH WAY*"}}).exec(function(err, properties) {  
+                if (err) {
+                  // console.log(err);
+                  return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                  });
+                } else {
+                  console.log('properties = ', properties);
+                  res.jsonp(properties);
+                  callback(null, properties, 'two');  
+                }
+              });                  
+
+
+            
+        }
+        function mySecondFunction(properties, arg2, callback) {
+            // arg1 now equals 'one' and arg2 now equals 'two'
+          console.log( ' my-2-Function properties.agent_name =', properties[0].agent_name);     
+          console.log( ' my-2-Function arg2 =', arg2);      
+            callback(null, 'three');
+        }
+        function myLastFunction(arg1, callback) {
+            // arg1 now equals 'three'
+                              console.log( ' my-3- Function arg1 =', arg1);       
+            callback(null, 'done');
+        }
+
+
+}
+
+
+
 
 
 // exports.sendEmail = function(req, res, next, id) {
 //   console.log( '  id = ', id); 
 
 /*
-
-    async.waterfall([
-      function(callback){
-                          console.log( 'inside  one '); 
-        callback(null, 'one', 'two');
-      },
-      function(arg1, arg2, callback){
-                          console.log( 'inside  2 ');         
-        callback(null, 'three');
-      },
-      function(arg1, callback){
-                          console.log( 'inside  3 ');                 
-        callback(null, 'done');
-      }
-    ], function (err, result) {
-                          console.log( 'inside  4 ');                       
-      // result now equals 'done' 
-    });
-
 
 
 
@@ -313,8 +343,12 @@ Property.find({ _id : id }).exec(function(err, properties) {
 
 exports.forgoto = function (req, res, next) {
 
-*/
 
+
+
+
+
+/*
 
 exports.sendEmail = function(req, res, next, id) {
   console.log( '  id = ', id); 
@@ -341,9 +375,6 @@ function (done) {
           // username: req.body.username.toLowerCase()
           username: 'jpca999'          
         },  '-salt -password', function (err, user) {
-
-
-// Property.find({ "FollowUp_Call_Date": {"$gte": today }}).exec(function(err, properties) {  
 
           if (err || !user) {
             return res.status(400).send({
@@ -415,6 +446,7 @@ function (done) {
   });
 };
 
+*/
 
 
 
