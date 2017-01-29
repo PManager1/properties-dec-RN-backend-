@@ -276,8 +276,8 @@ exports.sendEmail = function(req, res, next, id) {
         }
         function mySecondFunction(properties, arg2, callback) {
             // arg1 now equals 'one' and arg2 now equals 'two'
-          console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
-          console.log( ' my-2-Function arg2 =', arg2);      
+          // console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
+          // console.log( ' my-2-Function arg2 =', arg2);      
     
 
           var httpTransport = 'http://';
@@ -285,6 +285,9 @@ exports.sendEmail = function(req, res, next, id) {
               httpTransport = 'https://';
           }
           var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+          
+          console.log( '288-psc  baseUrl = ', baseUrl); 
+
           res.render(path.resolve('modules/users/server/templates/reset-password-email'), {
               name: properties[0].agent_name,
               appName: "some Project Title",
@@ -298,7 +301,7 @@ exports.sendEmail = function(req, res, next, id) {
                  } else {
                      console.log('emailHTML = ', emailHTML);
                      // res.jsonp(properties);
-                      callback(null, emailHTML);
+                      callback(null, emailHTML, properties);
                  }
 
 
@@ -308,32 +311,36 @@ exports.sendEmail = function(req, res, next, id) {
 
         }
 
-        function myLastFunction(arg1, callback) {
+        function myLastFunction(emailHTML, properties, callback) {
             // arg1 now equals 'three'
-                              console.log( ' my-3- Function arg1 =', arg1);
+                              // console.log( ' my-3- Function emailHTML =', emailHTML);
+                              // console.log( ' my-3- Function properties =', properties);
 
+// LAter you can look over the array here properties[i].email_address
 
+      var mailOptions = {
+        to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
+        from: config.mailer.from,
+        subject: 'Password Reset',
+        html: emailHTML
+      };
+      smtpTransport.sendMail(mailOptions, function (err) {
+        if (!err) {
+          console.log( ' 328- psc   = inside smtp Transport '); 
+          
+          res.json({ message: 'post created!' });
 
+          res.send({
+            message: 'An email has been sent to the provided email with further instructions.'
+          });
+        } else {
+          return res.status(400).send({
+            message: 'Failure sending email'
+          });
+        }
 
-      // var mailOptions = {
-      //   to: user.email,
-      //   from: config.mailer.from,
-      //   subject: 'Password Reset',
-      //   html: emailHTML
-      // };
-      // smtpTransport.sendMail(mailOptions, function (err) {
-      //   if (!err) {
-      //     res.send({
-      //       message: 'An email has been sent to the provided email with further instructions.'
-      //     });
-      //   } else {
-      //     return res.status(400).send({
-      //       message: 'Failure sending email'
-      //     });
-      //   }
-
-      //   done(err);
-      // });
+        done(err);
+      });
 
 
 
