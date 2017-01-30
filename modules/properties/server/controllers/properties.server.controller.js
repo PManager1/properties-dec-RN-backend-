@@ -265,7 +265,7 @@ exports.sendEmail = function(req, res, next, id) {
                               console.log( ' myFirstFunction'); 
 
              // Property.find({"address" : {$regex : ".*1468 SW 47*"}}).exec(function(err, properties) {  
-             Property.find({"address" : {$regex : ".*1468 SW 47*"}}).exec(function(err, properties) {  
+             Property.find({"address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {  
                 if (err) {
                   // console.log(err);
                   return res.status(400).send({
