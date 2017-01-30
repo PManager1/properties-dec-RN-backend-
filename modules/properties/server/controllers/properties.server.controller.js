@@ -144,9 +144,7 @@ exports.propertyByID = function(req, res, next, id) {
 // .populate('user', 'displayName')
 // Property.find({ next_call_Date: {$regex : id}}).exec(function(err, properties) {
   // Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
-
 exports.propertiesListByToday = function(req, res, next, id) {
-  // console.log( '149- psc = propertiesListByToday  id =', id); 
   Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
@@ -173,14 +171,7 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 };
 
 
-// <<<<<<< HEAD
-// exports.Later_Today_P_prioritySearch = function(req, res, next, id) {  
-//   Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
-
-//     if (err) {
-// =======
-exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
-console.log( ' 175-psc - callign Later_Today_P  = '); 
+exports.Later_Today_P_prioritySearch = function(req, res, next, id) {  
   Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
 
     if (err) {
@@ -189,6 +180,7 @@ console.log( ' 175-psc - callign Later_Today_P  = ');
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      // console.log( ' properties =', properties);      
       res.jsonp(properties);
     }
   });
@@ -196,11 +188,6 @@ console.log( ' 175-psc - callign Later_Today_P  = ');
 
 
 
-// <<<<<<< HEAD
-// exports.queryPrioritySearch = function(req, res, next, id) {  
-//   Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
-
-// =======
 exports.queryPrioritySearch = function(req, res, next, id) { 
 console.log( '192- PSC  id = ', id); 
 console.log( ' queryPrioritySearch query_P  req.params  = ', req.params); 
@@ -237,12 +224,8 @@ exports.FollowUpSearch = function(req, res, next, id) {
 // works
 // Property.find({ "FollowUp_Call_Date": {"$gte": new Date(2017, 0, 27) }}).exec(function(err, properties) {
 var today = new Date(); 
-console.log( '223- FollowUpSearch =  today date = ', today); 
 
    Property.find({ "FollowUp_Call_Date": {"$gte": today }}).exec(function(err, properties) {  
-    
-   // Property.find({ "FollowUp_Call_Date": {"$eq": today }}).exec(function(err, properties) {  
-// >>>>>>> SendBlue-Email-3
     if (err) {
       // console.log(err);
       return res.status(400).send({
@@ -257,19 +240,6 @@ console.log( '223- FollowUpSearch =  today date = ', today);
 
 
 
-// <<<<<<< HEAD
-// exports.FollowUpSearch = function(req, res, next, id) {
-
-// console.log( 'FollowUpSearch-API  id = ', id); 
-// console.log( ' FollowUpSearch-API  req.params  = ', req.params); 
-// // works
-// // Property.find({ "FollowUp_Call_Date": {"$gte": new Date(2017, 0, 27) }}).exec(function(err, properties) {
-// var today = new Date(); 
-
-//    Property.find({ "FollowUp_Call_Date": {"$gte": today }}).exec(function(err, properties) {  
-//     if (err) {
-//       console.log(err);
-// =======
 
 
 exports.sendEmail = function(req, res, next, id) {
@@ -401,15 +371,10 @@ exports.sendEmail = function(req, res, next, id) {
 Property.find({ _id : id }).exec(function(err, properties) { 
   
     if (err) {
->>>>>>> SendBlue-Email-3
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-<<<<<<< HEAD
-      console.log('FollowUp Date properties = ', properties);
-      res.jsonp(properties);
-=======
       console.log( ' prop =', properties);
 //  From here on send the email via Node MAiler. 
       res.jsonp(properties);
@@ -436,7 +401,6 @@ Property.find({ _id : id }).exec(function(err, properties) {
 
 
 
->>>>>>> SendBlue-Email-3
     }
   });
 };
@@ -445,18 +409,13 @@ Property.find({ _id : id }).exec(function(err, properties) {
 
 
 
-<<<<<<< HEAD
-=======
 exports.forgoto = function (req, res, next) {
->>>>>>> SendBlue-Email-3
 
 
 
 
 
 
-<<<<<<< HEAD
-=======
 /*
 
 exports.sendEmail = function(req, res, next, id) {
@@ -560,7 +519,6 @@ function (done) {
 
 
 
->>>>>>> SendBlue-Email-3
 
 
 
