@@ -64,8 +64,8 @@ module.exports = {
     options: {
       service: process.env.MAILER_SERVICE_PROVIDER || 'gmail',
       auth: {
-        user: process.env.MAILER_EMAIL_ID || 'libertytrustgroupllc@gmail.com',
-        pass: process.env.MAILER_PASSWORD || 'sharejim'
+        user: process.env.MAILER_EMAIL_ID || 'libertytrustgroup@gmail.com',
+        pass: process.env.MAILER_PASSWORD || 'sharereifax'
       }
     }
   },
