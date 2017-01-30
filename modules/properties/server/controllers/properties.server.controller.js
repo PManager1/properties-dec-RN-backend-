@@ -144,7 +144,9 @@ exports.propertyByID = function(req, res, next, id) {
 // .populate('user', 'displayName')
 // Property.find({ next_call_Date: {$regex : id}}).exec(function(err, properties) {
   // Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+
 exports.propertiesListByToday = function(req, res, next, id) {
+  // console.log( '149- psc = propertiesListByToday  id =', id); 
   Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
@@ -171,7 +173,8 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 };
 
 
-exports.Later_Today_P_prioritySearch = function(req, res, next, id) {  
+exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
+console.log( ' 175-psc - callign Later_Today_P  = '); 
   Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
 
     if (err) {
@@ -224,6 +227,7 @@ exports.FollowUpSearch = function(req, res, next, id) {
 // works
 // Property.find({ "FollowUp_Call_Date": {"$gte": new Date(2017, 0, 27) }}).exec(function(err, properties) {
 var today = new Date(); 
+console.log( '223- FollowUpSearch =  today date = ', today); 
 
    Property.find({ "FollowUp_Call_Date": {"$gte": today }}).exec(function(err, properties) {  
     if (err) {
@@ -267,7 +271,7 @@ exports.sendEmail = function(req, res, next, id) {
                 } else {
                   console.log('properties = ', properties);
                   // res.jsonp(properties);
-                  
+
                   callback(null, properties, 'two');  
                 }
               });                  
@@ -289,7 +293,7 @@ exports.sendEmail = function(req, res, next, id) {
           
           console.log( '288-psc  baseUrl = ', baseUrl); 
 
-          res.render(path.resolve('modules/users/server/templates/reset-password-email'), {
+          res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
               name: properties[0].agent_name,
               appName: "some Project Title",
               url: 'baseUrl'
@@ -301,7 +305,7 @@ exports.sendEmail = function(req, res, next, id) {
                      });
                  } else {
 
-                     console.log('emailHTML = ', emailHTML);
+                     console.log('304---emailHTML = ', emailHTML);
                      // res.jsonp(properties);
                       callback(null, emailHTML, properties);
                  }
@@ -315,7 +319,7 @@ exports.sendEmail = function(req, res, next, id) {
 
         function myLastFunction(emailHTML, properties, callback) {
             // arg1 now equals 'three'
-                              // console.log( ' my-3- Function emailHTML =', emailHTML);
+      console.log( ' 318- myLastFunction emailHTML =', emailHTML);
                               // console.log( ' my-3- Function properties =', properties);
 
 // LAter you can look over the array here properties[i].email_address
