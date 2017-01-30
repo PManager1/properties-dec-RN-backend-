@@ -258,7 +258,7 @@ exports.sendEmail = function(req, res, next, id) {
         function myFirstFunction(callback) {
                               console.log( ' myFirstFunction'); 
 
-             Property.find({"address" : {$regex : ".*1721 SW 116TH WAY*"}}).exec(function(err, properties) {  
+             Property.find({"address" : {$regex : ".*1468 SW 47*"}}).exec(function(err, properties) {  
                 if (err) {
                   // console.log(err);
                   return res.status(400).send({
@@ -290,7 +290,8 @@ exports.sendEmail = function(req, res, next, id) {
           console.log( '288-psc  baseUrl = ', baseUrl); 
 
           res.render(path.resolve('modules/users/server/templates/reset-password-email'), {
-              name: properties[0].agent_name,
+              // name: properties[0].agent_name,
+              name: 'properties[0].agent_name',              
               appName: "some Project Title",
               url: 'baseUrl'
           }, function(err, emailHTML) {
