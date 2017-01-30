@@ -164,16 +164,11 @@ Counter_P: {
     required: false,
     trim: true
   },
-  FollowUp_Date: {
+  FollowUp_Call_Date: {
     type: Date,
     default: null,
-    required: false,
-    trim: true
+    required: true
   },
-  // next_call_Date: {
-  //   type : Date,
-  //   default : Date.now
-  // },
   comments: {
     type: String,
     default: 'default',
