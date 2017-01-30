@@ -301,7 +301,7 @@ exports.sendEmail = function(req, res, next, id) {
               name: properties[0].agent_name,              
               appName: properties[0].agent_name,
               address: properties[0].address, 
-              city: properties[0].city,                            
+              city: properties[0].city,
               url: 'baseUrl'
           }, function(err, emailHTML) {
                  if (err) {
@@ -327,6 +327,7 @@ exports.sendEmail = function(req, res, next, id) {
 
       var mailOptions = {
         to: properties[0].email_address,  // REPLACE IT WITH THE  properties[0].email_address
+        // to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
         from: config.mailer.from,
         subject: 'still available ?'+properties[0].address+'  '+properties[0].city,
         address: properties[0].address,        
