@@ -167,7 +167,7 @@ Counter_P: {
   FollowUp_Call_Date: {
     type: Date,
     default: null,
-    required: true
+    required: false
   },
   comments: {
     type: String,
