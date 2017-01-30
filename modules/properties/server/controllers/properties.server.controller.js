@@ -245,8 +245,6 @@ var today = new Date();
 exports.sendEmail = function(req, res, next, id) {
   console.log( 'calling sendEmail & id = ', id); 
 
-
-
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
@@ -257,7 +255,8 @@ exports.sendEmail = function(req, res, next, id) {
 
         function myFirstFunction(callback) {
                               console.log( ' myFirstFunction'); 
-
+                              
+             // Property.find({"address" : {$regex : ".*1468 SW 47*"}}).exec(function(err, properties) {  
              Property.find({"address" : {$regex : ".*1468 SW 47*"}}).exec(function(err, properties) {  
                 if (err) {
                   // console.log(err);
@@ -265,7 +264,7 @@ exports.sendEmail = function(req, res, next, id) {
                     message: errorHandler.getErrorMessage(err)
                   });
                 } else {
-                  console.log('properties = ', properties);
+                  // console.log('properties = ', properties);
                   // res.jsonp(properties);
                   
                   callback(null, properties, 'two');  
@@ -289,7 +288,7 @@ exports.sendEmail = function(req, res, next, id) {
           
           console.log( '288-psc  baseUrl = ', baseUrl); 
 
-          res.render(path.resolve('modules/users/server/templates/reset-password-email'), {
+          res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
               // name: properties[0].agent_name,
               name: 'properties[0].agent_name',              
               appName: "some Project Title",
@@ -302,7 +301,7 @@ exports.sendEmail = function(req, res, next, id) {
                      });
                  } else {
 
-                     console.log('emailHTML = ', emailHTML);
+                     // console.log('emailHTML = ', emailHTML);
                      // res.jsonp(properties);
                       callback(null, emailHTML, properties);
                  }
@@ -315,11 +314,6 @@ exports.sendEmail = function(req, res, next, id) {
         }
 
         function myLastFunction(emailHTML, properties, callback) {
-            // arg1 now equals 'three'
-                              // console.log( ' my-3- Function emailHTML =', emailHTML);
-                              // console.log( ' my-3- Function properties =', properties);
-
-// LAter you can look over the array here properties[i].email_address
 
       var mailOptions = {
         to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
