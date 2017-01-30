@@ -167,7 +167,6 @@ Counter_P: {
   FollowUp_Date: {
     type: Date,
     default: null,
-    
     required: false,
     trim: true
   },
