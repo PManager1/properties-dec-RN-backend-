@@ -255,7 +255,7 @@ exports.sendEmail = function(req, res, next, id) {
 
         function myFirstFunction(callback) {
                               console.log( ' myFirstFunction'); 
-                              
+
              // Property.find({"address" : {$regex : ".*1468 SW 47*"}}).exec(function(err, properties) {  
              Property.find({"address" : {$regex : ".*1468 SW 47*"}}).exec(function(err, properties) {  
                 if (err) {
@@ -279,7 +279,7 @@ exports.sendEmail = function(req, res, next, id) {
           // console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
           // console.log( ' my-2-Function arg2 =', arg2);      
     
-
+          console.log('282- psc --- mySecondFunction  properties = ', properties); 
           var httpTransport = 'http://';
           if (config.secure && config.secure.ssl === true) {
               httpTransport = 'https://';
@@ -290,8 +290,8 @@ exports.sendEmail = function(req, res, next, id) {
 
           res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
               // name: properties[0].agent_name,
-              name: 'properties[0].agent_name',              
-              appName: "some Project Title",
+              name: properties[0].agent_name,              
+              appName: properties[0].agent_name,
               url: 'baseUrl'
           }, function(err, emailHTML) {
                  if (err) {
@@ -318,7 +318,7 @@ exports.sendEmail = function(req, res, next, id) {
       var mailOptions = {
         to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
         from: config.mailer.from,
-        subject: 'Password Reset',
+        subject: 'still available ?'+properties[0].address+'  '+properties[0].city,
         html: emailHTML
       };
       smtpTransport.sendMail(mailOptions, function (err) {
