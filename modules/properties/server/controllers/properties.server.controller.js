@@ -219,17 +219,17 @@ Property.find(dynamicId).exec(function(err, properties) {
 
 exports.FollowUpSearch = function(req, res, next, id) {
 
-console.log('222- FollowUpSearch-API  id = ', id); 
-var today = new Date(); 
+// console.log('222- FollowUpSearch-API  id = ', id); 
+// var today = new Date(); 
 
  var oldDate = new Date();
   var preDate =  oldDate.setDate(oldDate.getDate() - 1); 
-console.log( '227- preDate =', preDate); 
+// console.log( '227- preDate =', preDate); 
 
 
  var newDate = new Date();
   var nextDate =  newDate.setDate(newDate.getDate() + 1); 
-console.log( '227- nextDate =', nextDate); 
+// console.log( '227- nextDate =', nextDate); 
 
 
 
