@@ -219,7 +219,7 @@ Property.find(dynamicId).exec(function(err, properties) {
 
 exports.FollowUpSearch = function(req, res, next, id) {
 
-// console.log('222- FollowUpSearch-API  id = ', id); 
+// console.log('222- FollowUpSearch-API  id = ', id);
 // var today = new Date(); 
 
  var oldDate = new Date();
@@ -231,10 +231,7 @@ exports.FollowUpSearch = function(req, res, next, id) {
   var nextDate =  newDate.setDate(newDate.getDate() + 1); 
 // console.log( '227- nextDate =', nextDate); 
 
-
-
-
-console.log('227- psc --  today date  = ', today); 
+// console.log('227- psc --  today date  = ', today); 
 
    Property.find({ "FollowUp_Call_Date": {"$gte": preDate, "$lt": nextDate }}).exec(function(err, properties) {  
     if (err) {
