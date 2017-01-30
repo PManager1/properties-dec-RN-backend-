@@ -258,7 +258,7 @@ exports.sendEmail = function(req, res, next, id) {
         function myFirstFunction(callback) {
                               console.log( ' myFirstFunction'); 
 
-             Property.find({"address" : {$regex : ".*1721 SW 116TH WAY*"}}).exec(function(err, properties) {  
+             Property.find({"address" : {$regex : ".*1468 SW 47*"}}).exec(function(err, properties) {  
                 if (err) {
                   // console.log(err);
                   return res.status(400).send({
@@ -267,7 +267,7 @@ exports.sendEmail = function(req, res, next, id) {
                 } else {
                   console.log('properties = ', properties);
                   // res.jsonp(properties);
-
+                  
                   callback(null, properties, 'two');  
                 }
               });                  
@@ -289,8 +289,9 @@ exports.sendEmail = function(req, res, next, id) {
           
           console.log( '288-psc  baseUrl = ', baseUrl); 
 
-          res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
-              name: properties[0].agent_name,
+          res.render(path.resolve('modules/users/server/templates/reset-password-email'), {
+              // name: properties[0].agent_name,
+              name: 'properties[0].agent_name',              
               appName: "some Project Title",
               url: 'baseUrl'
           }, function(err, emailHTML) {
@@ -301,7 +302,7 @@ exports.sendEmail = function(req, res, next, id) {
                      });
                  } else {
 
-                     console.log('304---emailHTML = ', emailHTML);
+                     console.log('emailHTML = ', emailHTML);
                      // res.jsonp(properties);
                       callback(null, emailHTML, properties);
                  }
@@ -315,7 +316,7 @@ exports.sendEmail = function(req, res, next, id) {
 
         function myLastFunction(emailHTML, properties, callback) {
             // arg1 now equals 'three'
-      console.log( ' 318- myLastFunction emailHTML =', emailHTML);
+                              // console.log( ' my-3- Function emailHTML =', emailHTML);
                               // console.log( ' my-3- Function properties =', properties);
 
 // LAter you can look over the array here properties[i].email_address

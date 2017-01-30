@@ -32,16 +32,11 @@ module.exports = function(app) {
 
   app.route('/api/Later_Today_P_prioritySearch/:Later_Today_P').all(propertiesPolicy.isAllowed)
     .get(properties.Later_Today_P_prioritySearch); 
-// <<<<<<< HEAD
-// =======
 
-// >>>>>>> SendBlue-Email-3
 
   app.route('/api/queryPrioritySearch/:query_P').all(propertiesPolicy.isAllowed)
     .get(properties.queryPrioritySearch); 
 
-  // app.route('/api/FollowUpSearch/:follUp').all(propertiesPolicy.isAllowed)
-  //   .get(properties.FollowUpSearch); 
 
   app.route('/api/FollowUpSearch/:followUp').all(propertiesPolicy.isAllowed)
     .get(properties.FollowUpSearch); 
@@ -69,16 +64,10 @@ module.exports = function(app) {
   app.param('date', properties.propertiesListByToday);  
   app.param('Search_term', properties.propertiesSearchAPI);  
   app.param('Later_Today_P', properties.Later_Today_P_prioritySearch); 
-// <<<<<<< HEAD
-
-//   app.param('follUp', properties.FollowUpSearch);  
-  
-// =======
   app.param('query_P', properties.queryPrioritySearch);  
   app.param('followUp', properties.FollowUpSearch);  
 //  EMAIL   
   app.param('user', properties.sendEmail);  
-// >>>>>>> SendBlue-Email-3
 
 };
 
