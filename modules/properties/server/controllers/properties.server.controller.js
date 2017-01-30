@@ -219,13 +219,24 @@ Property.find(dynamicId).exec(function(err, properties) {
 
 exports.FollowUpSearch = function(req, res, next, id) {
 
-// console.log( 'FollowUpSearch-API  id = ', id); 
-// console.log( ' FollowUpSearch-API  req.params  = ', req.params); 
-// works
-// Property.find({ "FollowUp_Call_Date": {"$gte": new Date(2017, 0, 27) }}).exec(function(err, properties) {
+console.log('222- FollowUpSearch-API  id = ', id); 
 var today = new Date(); 
 
-   Property.find({ "FollowUp_Call_Date": {"$eq": today }}).exec(function(err, properties) {  
+ var oldDate = new Date();
+  var preDate =  oldDate.setDate(oldDate.getDate() - 1); 
+console.log( '227- preDate =', preDate); 
+
+
+ var newDate = new Date();
+  var nextDate =  newDate.setDate(newDate.getDate() + 1); 
+console.log( '227- nextDate =', nextDate); 
+
+
+
+
+console.log('227- psc --  today date  = ', today); 
+
+   Property.find({ "FollowUp_Call_Date": {"$gte": preDate, "$lt": nextDate }}).exec(function(err, properties) {  
     if (err) {
       // console.log(err);
       return res.status(400).send({
