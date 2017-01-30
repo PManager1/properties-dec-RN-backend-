@@ -127,10 +127,6 @@ Counter_P: {
     default: 'false',
     required: false,
     // required: 'Please fill CounterOffer',
-  }, 
-  next_call_Date: {
-    type : Date,
-    default : Date.now
   },
   cell_phone: {
     type: String,
@@ -168,12 +164,18 @@ Counter_P: {
     required: false,
     trim: true
   },
-  FollowUp_Date: {
+  FollowUp_Call_Date: {
     type: Date,
-    default: [],
+    default : null,    
     required: false,
     trim: true
   },
+  last_date_call_was_made: {
+    type: Date,
+    default : null,
+    required: false,
+    trim: true
+  }, 
   comments: {
     type: String,
     default: 'default',
@@ -234,12 +236,6 @@ Counter_P: {
     required: 'Please fill no_of_emails_open',
     trim: true
   },   
-  last_date_call_was_made: {
-    type: Date,
-    default : Date.now,
-    required: false,
-    trim: true
-  }, 
   propertyStatus: {
     type: String,
     default: 'default',

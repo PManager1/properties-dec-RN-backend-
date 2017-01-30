@@ -229,7 +229,9 @@ exports.FollowUpSearch = function(req, res, next, id) {
 var today = new Date(); 
 console.log( '223- FollowUpSearch =  today date = ', today); 
 
-   Property.find({ "FollowUp_Call_Date": {"$gte": today }}).exec(function(err, properties) {  
+   // Property.find({ "FollowUp_Call_Date": {"$gte": today }}).exec(function(err, properties) {  
+    
+   Property.find({ "FollowUp_Call_Date": {"$eq": today }}).exec(function(err, properties) {  
     if (err) {
       // console.log(err);
       return res.status(400).send({
