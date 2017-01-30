@@ -128,10 +128,6 @@ Counter_P: {
     required: false,
     // required: 'Please fill CounterOffer',
   }, 
-  next_call_Date: {
-    type : Date,
-    default : Date.now
-  },
   cell_phone: {
     type: String,
     default: 'default',
@@ -170,10 +166,15 @@ Counter_P: {
   },
   FollowUp_Date: {
     type: Date,
-    default: [],
+    default: null,
+    
     required: false,
     trim: true
   },
+  // next_call_Date: {
+  //   type : Date,
+  //   default : Date.now
+  // },
   comments: {
     type: String,
     default: 'default',
