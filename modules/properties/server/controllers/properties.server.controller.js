@@ -286,12 +286,14 @@ exports.sendEmail = function(req, res, next, id) {
           }
           var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
           
-          console.log( '288-psc  baseUrl = ', baseUrl); 
+          // console.log( '288-psc  baseUrl = ', baseUrl); 
 
           res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
               // name: properties[0].agent_name,
               name: properties[0].agent_name,              
               appName: properties[0].agent_name,
+              address: properties[0].address, 
+              city: properties[0].city,                            
               url: 'baseUrl'
           }, function(err, emailHTML) {
                  if (err) {
@@ -319,19 +321,17 @@ exports.sendEmail = function(req, res, next, id) {
         to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
         from: config.mailer.from,
         subject: 'still available ?'+properties[0].address+'  '+properties[0].city,
+        address: properties[0].address,        
         html: emailHTML
       };
       smtpTransport.sendMail(mailOptions, function (err) {
 
         if (!err) {
-          console.log( ' 328- psc   = inside smtp Transport '); 
-
+          // console.log( ' 328- psc   = inside smtp Transport '); 
         // return res.send();
-
        return   res.send({
             message: 'An email has been sent to the provided email with further instructions.'
           });
-
 
         } else {
           return res.status(400).send({
@@ -341,175 +341,18 @@ exports.sendEmail = function(req, res, next, id) {
 
         done(err);
       });
-
-
-
-
-
             callback(null, 'done');
         }
-
-
 }
 
 
 
 
 
-// exports.sendEmail = function(req, res, next, id) {
-//   console.log( '  id = ', id); 
-
-/*
-
-
-
-Property.find({ _id : id }).exec(function(err, properties) { 
-  
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      console.log( ' prop =', properties);
-//  From here on send the email via Node MAiler. 
-      res.jsonp(properties);
-
-
-// create reusable transporter object using the default SMTP transport
-      var transporter = nodemailer.createTransport('smtps://libertytrustgroupllc@gmail.com:sharejim@smtp.gmail.com');
-
-      var  httpTransport = 'https://';
-      // setup e-mail data with unicode symbols
-       var mailOptions = {
-              to: 'jpca999@gmail.com',
-              from: config.mailer.from,
-              subject: 'Password Reset',
-              text: 'Hello world ?' // plaintext body        
-       };
-      // send mail with defined transport object
-      transporter.sendMail(mailOptions, function(error, info){
-          if(error){
-              return console.log(error);
-          }
-          console.log('Message sent: ' + info.response);
-      });
-
-
-
-    }
-  });
-};
 
 
 
 
-
-exports.forgoto = function (req, res, next) {
-
-
-
-
-
-
-/*
-
-exports.sendEmail = function(req, res, next, id) {
-  console.log( '  id = ', id); 
-
-  req.body.id = id; 
-
-  async.waterfall([
-    // Generate random token
-
-function (done) {
-  crypto.randomBytes(20, function (err, buffer) {
-    var token = buffer.toString('hex');
-    done(err, token);
-  });
-},
-    // Lookup user by username
-
-
-    function (token, done) {
-      // if (req.body.username) {      
-      if (true) {
-        console.log( '338-PSC   req.body.id   =', req.body.id); 
-        User.findOne({
-          // username: req.body.username.toLowerCase()
-          username: 'jpca999'          
-        },  '-salt -password', function (err, user) {
-
-          if (err || !user) {
-            return res.status(400).send({
-              message: 'No account with that username has been found'
-            });
-          } 
-
-          else {
-            user.resetPasswordToken = token;
-            user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
-            user.save(function (err) {
-              done(err, token, user);
-            });
-          }
-
-
-        });
-      } else {
-        return res.status(422).send({
-          message: 'Username field must not be blank'
-        });
-      }
-    },
-
-
-
-    function (token, user, done) {
-
-      var httpTransport = 'http://';
-      if (config.secure && config.secure.ssl === true) {
-        httpTransport = 'https://';
-      }
-      var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
-      res.render(path.resolve('modules/users/server/templates/reset-password-email'), {
-        name: user.displayName,
-        appName: config.app.title,
-        url: baseUrl + '/api/auth/reset/' + token
-      }, function (err, emailHTML) {
-        done(err, emailHTML, user);
-      });
-    },
-    // If valid email, send reset email using service
-    function (emailHTML, user, done) {
-      var mailOptions = {
-        to: user.email,
-        from: config.mailer.from,
-        subject: 'Password Reset',
-        html: emailHTML
-      };
-      smtpTransport.sendMail(mailOptions, function (err) {
-        if (!err) {
-          res.send({
-            message: 'An email has been sent to the provided email with further instructions.'
-          });
-        } else {
-          return res.status(400).send({
-            message: 'Failure sending email'
-          });
-        }
-
-        done(err);
-      });
-    }
-  ], function (err) {
-    if (err) {
-      return next(err);
-    }
-  });
-};
-
-*/
 
 
 
