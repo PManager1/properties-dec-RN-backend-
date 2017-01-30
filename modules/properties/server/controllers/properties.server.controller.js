@@ -326,7 +326,7 @@ exports.sendEmail = function(req, res, next, id) {
         function myLastFunction(emailHTML, properties, callback) {
 
       var mailOptions = {
-        to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
+        to: properties[0].email_address,  // REPLACE IT WITH THE  properties[0].email_address
         from: config.mailer.from,
         subject: 'still available ?'+properties[0].address+'  '+properties[0].city,
         address: properties[0].address,        
