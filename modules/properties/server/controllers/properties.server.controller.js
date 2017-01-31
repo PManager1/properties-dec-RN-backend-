@@ -264,8 +264,9 @@ exports.sendEmail = function(req, res, next, id) {
         function myFirstFunction(callback) {
                               console.log( ' myFirstFunction'); 
 
-             // Property.find({"address" : {$regex : ".*1468 SW 47*"}}).exec(function(err, properties) {  
+
              Property.find({"address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {  
+             // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {                
                 if (err) {
                   // console.log(err);
                   return res.status(400).send({
@@ -315,12 +316,7 @@ exports.sendEmail = function(req, res, next, id) {
                      // res.jsonp(properties);
                       callback(null, emailHTML, properties);
                  }
-
-
           });
-
-
-
         }
 
         function myLastFunction(emailHTML, properties, callback) {
