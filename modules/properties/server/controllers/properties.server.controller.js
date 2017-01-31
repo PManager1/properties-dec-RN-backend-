@@ -356,13 +356,14 @@ console.log( '347 - myLastFunction ');
       smtpTransport.sendMail(mailOptions, function (err) {
 
         if (!err) {
-          // console.log( ' 328- psc   = inside smtp Transport '); 
+          console.log( ' 359- psc   = inside smtp Transport - i.e no error'); 
         // return res.send();
        return   res.send({
             message: 'An email has been sent to the provided email with further instructions.'
           });
 
         } else {
+          console.log( ' 366- psc   = inside Else with  ERR');           
           return res.status(400).send({
             message: 'Failure sending email'
           });
