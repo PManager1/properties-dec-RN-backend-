@@ -276,15 +276,9 @@ transporter.sendMail(mailOptions, function(error, info){
 }
 
 */
-<<<<<<< HEAD
-  // console.log( 'calling sendEmail & id = ', id); 
-
-// START HERE 
-=======
 
   // console.log( 'calling sendEmail & id = ', id); 
 
->>>>>>> fad6f6487454d3bb78a66ec6dd378e46536a7939
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
@@ -362,13 +356,14 @@ console.log( '347 - myLastFunction ');
       smtpTransport.sendMail(mailOptions, function (err) {
 
         if (!err) {
-          // console.log( ' 328- psc   = inside smtp Transport '); 
+          console.log( ' 359- psc   = inside smtp Transport - i.e no error'); 
         // return res.send();
        return   res.send({
             message: 'An email has been sent to the provided email with further instructions.'
           });
 
         } else {
+          console.log( ' 366- psc   = inside Else with  ERR', err);        
           return res.status(400).send({
             message: 'Failure sending email'
           });
