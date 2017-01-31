@@ -363,7 +363,7 @@ console.log( '347 - myLastFunction ');
           });
 
         } else {
-          console.log( ' 366- psc   = inside Else with  ERR');           
+          console.log( ' 366- psc   = inside Else with  ERR',err);           
           return res.status(400).send({
             message: 'Failure sending email'
           });
