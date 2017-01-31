@@ -276,9 +276,15 @@ transporter.sendMail(mailOptions, function(error, info){
 }
 
 */
+<<<<<<< HEAD
   // console.log( 'calling sendEmail & id = ', id); 
 
 // START HERE 
+=======
+
+  // console.log( 'calling sendEmail & id = ', id); 
+
+>>>>>>> fad6f6487454d3bb78a66ec6dd378e46536a7939
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
@@ -309,7 +315,7 @@ transporter.sendMail(mailOptions, function(error, info){
         }
         function mySecondFunction(properties, arg2, callback) {
             // arg1 now equals 'one' and arg2 now equals 'two'
-          // console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
+          console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
           // console.log( ' my-2-Function arg2 =', arg2);      
     
           // console.log('282- psc --- mySecondFunction  properties = ', properties); 
@@ -344,7 +350,7 @@ transporter.sendMail(mailOptions, function(error, info){
         }
 
         function myLastFunction(emailHTML, properties, callback) {
-
+console.log( '347 - myLastFunction '); 
       var mailOptions = {
         to: properties[0].email_address,  // REPLACE IT WITH THE  properties[0].email_address
         // to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
