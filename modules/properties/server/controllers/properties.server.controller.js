@@ -276,15 +276,9 @@ transporter.sendMail(mailOptions, function(error, info){
 }
 
 */
-<<<<<<< HEAD
-  // console.log( 'calling sendEmail & id = ', id); 
-
-// START HERE 
-=======
 
   // console.log( 'calling sendEmail & id = ', id); 
 
->>>>>>> fad6f6487454d3bb78a66ec6dd378e46536a7939
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
