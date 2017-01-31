@@ -251,8 +251,31 @@ exports.FollowUpSearch = function(req, res, next, id) {
 
 
 exports.sendEmail = function(req, res, next, id) {
-  console.log( 'calling sendEmail & id = ', id); 
 
+  var transporter = nodemailer.createTransport('smtps://libertytrustgroupllc@gmail.com:sharejim@smtp.gmail.com');
+
+// setup e-mail data with unicode symbols
+var mailOptions = {
+    from: '"Fred Foo ?" <foo@blurdybloop.com>', // sender address
+    to: 'jpca999@gmail.com', // list of receivers
+    subject: 'Hello ✔', // Subject line
+    text: 'Hello world ?', // plaintext body
+    html: '<b>Hello world ?</b>' // html body
+};
+
+// send mail with defined transport object
+transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        return console.log(error);
+    }
+    console.log('Message sent: ' + info.response);
+});
+
+}
+
+
+  // console.log( 'calling sendEmail & id = ', id); 
+/*
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
@@ -279,7 +302,6 @@ exports.sendEmail = function(req, res, next, id) {
                 }
               });                  
 
-
             
         }
         function mySecondFunction(properties, arg2, callback) {
@@ -287,7 +309,7 @@ exports.sendEmail = function(req, res, next, id) {
           // console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
           // console.log( ' my-2-Function arg2 =', arg2);      
     
-          console.log('282- psc --- mySecondFunction  properties = ', properties); 
+          // console.log('282- psc --- mySecondFunction  properties = ', properties); 
           var httpTransport = 'http://';
           if (config.secure && config.secure.ssl === true) {
               httpTransport = 'https://';
@@ -345,15 +367,15 @@ exports.sendEmail = function(req, res, next, id) {
 
         done(err);
       });
-            // callback(null, 'done');
-            callback(err, 'done');
+            callback(null, 'done');
+            // callback(err, 'done');
         }
 }
 
 
 
 
-
+*/
 
 
 
