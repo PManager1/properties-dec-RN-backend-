@@ -345,7 +345,8 @@ exports.sendEmail = function(req, res, next, id) {
 
         done(err);
       });
-            callback(null, 'done');
+            // callback(null, 'done');
+            callback(err, 'done');
         }
 }
 
