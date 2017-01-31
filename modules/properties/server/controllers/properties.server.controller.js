@@ -252,6 +252,8 @@ exports.FollowUpSearch = function(req, res, next, id) {
 
 exports.sendEmail = function(req, res, next, id) {
 
+
+/*
   var transporter = nodemailer.createTransport('smtps://libertytrustgroupllc@gmail.com:sharejim@smtp.gmail.com');
 
 // setup e-mail data with unicode symbols
@@ -273,9 +275,10 @@ transporter.sendMail(mailOptions, function(error, info){
 
 }
 
-
+*/
   // console.log( 'calling sendEmail & id = ', id); 
-/*
+
+// START HERE 
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
@@ -375,7 +378,7 @@ transporter.sendMail(mailOptions, function(error, info){
 
 
 
-*/
+
 
 
 
