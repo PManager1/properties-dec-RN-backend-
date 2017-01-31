@@ -264,7 +264,6 @@ exports.sendEmail = function(req, res, next, id) {
         function myFirstFunction(callback) {
                               console.log( ' myFirstFunction'); 
 
-
              Property.find({"address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {  
              // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {                
                 if (err) {
