@@ -11,7 +11,7 @@ module.exports = {
   },
   port: process.env.PORT || 8443,
   // Binding to 127.0.0.1 is safer in production.
-  host: process.env.HOST || '0.0.0.0',  
+  host: process.env.HOST || '0.0.0.0',
   db: {
     uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean',
     options: {
@@ -82,10 +82,13 @@ module.exports = {
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
+      service: process.env.MAILER_SERVICE_PROVIDER || 'gmail',
       auth: {
+        // user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
+        // pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
         user: process.env.MAILER_EMAIL_ID || 'libertytrustgroup@gmail.com',
-        pass: process.env.MAILER_PASSWORD || 'sharereifax'        
+        pass: process.env.MAILER_PASSWORD || 'sharereifax'
+        
       }
     }
   },
