@@ -230,7 +230,7 @@ Counter_P: {
   },   
   last_date_call_was_made: {
     type: Date,
-    default : Date.now,
+    default : null,
     required: false,
     trim: true
   }, 
