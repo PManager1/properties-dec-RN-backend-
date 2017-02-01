@@ -253,31 +253,7 @@ exports.FollowUpSearch = function(req, res, next, id) {
 exports.sendEmail = function(req, res, next, id) {
 
 
-/*
-  var transporter = nodemailer.createTransport('smtps://libertytrustgroupllc@gmail.com:sharejim@smtp.gmail.com');
 
-// setup e-mail data with unicode symbols
-var mailOptions = {
-    from: '"Fred Foo ?" <foo@blurdybloop.com>', // sender address
-    to: 'jpca999@gmail.com', // list of receivers
-    subject: 'Hello ✔', // Subject line
-    text: 'Hello world ?', // plaintext body
-    html: '<b>Hello world ?</b>' // html body
-};
-
-// send mail with defined transport object
-transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-        return console.log(error);
-    }
-    console.log('Message sent: ' + info.response);
-});
-
-}
-
-*/
-
-  // console.log( 'calling sendEmail & id = ', id); 
 
         async.waterfall([
             myFirstFunction,
