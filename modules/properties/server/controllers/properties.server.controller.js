@@ -253,8 +253,6 @@ exports.FollowUpSearch = function(req, res, next, id) {
 exports.sendEmail = function(req, res, next, id) {
 
 
-
-
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
