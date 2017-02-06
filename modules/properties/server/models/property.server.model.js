@@ -60,6 +60,13 @@ var PropertySchema = new Schema({
     required: false,
     // required: 'Please fill CounterOffer',
   },  
+ Send_Contract_P: {
+    type: Boolean,
+    default: false,
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+
  Later_P: {
     type: Boolean,
     default: 'false',
