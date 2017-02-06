@@ -12,30 +12,30 @@ var mongoose = require('mongoose'),
 var PropertySchema = new Schema({
   address: {
     type: String,
-    default: 'default',
+    default: 'address',
     required: 'Please fill address',
     trim: true
   },
   county: {
     type: String,
-    default: 'default',
+    default: 'county',
     required: 'Please fill county',
     trim: true
   },
   city: {
     type: String,
-    default: 'default',
+    default: 'city',
     required: 'Please fill city ',
     trim: true
   },
   phone_no: {
     type: String,
-    default: 'default',
+    default: 'phone_no',
     required: false
   },
   CounterOffer: {
     type: String,
-    // default: '-',
+    default: '-',
     required: false,
     trim: true
   },  
