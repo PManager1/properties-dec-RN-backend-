@@ -38,7 +38,7 @@ var PropertySchema = new Schema({
     default: '-',
     required: false,
     trim: true
-  },  
+  },   
   Call_PrioritiesArr: {
       red: String,
       green: String,
@@ -49,6 +49,12 @@ var PropertySchema = new Schema({
     // trim: true
   },  
  Red_Priority_P: {
+    type: Boolean,
+    default: false,
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },  
+  Distressed_RequireWork_P: {
     type: Boolean,
     default: false,
     required: false,
