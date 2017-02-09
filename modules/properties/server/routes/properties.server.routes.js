@@ -54,6 +54,9 @@ module.exports = function(app) {
   .post(properties.sendEmail);
 
 
+  app.route('/api/sendEmailTemplate/:etemplate').all(propertiesPolicy.isAllowed)
+  .post(properties.sendEmailTemplate);
+
   // app.route('/api/forgoto').all(propertiesPolicy.isAllowed)
   // .post(properties.forgoto);
 
@@ -68,6 +71,8 @@ module.exports = function(app) {
   app.param('followUp', properties.FollowUpSearch);  
 //  EMAIL   
   app.param('user', properties.sendEmail);  
+  app.param('etemplate', properties.sendEmailTemplate);  
+
 
 };
 
