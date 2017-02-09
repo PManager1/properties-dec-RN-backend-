@@ -54,6 +54,11 @@ module.exports = function(app) {
   .post(properties.sendEmail);
 
 
+
+  app.route('/api/SvcEmail_SendMeDistressedListings/:distressListings').all(propertiesPolicy.isAllowed)
+  .post(properties.sendEmailTemplate);
+
+
   app.route('/api/sendEmailTemplate/:etemplate').all(propertiesPolicy.isAllowed)
   .post(properties.sendEmailTemplate);
 
@@ -71,6 +76,9 @@ module.exports = function(app) {
   app.param('followUp', properties.FollowUpSearch);  
 //  EMAIL   
   app.param('user', properties.sendEmail);  
+
+  app.param('distressListings', properties.SvcEmail_SendMeDistressedListings);  
+
   app.param('etemplate', properties.sendEmailTemplate);  
 
 

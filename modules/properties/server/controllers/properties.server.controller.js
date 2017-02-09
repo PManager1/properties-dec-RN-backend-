@@ -354,12 +354,13 @@ exports.sendEmail = function(req, res, next, id) {
 
 
 
-exports.sendEmailTemplate = function(req, res, next, id) {
+exports.SvcEmail_SendMeDistressedListings = function(req, res, next, id) {
 
+console.log( '359- S  calling   SvcEmail_SendMeDistressedListings   '); 
 console.log( ' 359 - id =  ', id); 
 console.log( ' 360 - req.body  =  ', req.body); 
  // req.body.eSub  req.body.eBody
-console.log( '359---calling  sendEmailTemplate___'); 
+console.log( '363---calling  sendEmailTemplate___'); 
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
@@ -441,6 +442,130 @@ console.log( '359---calling  sendEmailTemplate___');
 
         if (!err) {
           console.log( ' 359- psc   = inside smtp Transport - i.e no error'); 
+        // return res.send();
+       return   res.send({
+            message: 'An email has been sent to the provided email with further instructions.'
+          });
+
+        } else {
+          console.log( ' 366- psc   = inside Else with  ERR', err);        
+          return res.status(400).send({
+            message: 'Failure sending email'
+          });
+        }
+
+        done(err);
+      });
+            callback(null, 'done');
+            // callback(err, 'done');
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.sendEmailTemplate = function(req, res, next, id) {
+
+console.log( ' 359 - id =  ', id); 
+console.log( ' 360 - req.body  =  ', req.body); 
+console.log( ' 483 -  req.body.emailBody,  = ', req.body.eBody); 
+ // req.body.eSub  req.body.eBody
+console.log( '483---calling  sendEmailTemplate___'); 
+        async.waterfall([
+            myFirstFunction,
+            mySecondFunction,
+            myLastFunction,
+        ], function (err, result) {
+            // result now equals 'done'
+        });
+
+        function myFirstFunction(callback) {
+                              console.log( ' myFirstFunction'); 
+
+             Property.find({"email_address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {  
+             // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {                
+                if (err) {
+                  // console.log(err);
+                  return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                  });
+                } else {
+                  // console.log('properties = ', properties);
+                  // res.jsonp(properties);
+                  
+                  callback(null, properties, 'two');  
+                }
+              });
+        }
+
+        function mySecondFunction(properties, arg2, callback) {
+            // arg1 now equals 'one' and arg2 now equals 'two'
+          // console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
+          // console.log( ' my-2-Function arg2 =', arg2);      
+    
+          // console.log('282- psc --- mySecondFunction  properties = ', properties); 
+          var httpTransport = 'http://';
+          if (config.secure && config.secure.ssl === true) {
+              httpTransport = 'https://';
+          }
+          var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
+          
+          // console.log( '288-psc  baseUrl = ', baseUrl); 
+
+          // res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
+          res.render(path.resolve('modules/users/server/templates/sendEmailTemplate'), {
+                                                                  
+              // name: properties[0].agent_name,
+
+              content: req.body.eBody,
+              name: properties[0].agent_name,              
+              appName: properties[0].agent_name,
+              address: properties[0].address, 
+              city: properties[0].city,
+              url: 'baseUrl'
+          }, function(err, emailHTML) {
+                 if (err) {
+                     // console.log(err);
+                     return res.status(400).send({
+                         message: errorHandler.getErrorMessage(err)
+                     });
+                 } else {
+
+                     // console.log('emailHTML = ', emailHTML);
+                     // res.jsonp(properties);
+                      callback(null, emailHTML, properties);
+                 }
+          });
+        }
+
+        function myLastFunction(emailHTML, properties, callback) {
+            console.log( '347 - myLastFunction '); 
+      
+      var mailOptions = {
+        to: properties[0].email_address,  // REPLACE IT WITH THE  properties[0].email_address
+        // to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
+        from: config.mailer.from,
+        // subject: 'we talked over the phone about'+properties[0].address+'  '+properties[0].city,
+        subject: req.body.eSub,        
+        address: properties[0].address,        
+        html: emailHTML
+      };
+      smtpTransport.sendMail(mailOptions, function (err) {
+
+        if (!err) {
+          console.log( ' 565- psc   = inside smtp Transport - i.e no error'); 
         // return res.send();
        return   res.send({
             message: 'An email has been sent to the provided email with further instructions.'
