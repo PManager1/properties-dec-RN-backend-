@@ -184,7 +184,7 @@ Counter_P: {
     trim: true
   },
   FollowUp_Call_Date: {
-    type: Date,
+    type: String,
     default: null,
     required: false
   },

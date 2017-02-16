@@ -221,28 +221,38 @@ Property.find(dynamicId).exec(function(err, properties) {
 
 exports.FollowUpSearch = function(req, res, next, id) {
 
-// console.log('222- FollowUpSearch-API  id = ', id);
+console.log('224- FollowUpSearch-API  id = ', id);
 // var today = new Date(); 
 
- var oldDate = new Date();
-  var preDate =  oldDate.setDate(oldDate.getDate() - 1); 
-// console.log( '227- preDate =', preDate); 
+var ho = id.toString(); 
+
+console.log('229- PSC  ho = ', ho); 
+console.log( '  typeof stringValue ho  ', typeof ho)
+
+//  var oldDate = new Date();
+//   var preDate =  oldDate.setDate(oldDate.getDate() - 1); 
+// // console.log( '227- preDate =', preDate); 
 
 
- var newDate = new Date();
-  var nextDate =  newDate.setDate(newDate.getDate() + 1); 
+//  var newDate = new Date();
+//   var nextDate =  newDate.setDate(newDate.getDate() + 1); 
+
+
 // console.log( '227- nextDate =', nextDate); 
 
 // console.log('227- psc --  today date  = ', today); 
 
-   Property.find({ "FollowUp_Call_Date": {"$gte": preDate, "$lt": nextDate }}).exec(function(err, properties) {  
+   // Property.find({ "FollowUp_Call_Date": {"$gte": preDate, "$lt": nextDate }}).exec(function(err, properties) {  
+
+   Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {  
+
     if (err) {
       // console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      // console.log('FollowUp Date properties = ', properties);
+      console.log('FollowUp Date properties = ', properties);
       res.jsonp(properties);
     }
   });
