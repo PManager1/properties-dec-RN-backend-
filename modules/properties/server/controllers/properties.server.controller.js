@@ -218,7 +218,6 @@ Property.find(dynamicId).exec(function(err, properties) {
 };
 
 
-
 exports.FollowUpSearch = function(req, res, next, id) {
 
 console.log('224- FollowUpSearch-API  id = ', id);
