@@ -87,7 +87,7 @@ module.exports = {
         // user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
         // pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
         user: process.env.MAILER_EMAIL_ID || 'libertytrustgroup@gmail.com',
-        pass: process.env.MAILER_PASSWORD || 'sharereifax'
+        pass: process.env.MAILER_PASSWORD || 'sharereifax9'
         
       }
     }
