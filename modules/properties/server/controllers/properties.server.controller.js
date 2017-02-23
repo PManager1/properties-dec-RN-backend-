@@ -160,6 +160,24 @@ exports.propertiesListByToday = function(req, res, next, id) {
 
 
 
+exports.singlePropertySearchAPI = function(req, res, next, id) {
+  console.log('164-psc - inside the singlePropertySearchAPI id=',id); 
+  Property.find({"address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log( ' properties = ', properties);
+      res.jsonp(properties);
+    }
+  });
+};
+
+
+
+
+
 exports.propertiesSearchAPI = function(req, res, next, id) {
   Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
     if (err) {
@@ -337,13 +355,13 @@ exports.sendEmail = function(req, res, next, id) {
           console.log( ' 359- psc   = inside smtp Transport - i.e no error'); 
         // return res.send();
        return   res.send({
-            message: 'An email has been sent to the provided email with further instructions.'
+            message: 'Email sent to => '+properties[0].agent_name
           });
 
         } else {
           console.log( ' 366- psc   = inside Else with  ERR', err);        
           return res.status(400).send({
-            message: 'Failure sending email'
+            message: 'Failure sending email'+properties[0].agent_name
           });
         }
 

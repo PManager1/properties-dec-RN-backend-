@@ -54,19 +54,23 @@ var PropertySchema = new Schema({
     required: false,
     // required: 'Please fill CounterOffer',
   },  
-  
 Homework_Needed_P: {
     type: Boolean,
     default: false,
     required: false,
     // required: 'Please fill CounterOffer',
   },  
-
   Distressed_RequireWork_P: {
     type: Boolean,
     default: false,
     required: false,
-  },  
+  }, 
+  Research_Needed_P: {
+    type: Boolean,
+    default: false,
+    required: false,
+  }, 
+
  Continue_P: {
     type: Boolean,
     default: 'false',

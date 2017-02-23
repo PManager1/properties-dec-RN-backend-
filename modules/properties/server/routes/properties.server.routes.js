@@ -30,6 +30,11 @@ module.exports = function(app) {
   app.route('/api/propertiesSearchAPI/:Search_term').all(propertiesPolicy.isAllowed)
     .get(properties.propertiesSearchAPI); 
 
+
+  app.route('/api/singlePropertySearchAPI/:singlePropSearch_term').all(propertiesPolicy.isAllowed)
+    .get(properties.singlePropertySearchAPI); 
+
+
   app.route('/api/Later_Today_P_prioritySearch/:Later_Today_P').all(propertiesPolicy.isAllowed)
     .get(properties.Later_Today_P_prioritySearch); 
 
@@ -71,6 +76,7 @@ module.exports = function(app) {
   app.param('userId', properties.propertiesListByUser);  
   app.param('date', properties.propertiesListByToday);  
   app.param('Search_term', properties.propertiesSearchAPI);  
+  app.param('singlePropSearch_term', properties.singlePropertySearchAPI);    
   app.param('Later_Today_P', properties.Later_Today_P_prioritySearch); 
   app.param('query_P', properties.queryPrioritySearch);  
   app.param('followUp', properties.FollowUpSearch);  
