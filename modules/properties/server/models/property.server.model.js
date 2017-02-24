@@ -125,7 +125,13 @@ Polite_P: {
     default: 'false',
     required: false,
     // required: 'Please fill CounterOffer',
-  },  
+  }, 
+Awesome_Person_P: {
+    type: Boolean,
+    default: 'false',
+    required: false,
+    // required: 'Please fill CounterOffer',
+  },    
 Wrong_NO_P: {
     type: Boolean,
     default: 'false',
@@ -194,10 +200,16 @@ Counter_P: {
   },
   comments: {
     type: String,
-    default: 'default',
+    default: '-',
     required: false,
     trim: true
-  },   
+  },  
+  homework_notes: {
+    type: String,
+    default: '-',
+    required: false,
+    trim: true
+  },     
   dateAdded: {
     type: String,
     default: 'default',
