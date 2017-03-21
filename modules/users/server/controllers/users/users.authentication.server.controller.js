@@ -54,6 +54,7 @@ exports.signup = function (req, res) {
  */
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
+    console.log( '57- user  = ', user);  
     if (err || !user) {
       res.status(422).send(info);
     } else {
@@ -71,6 +72,17 @@ exports.signin = function (req, res, next) {
     }
   })(req, res, next);
 };
+
+
+
+    // if (err) {
+    //   console.log( '90- error here');
+    //   return res.status(400).send({
+    //     message: errorHandler.getErrorMessage(err)
+    //   });
+    // } else {
+
+
 
 /**
  * Signout

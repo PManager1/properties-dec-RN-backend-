@@ -7,9 +7,9 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Property Schema
+ * Reifax Schema
  */
-var PropertySchema = new Schema({
+var ReifaxSchema = new Schema({
   address: {
     type: String,
     default: 'address',
@@ -198,11 +198,6 @@ Counter_P: {
     default: null,
     required: false
   },
-  FollowUp_Call_Date_Obj: {
-    type: Date,
-    default: null,
-    required: false
-  },  
   comments: {
     type: String,
     default: '-',
@@ -304,5 +299,4 @@ Counter_P: {
     ref: 'User'
   }
 });
-
-mongoose.model('Property', PropertySchema);
+mongoose.model('Reifax', ReifaxSchema);

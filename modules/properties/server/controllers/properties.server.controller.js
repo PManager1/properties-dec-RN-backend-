@@ -6,7 +6,6 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Property = mongoose.model('Property'),
-  // newReifax = mongoose.model('newReifax'),  
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
   config = require(path.resolve('./config/config')),
@@ -241,6 +240,8 @@ var ho = id.toString();
 
 console.log('229- PSC  ho = ', ho); 
 console.log( '  typeof stringValue ho  ', typeof ho)
+
+
 //  var oldDate = new Date();
 //   var preDate =  oldDate.setDate(oldDate.getDate() - 1); 
 // // console.log( '227- preDate =', preDate); 
@@ -249,6 +250,10 @@ console.log( '  typeof stringValue ho  ', typeof ho)
 // console.log( '227- nextDate =', nextDate); 
 // console.log('227- psc --  today date  = ', today); 
 // Property.find({ "FollowUp_Call_Date": {"$gte": preDate, "$lt": nextDate }}).exec(function(err, properties) {  
+
+
+// db.properties.find({"FollowUp_Call_Date" : {$gt: '2017-03-12T'}}).pretty();
+
 
    Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {  
 

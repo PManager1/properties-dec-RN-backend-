@@ -67,6 +67,8 @@ module.exports = function(app) {
   app.route('/api/sendEmailTemplate/:etemplate').all(propertiesPolicy.isAllowed)
   .post(properties.sendEmailTemplate);
 
+
+
   // app.route('/api/forgoto').all(propertiesPolicy.isAllowed)
   // .post(properties.forgoto);
 

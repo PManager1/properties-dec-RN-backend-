@@ -1,13 +1,11 @@
 ====================================================
-PASSWORD FORGOT 
+Create Cohorts - 
 
-users.client.service.js 
+Ability for the users to search for properties - 
 
+Add them to their followup list. 
 
-      sendPasswordResetToken: {
-        method: 'POST',
-        url: '/api/auth/forgot'
-      },
+Signup. 
 
 
 
