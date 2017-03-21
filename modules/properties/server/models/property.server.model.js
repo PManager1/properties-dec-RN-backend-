@@ -184,9 +184,23 @@ Counter_P: {
   agent_name: {
     type: String,
     default: 'default',
-    required: 'Please fillin comments',     
+    required: 'Please fillin agent_name',     
     trim: true
   },
+  user_logged_in: {
+    type: String,
+    default: 'default',
+    required: 'Please fillin user_logged_in',     
+    trim: true
+  },
+  user_logged_emailid: {
+    type: String,
+    // default: 'default'
+    required : true,    
+    unique : true,
+    required: 'Please fillin user_logged_emailid',     
+    trim: true
+  },  
   calls_stack: {
     type: Array,
     default: [],

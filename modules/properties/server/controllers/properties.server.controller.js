@@ -105,7 +105,7 @@ exports.list = function(req, res) {
 
 
 exports.propertiesListByUser = function(req, res, next, id) {
-  Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+  Property.find({user_logged_email: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
