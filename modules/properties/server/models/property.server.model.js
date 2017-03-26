@@ -193,7 +193,7 @@ Counter_P: {
     required: 'Please fillin user_logged_in',     
     trim: true
   },
-  user_logged_emailid: {
+  user_logged_email: {
     type: String,
     // default: 'default'
     required : true,    
