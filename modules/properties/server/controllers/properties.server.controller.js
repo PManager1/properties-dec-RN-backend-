@@ -187,7 +187,7 @@ exports.singlePropertySearchAPI = function(req, res, next, id) {
 exports.propertiesSearchAPI = function(req, res, next, id) {
   console.log( '186-psc -- calling  propertiesSearchAPI',id); 
 
-  Property.find({"agent_name" : {$regex : ".*Brian*"}}).exec(function(err, properties) {
+  Property.find({"agent_name" : {$regex : ".*"+id+"*"}}).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
