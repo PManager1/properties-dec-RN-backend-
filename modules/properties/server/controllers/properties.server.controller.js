@@ -166,6 +166,7 @@ exports.propertiesListByToday = function(req, res, next, id) {
 
 exports.singlePropertySearchAPI = function(req, res, next, id) {
   console.log('164-psc - inside the singlePropertySearchAPI id=',id); 
+
   Property.find({"address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
@@ -180,10 +181,13 @@ exports.singlePropertySearchAPI = function(req, res, next, id) {
 
 
 
+// properteis SEARCH API  VIA MODAL 
 
-
+// db.properties.find({"agent_name" : {$regex : ".*Brian*"}});
 exports.propertiesSearchAPI = function(req, res, next, id) {
-  Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
+  console.log( '186-psc -- calling  propertiesSearchAPI',id); 
+
+  Property.find({"agent_name" : {$regex : ".*Brian*"}}).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
