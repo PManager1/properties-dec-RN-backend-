@@ -184,6 +184,8 @@ exports.singlePropertySearchAPI = function(req, res, next, id) {
 // properteis SEARCH API  VIA MODAL 
 
 // db.properties.find({"agent_name" : {$regex : ".*Brian*"}});
+
+// Property.find({"agent_name" : {$regex : ".*"+id+"*"}}, {"address" : {$regex : ".*"+id+"*"}}).exec(function(err, properties) {
 exports.propertiesSearchAPI = function(req, res, next, id) {
   console.log( '186-psc -- calling  propertiesSearchAPI',id); 
 
