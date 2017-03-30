@@ -73,7 +73,7 @@ var UserSchema = new Schema({
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your gmail password to send contract ']
   },    
-  usState: {
+  userState: {
     type: String,
     trim: true
   }, 
