@@ -1,4 +1,65 @@
+exports.propertiesListByUser
+
+use this service to return back the resultes, after getting the user's email in the 
+
+data passsed as $Post. 
+
+
+
+>  Make sure when i upload the data in teh mongodb,   i upload them into the specific user's cohort . 
+
+> Also change the search api  > Make sure that it searches in the propertiesListByUser
+
+
+
+alias ladd='mongoimport --db mean-dev --collection jp_ca@ymail.com --jsonArray --file '
+
+
+How do i make sure that all the cohorts have Seperate ids ?
+
+
+> CHNAGE >  make sure when i update the chnages in teh properties, it send the data to the exact cohort 
+that which the user is logged in..  
+
+
+> CHNAGE the above Cohort changes for the TODAY API ALSO. 
+
+
+============== DO  DO  DO   DO ==============
+
+When user signsup, it shoudl be logged in as that user , not the old user. 
+
+-----------
+> how to make the services secure ?
+anybody can call a service   exports.propertiesListByUser 
+How is the system checking if its called by that specific user ?
+
+Probably in the policies,   properties.server.policy.js 
+
+ or you can send the password in teh backend too, then make sure if its the right user by verifying the password. 
+ 
+
+-----------
+
+
+
+
+-----------
+
+
+
+-----------
+
+
+
+
+
+
+
+
+
 ====================================================
+
 Create Cohorts - 
 
 Ability for the users to search for properties - 
