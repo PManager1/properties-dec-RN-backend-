@@ -19,6 +19,25 @@ var smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 
 
+
+/**
+ * List of Properties
+ 
+exports.CohortPropertiesList = function(req, res) {
+  Property.find().sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(properties);
+    }
+  });
+};
+
+*/
+
+
 /**
  * Create a Property
  */
@@ -104,8 +123,64 @@ exports.list = function(req, res) {
 
 
 
+/**
+ *   Verify User
+ */
+
+
+var verifyUser = function (req, res, info) {
+  
+  console.log( ' checking   verify User');
+
+  var email = info; 
+  User.findOne({email: email }).sort('-created').populate('user', 'displayName').exec(function (err, user) {
+    
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+
+    else{
+    // console.log( '151- psc   users =', user);
+    // res.json(user);    
+    // return user; 
+    return true;
+    }
+
+return true;
+
+  });
+
+}
+
+
+/**
+ *   propertiesListByUser
+ */
+
+
 exports.propertiesListByUser = function(req, res, next, id) {
-  Property.find({user_logged_email: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+
+console.log( '128- PSC propertiesListByUser   id = ', id); 
+console.log( '130-psc  propertiesListByUser   req.body  = ', req.body); 
+console.log( '%%%%%%%%%%%%%%%%^^^^^^^^^^^^^%%%%%%%%%'); 
+  var username = req.body.username; 
+  var email = req.body.email; 
+
+
+/*
+var ret = verifyUser(req, res, username);
+
+console.log( '173-verifyUser(req, res, username) ret ', ret);
+
+if ( verifyUser(req, res, username) == 1 ) {
+  console.log(' 173- PSC after  IF  STATEMENT');
+
+
+
+
+ Property.find({user_logged_email: email }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -114,7 +189,79 @@ exports.propertiesListByUser = function(req, res, next, id) {
       res.jsonp(properties);
     }
   });
+
+}   //if
+
+*/
+
+
+
+async.waterfall([
+
+    function(callback){
+    // arg1 is equals 'a' and arg2 is 'b'
+    // Code c
+                  User.findOne({email: email }).sort('-created').populate('user', 'displayName').exec(function (err, user) {
+                  if (err) {
+                    callback(err,null); 
+                    return; 
+                  }
+                  callback(null, user);
+            }); //end User.findOne
+
+    // callback(null, user);
+  },
+
+  function (user, callback) {
+
+
+  var username = req.body.username; 
+  var email = req.body.email; 
+
+  console.log( ' username = ', username);
+  console.log( ' email = ', email);
+
+        Property.find({user_logged_email: email }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+                  if (err) {
+                    callback(err,null); 
+                    return; 
+                  }
+                  callback(null, properties);
+            }); //end User.findOne
+
+    // callback(null, properties);
+  },
+
+
+ ], 
+  function (err, result) {
+
+    if ( err ){
+      console.log( '240-  err = ', err);
+    }
+    console.log(' result = ', result);
+    res.jsonp(result);
+    // body...
+  }
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
+
+
+
+
 
 /**
  * Property middleware
@@ -173,7 +320,7 @@ exports.singlePropertySearchAPI = function(req, res, next, id) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      console.log( ' properties = ', properties);
+      // console.log( ' properties = ', properties);
       res.jsonp(properties);
     }
   });
@@ -269,7 +416,7 @@ console.log( '  typeof stringValue ho  ', typeof ho)
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      console.log('254-psc--FollowUp Date properties = ', properties);
+      // console.log('254-psc--FollowUp Date properties = ', properties);
       res.jsonp(properties);
     }
   });
