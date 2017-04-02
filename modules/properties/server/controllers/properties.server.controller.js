@@ -202,6 +202,8 @@ async.waterfall([
     if ( err ){
       console.log( '240-  err = ', err);
     }
+
+    console.log( '206-  results = ', result);
     res.jsonp(result);
   }
   )

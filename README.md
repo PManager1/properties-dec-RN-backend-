@@ -117,6 +117,30 @@ angular utils not being loaded via bower, its copied.
 its using angular-moment  not the plain old moment.js 
 
 
+================
+
+You can stop pesky eslint errors by modifying the 
+
+.eslintrc.json
+
+{
+  "env": { "es6": true, "node": true },
+  "extends": "eslint:recommended",
+  "rules": {
+    // "indent": ["error", 2],
+    // "linebreak-style": ["warn", "unix"],
+    // "quotes": ["error", "single"],
+    // "semi": ["error", "never"],
+    "valid-jsdoc": ["error"],
+    "no-console": "off"
+  }
+}
+
+
+
+
+
+
 
 
 
