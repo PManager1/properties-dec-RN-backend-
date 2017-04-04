@@ -721,6 +721,17 @@ console.log( '483---calling  sendEmailTemplate___');
 
 
 
+var Zillow  = require('node-zillow')
+var fs=require('fs');
+var Q=require('Q');
+
+// console.log( ' 728-PSC Zillow = ', Zillow);
+// console.log( ' fs = ', fs);
+// console.log( ' Q = ', Q);
+
+exports.grabCmpAPI = function(req, res, next, id) {
+  console.log('733-PSC  hi coming from  grabCmpAPI'); 
+}
 
 
 

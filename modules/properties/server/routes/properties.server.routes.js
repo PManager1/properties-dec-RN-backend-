@@ -68,6 +68,10 @@ module.exports = function(app) {
   .post(properties.sendEmailTemplate);
 
 
+// COMPS 
+  app.route('/api/grabCmpAPI/:propObj').all(propertiesPolicy.isAllowed)
+  .post(properties.sendEmailTemplate);
+
 
   // app.route('/api/forgoto').all(propertiesPolicy.isAllowed)
   // .post(properties.forgoto);
@@ -84,10 +88,10 @@ module.exports = function(app) {
   app.param('followUp', properties.FollowUpSearch);  
 //  EMAIL   
   app.param('user', properties.sendEmail);  
-
   app.param('distressListings', properties.SvcEmail_SendMeDistressedListings);  
-
-  app.param('etemplate', properties.sendEmailTemplate);  
+  app.param('etemplate', properties.sendEmailTemplate); 
+// Comps
+  app.param('propObj', properties.grabCmpAPI);  
 
 
 };
