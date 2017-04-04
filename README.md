@@ -4,7 +4,7 @@ either i can copy the lib foler to the new folder from the old one.
 or i can individually copy the files there. 
 
 
-
+install the wolliz-edon in packages. ( make sure youve all the packages. )
 
 
 ==========

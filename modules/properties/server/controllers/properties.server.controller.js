@@ -725,14 +725,88 @@ var Zillow  = require('node-zillow')
 var fs=require('fs');
 var Q=require('Q');
 
-// console.log( ' 728-PSC Zillow = ', Zillow);
-// console.log( ' fs = ', fs);
-// console.log( ' Q = ', Q);
+
+var zwsid = 'X1-ZWz1fq2lnurjez_2kpit';
+var zillow = new Zillow(zwsid);
+
 
 exports.grabCmpAPI = function(req, res, next, id) {
-  console.log('733-PSC  hi coming from  grabCmpAPI'); 
-}
+  console.log('733-PSC  hi coming from  grabCmpAPI id = ', id); 
 
+
+
+
+// to get the zip id. 
+var addressWithoutUpdates = {
+    address: "615 Bernal Ave",
+    citystatezip: '94085'
+  };
+
+// to get the comps. 
+  var grabZpid = function(query) {
+      // console.log( '34- calling first MEthod '); 
+      var deferred = Q.defer()
+      zillow.get('GetSearchResults', addressWithoutUpdates)
+          .then(function(jsonData) {
+              // console.log('211-S propertiesSearchAPI json Data = ', jsonData);
+              deferred.resolve(jsonData);
+          });
+      return deferred.promise;
+  }
+
+
+
+  var grabComps = function(query) {
+      console.log(' calling second MEthod query =', query);
+
+      var zpid = query.response.results.result[0].zpid[0];
+      console.log('34-   zpid   = ', zpid);
+      // console.log('54-   addressWithupdates = ', addressWithupdates);
+
+      var addressWithupdates = {};
+      addressWithupdates.zpid = zpid;
+      addressWithupdates.count = 25;
+
+      console.log(' 43- addressWithupdates', addressWithupdates);
+      // console.log(' 49- obj',obj);
+
+      var defer2 = Q.defer()
+      zillow.get('GetComps', addressWithupdates)
+          .then(function(jsonData) {
+              // console.log('211-S propertiesSearchAPI json Data = ', jsonData);
+              defer2.resolve(jsonData);
+          });
+      return defer2.promise;
+  }
+
+
+
+
+grabZpid().then(function(message, p) {
+        return grabComps(message);
+    })
+    .then(function(message) {
+        console.log('148-C  -  message =', message);
+
+        var jsonstringi = JSON.stringify(message);
+
+
+        console.log(' grabbing jsonstringi = ', jsonstringi);
+
+        // fs.writeFileSync('json/4-deepcomps.json', jsonstringi, { flag: 'w' });
+
+        var o = jsonstringi;
+        var cmp = {};
+        
+        cmp.propLat = o.response.properties.principal[0].address[0].latitude;
+        cmp.propLong = o.response.properties.principal[0].address[0].longitude;
+        cmp.cmpArr = o.response.properties.comparables[0].comp;
+
+    });
+
+
+
+}   //  END  grabCompAPI 
 
 
 
