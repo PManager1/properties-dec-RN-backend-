@@ -791,9 +791,15 @@ grabZpid().then(function(message, p) {
         var jsonstringi = JSON.stringify(message);
 
 
-        console.log(' grabbing jsonstringi = ', jsonstringi);
+        // console.log(' grabbing jsonstringi = ', jsonstringi);
 
         // fs.writeFileSync('json/4-deepcomps.json', jsonstringi, { flag: 'w' });
+
+        console.log('798-psc   res =', res);
+
+        res.jsonp(jsonstringi);
+
+        
 
         var o = jsonstringi;
         var cmp = {};
@@ -801,7 +807,14 @@ grabZpid().then(function(message, p) {
         cmp.propLat = o.response.properties.principal[0].address[0].latitude;
         cmp.propLong = o.response.properties.principal[0].address[0].longitude;
         cmp.cmpArr = o.response.properties.comparables[0].comp;
+        var co ="co";
 
+        console.log('806-psc   cmp =', cmp);
+
+        return  co;
+    })
+    .then(function(cmp) {
+        console.log('807-PCS    cmp =', cmp); 
     });
 
 
