@@ -771,7 +771,7 @@ var addressWithoutUpdates = {
       // console.log(' 49- obj',obj);
 
       var defer2 = Q.defer()
-      zillow.get('GetComps', addressWithupdates)
+      zillow.get('GetDeepComps', addressWithupdates)
           .then(function(jsonData) {
               // console.log('211-S propertiesSearchAPI json Data = ', jsonData);
               defer2.resolve(jsonData);
@@ -788,14 +788,36 @@ grabZpid().then(function(message, p) {
     .then(function(message) {
         console.log('148-C  -  message =', message);
 
+
+      console.log('799-psc   message.request.zpid =', message.request.zpid);
+
+      var backComps = {}; 
+    backComps.zpid = message.request.zpid; 
+  console.log('796-psc   backComps.zpid =', backComps.zpid);
+
+  
+        backComps.propLat = message.response.properties.principal[0].address[0].latitude;
+        backComps.propLong = message.response.properties.principal[0].address[0].longitude;
+        backComps.cmpArr = message.response.properties.comparables[0].comp;
+      
+      console.log('803 - backComps = ', backComps); 
+
+
+
+        res.jsonp(backComps);
+
+
+
+/*
+
         var jsonstringi = JSON.stringify(message);
-
-
+ 
         // console.log(' grabbing jsonstringi = ', jsonstringi);
 
         // fs.writeFileSync('json/4-deepcomps.json', jsonstringi, { flag: 'w' });
 
-        console.log('798-psc   res =', res);
+        // console.log('798-psc   res =', res);
+        console.log('799-psc   jsonstringi.request.zpid =', jsonstringi.request.zpid);
 
         res.jsonp(jsonstringi);
 
@@ -812,6 +834,8 @@ grabZpid().then(function(message, p) {
         console.log('806-psc   cmp =', cmp);
 
         return  co;
+*/
+
     })
     .then(function(cmp) {
         console.log('807-PCS    cmp =', cmp); 
