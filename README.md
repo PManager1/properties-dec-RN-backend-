@@ -80,8 +80,7 @@ if you need replace the gulpfile.js
 add capistrano files 
 ====================================
 
-
-
+node version = 6.4.0 
 
 
 ============
@@ -138,7 +137,12 @@ You can stop pesky eslint errors by modifying the
 
 
 
+==========
 
+google map api from 
+
+
+https://gist.github.com/kirschbaum/fcac2ff50f707dae75dc
 
 
 

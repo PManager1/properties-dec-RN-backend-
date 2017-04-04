@@ -172,10 +172,15 @@ async.waterfall([
 
     function(callback){
                   User.findOne({email: email }).sort('-created').populate('user', 'displayName').exec(function (err, user) {
-                  if (err) {
+                  if (err || user === null ) {
+                    console.log( ' sorry no user found with this ');
                     callback(err,null); 
                     return; 
+                        // return res.status(422).send({
+                        //     message: errorHandler.getErrorMessage(err)
+                        //   });
                   }
+                  console.log( ' usre found =', user);
                   callback(null, user);
             }); //end User.findOne
   },
@@ -200,10 +205,13 @@ async.waterfall([
  ], 
   function (err, result) {
     if ( err ){
-      console.log( '240-  err = ', err);
+      // console.log( '240-  err = ', err);
     }
-
-    console.log( '206-  results = ', result);
+    if( result === null ){  // idk if following works / is good
+                        return res.status(422).send({
+                            message: errorHandler.getErrorMessage(err)
+                          });
+    }
     res.jsonp(result);
   }
   )
