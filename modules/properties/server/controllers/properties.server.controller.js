@@ -801,44 +801,10 @@ grabZpid().then(function(message, p) {
         backComps.cmpArr = message.response.properties.comparables[0].comp;
       
       console.log('803 - backComps = ', backComps); 
-
-
+        // var 
 
         res.jsonp(backComps);
 
-
-
-/*
-
-        var jsonstringi = JSON.stringify(message);
- 
-        // console.log(' grabbing jsonstringi = ', jsonstringi);
-
-        // fs.writeFileSync('json/4-deepcomps.json', jsonstringi, { flag: 'w' });
-
-        // console.log('798-psc   res =', res);
-        console.log('799-psc   jsonstringi.request.zpid =', jsonstringi.request.zpid);
-
-        res.jsonp(jsonstringi);
-
-        
-
-        var o = jsonstringi;
-        var cmp = {};
-        
-        cmp.propLat = o.response.properties.principal[0].address[0].latitude;
-        cmp.propLong = o.response.properties.principal[0].address[0].longitude;
-        cmp.cmpArr = o.response.properties.comparables[0].comp;
-        var co ="co";
-
-        console.log('806-psc   cmp =', cmp);
-
-        return  co;
-*/
-
-    })
-    .then(function(cmp) {
-        console.log('807-PCS    cmp =', cmp); 
     });
 
 
