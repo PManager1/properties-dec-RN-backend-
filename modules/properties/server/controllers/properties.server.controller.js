@@ -757,21 +757,21 @@ console.log( ' 741-PSC   addressWithoutUpdates =', addressWithoutUpdates);
 function _function1 (req) {
   
     return function (callback) {
-      console.log( ' insdie fun 1 ');
-        var something = req.body;
-        callback (null, something);
+      console.log( ' insdie fun 1  addressWithoutUpdates', addressWithoutUpdates);
+        // var something = req.body;
+        callback (null, addressWithoutUpdates);
    }
 }
 
-function _function2(something, callback) {
-    console.log( ' insdie fun 2 ');
+function _function2(addressWithoutUpdates, callback) {
+    console.log( ' inside fun 2   addressWithoutUpdates=', addressWithoutUpdates);
         var somethingelse = function () {  };
         // callback (err, somethingelse);
         callback (null, somethingelse);
 }
 
 function _function3(something, callback) {
-    console.log( ' insdie fun 3 ');
+    console.log( ' inside fun 3 ');
         var somethingmore = function () { };
         // callback (err, somethingmore);
         callback (null, somethingmore);        
