@@ -13,7 +13,9 @@ var path = require('path'),
   User = mongoose.model('User'),
   nodemailer = require('nodemailer'),
   async = require('async'),
-  crypto = require('crypto');
+  crypto = require('crypto'),
+  chalk = require('chalk');
+    
 
 var smtpTransport = nodemailer.createTransport(config.mailer.options);
 
@@ -759,22 +761,41 @@ function _function1 (req) {
     return function (callback) {
       console.log( ' insdie fun 1  addressWithoutUpdates', addressWithoutUpdates);
         // var something = req.body;
-        callback (null, addressWithoutUpdates);
+        callback (null, req);
    }
 }
 
-function _function2(addressWithoutUpdates, callback) {
-    console.log( ' inside fun 2   addressWithoutUpdates=', addressWithoutUpdates);
-        var somethingelse = function () {  };
-        // callback (err, somethingelse);
+function _function2(req, callback) {
+    
+var addressWithoutUpdates = {};
+addressWithoutUpdates.mid = ' ';
+console.log('772-PSC --- req.body = ', req.body)
+addressWithoutUpdates.address = req.body.street_short + addressWithoutUpdates.mid + req.body.address_short + addressWithoutUpdates.mid + req.body.city;
+addressWithoutUpdates.citystatezip = req.body.postal;
+
+console.log('Inside fun 2   addressWithoutUpdates =', addressWithoutUpdates);
+      // var zpid = addressWithoutUpdates.response.results.result[0].zpid[0];
+     
+        var somethingelse = zillow.get('GetSearchResults', addressWithoutUpdates).then(function (firstRes) {
+            
+              console.log('781-S  propertiesSearchAPI firstRes = ', firstRes);
+          });
+
         callback (null, somethingelse);
 }
 
 function _function3(something, callback) {
-    console.log( ' inside fun 3 ');
+    console.log( ' inside fun 3,  param something ', something);
+     // var zpid = something.response.results.result[0].zpid[0];
+     // var zpid = something.response;
+      // console.log('34-   zpid   = ', zpid);
+return something; 
+
+     chalk.blue('Hello')
+    
         var somethingmore = function () { };
-        // callback (err, somethingmore);
-        callback (null, somethingmore);        
+        // callback (null, somethingmore);
+        callback (null, something);        
 }
 
 
@@ -784,11 +805,12 @@ function _function3(something, callback) {
    async.waterfall([
         _function1(req),
         _function2,
-        _function3,
+        // _function3,
     ], function (error, success) {
-        if (error) { alert('Something is wrong!'); }
+        if (error) { console.log('Something is wrong!'); }
         // return alert('Done!');
         console.log(' Done!');
+        console.log('success  ! = ', success);
     });
 
 
