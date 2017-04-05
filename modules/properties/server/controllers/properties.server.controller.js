@@ -725,6 +725,8 @@ var Zillow  = require('node-zillow')
 var fs=require('fs');
 var Q=require('Q');
 
+var Promise = require('promise');
+
 
 var zwsid = 'X1-ZWz1fq2lnurjez_2kpit';
 var zillow = new Zillow(zwsid);
@@ -751,80 +753,47 @@ addressWithoutUpdates.citystatezip = req.body.postal;
 
 console.log( ' 741-PSC   addressWithoutUpdates =', addressWithoutUpdates); 
 
-// debugger; 
-// to get the zip id. 
 
-/*
-var addressWithoutUpdates = {
-    address: "615 Bernal Ave",
-    citystatezip: '94085'
-  };
-*/
-
-// to get the comps. 
-  var grabZpid = function(query) {
-      // console.log( '34- calling first MEthod '); 
-      var deferred = Q.defer()
-      zillow.get('GetSearchResults', addressWithoutUpdates)
-          .then(function(jsonData) {
-              // console.log('211-S propertiesSearchAPI json Data = ', jsonData);
-              deferred.resolve(jsonData);
-          });
-      return deferred.promise;
-  }
-
-
-
-  var grabComps = function(query) {
-      console.log(' calling second MEthod query =', query);
-
-      var zpid = query.response.results.result[0].zpid[0];
-      console.log('34-   zpid   = ', zpid);
-      // console.log('54-   addressWithupdates = ', addressWithupdates);
-
-      var addressWithupdates = {};
-      addressWithupdates.zpid = zpid;
-      addressWithupdates.count = 25;
-
-      console.log(' 43- addressWithupdates', addressWithupdates);
-      // console.log(' 49- obj',obj);
-
-      var defer2 = Q.defer()
-      zillow.get('GetDeepComps', addressWithupdates)
-          .then(function(jsonData) {
-              // console.log('211-S propertiesSearchAPI json Data = ', jsonData);
-              defer2.resolve(jsonData);
-          });
-      return defer2.promise;
-  }
-
-
-
-
-grabZpid().then(function(message, p) {
-        return grabComps(message);
-    })
-    .then(function(message) {
-        console.log('148-C  -  message =', message);
-
-
-      console.log('799-psc   message.request.zpid =', message.request.zpid);
-
-      var backComps = {}; 
-    backComps.zpid = message.request.zpid; 
-  console.log('796-psc   backComps.zpid =', backComps.zpid);
-
+function _function1 (req) {
   
-        backComps.propLat = message.response.properties.principal[0].address[0].latitude;
-        backComps.propLong = message.response.properties.principal[0].address[0].longitude;
-        backComps.cmpArr = message.response.properties.comparables[0].comp;
-      
-      console.log('803 - backComps = ', backComps); 
-        // var 
+    return function (callback) {
+      console.log( ' insdie fun 1 ');
+        var something = req.body;
+        callback (null, something);
+   }
+}
 
-        res.jsonp(backComps);
+function _function2(something, callback) {
+    console.log( ' insdie fun 2 ');
+        var somethingelse = function () {  };
+        // callback (err, somethingelse);
+        callback (null, somethingelse);
+}
 
+function _function3(something, callback) {
+    console.log( ' insdie fun 3 ');
+        var somethingmore = function () { };
+        // callback (err, somethingmore);
+        callback (null, somethingmore);        
+}
+
+
+
+
+
+   async.waterfall([
+        _function1(req),
+        _function2,
+        _function3,
+    ], function (error, success) {
+        if (error) { alert('Something is wrong!'); }
+        // return alert('Done!');
+        console.log(' Done!');
     });
+
+
+
+
 
 
 
