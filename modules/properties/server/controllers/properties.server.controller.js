@@ -731,16 +731,35 @@ var zillow = new Zillow(zwsid);
 
 
 exports.grabCmpAPI = function(req, res, next, id) {
-  console.log('733-PSC  hi coming from  grabCmpAPI id = ', id); 
+console.log('734-PSC  hi coming from  grabCmpAPI placeDetails id = ', id); 
+
+
+console.log('736-PSC  hi coming from  req.body= ', req.body); 
+console.log('736-PSC  BEFORE req.body.street_short = ', req.body.street_short); 
 
 
 
 
+
+var addressWithoutUpdates = {};
+addressWithoutUpdates.mid = ' ';
+
+addressWithoutUpdates.address = req.body.street_short + addressWithoutUpdates.mid + req.body.address_short + addressWithoutUpdates.mid + req.body.city;
+// addressWithoutUpdates.address = "615 Bernal Ave, Sunnyvale";
+addressWithoutUpdates.citystatezip = req.body.postal;
+// addressWithoutUpdates.citystatezip = "94085";
+
+console.log( ' 741-PSC   addressWithoutUpdates =', addressWithoutUpdates); 
+
+// debugger; 
 // to get the zip id. 
+
+/*
 var addressWithoutUpdates = {
     address: "615 Bernal Ave",
     citystatezip: '94085'
   };
+*/
 
 // to get the comps. 
   var grabZpid = function(query) {
