@@ -780,34 +780,32 @@ console.log('Inside fun 2   addressWithoutUpdates =', addressWithoutUpdates);
             
               console.log('781-S  propertiesSearchAPI firstRes = ', firstRes);
               console.log('781-S  propertiesSearchAPI firstRes zip = ', firstRes.response.results.result[0].zpid);
-              return firstRes.response.results.result[0].zpid;
+              // return firstRes.response.results.result[0].zpid;
+              var zip =  firstRes.response.results.result[0].zpid;
+        callback (null, zip);
           });
 
-        callback (null, somethingelse);
+       
 }
 
 function _function3(something, callback) {
     console.log( ' inside fun 3,  param something ', something);
 
-debugger; 
-    // var stringi = JSON.stringify(something);
 
-    console.log( '792-PSC  stringi', something); 
-     // var zpid = something.request.response.results.result;
-     // var zpid = something.response;
-      console.log('34-   zpid   = ', something.response.results.result[0].zpid);
-      // debugger;
+      var addressWithupdates = {};
+      addressWithupdates.zpid = something;
+      addressWithupdates.count = 25;
 
-return something; 
 
-     chalk.blue('Hello')
-    
-        var somethingmore = function () { };
-        // callback (null, somethingmore);
-        callback (null, something);        
+
+        var somethingelse = zillow.get('GetDeepComps', addressWithupdates).then(function (secondRes) {
+            
+              console.log('781-S  propertiesSearchAPI firstRes = ', secondRes);
+
+               callback (null, secondRes);
+          });
+
 }
-
-
 
 
 
@@ -815,11 +813,29 @@ return something;
         _function1(req),
         _function2,
         _function3,
-    ], function (error, success) {
+    ], function (error, message) {
         if (error) { console.log('Something is wrong!'); }
         // return alert('Done!');
         console.log(' Done!');
-        console.log('success  ! = ', success);
+        console.log('success  ! = ', message);
+
+
+           var backComps = {}; 
+            backComps.zpid = message.request.zpid; 
+          console.log('796-psc   backComps.zpid =', backComps.zpid);
+
+          
+                backComps.propLat = message.response.properties.principal[0].address[0].latitude;
+                backComps.propLong = message.response.properties.principal[0].address[0].longitude;
+                backComps.cmpArr = message.response.properties.comparables[0].comp;
+              
+              console.log('803 - backComps = ', backComps); 
+                // var 
+
+                res.jsonp(backComps);
+
+
+
     });
 
 
