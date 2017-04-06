@@ -779,6 +779,8 @@ console.log('Inside fun 2   addressWithoutUpdates =', addressWithoutUpdates);
         var somethingelse = zillow.get('GetSearchResults', addressWithoutUpdates).then(function (firstRes) {
             
               console.log('781-S  propertiesSearchAPI firstRes = ', firstRes);
+              console.log('781-S  propertiesSearchAPI firstRes zip = ', firstRes.response.results.result[0].zpid);
+              return firstRes.response.results.result[0].zpid;
           });
 
         callback (null, somethingelse);
@@ -786,9 +788,16 @@ console.log('Inside fun 2   addressWithoutUpdates =', addressWithoutUpdates);
 
 function _function3(something, callback) {
     console.log( ' inside fun 3,  param something ', something);
-     // var zpid = something.response.results.result[0].zpid[0];
+
+debugger; 
+    // var stringi = JSON.stringify(something);
+
+    console.log( '792-PSC  stringi', something); 
+     // var zpid = something.request.response.results.result;
      // var zpid = something.response;
-      // console.log('34-   zpid   = ', zpid);
+      console.log('34-   zpid   = ', something.response.results.result[0].zpid);
+      // debugger;
+
 return something; 
 
      chalk.blue('Hello')
@@ -805,7 +814,7 @@ return something;
    async.waterfall([
         _function1(req),
         _function2,
-        // _function3,
+        _function3,
     ], function (error, success) {
         if (error) { console.log('Something is wrong!'); }
         // return alert('Done!');
