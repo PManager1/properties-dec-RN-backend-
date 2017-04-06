@@ -817,25 +817,16 @@ console.log( ' zip = ', zipCode);
 
 
 var addressWithoutUpdates = {};
-// addressWithoutUpdates.mid = ' ';
-// console.log('772-PSC --- req.body = ', req.body)
-// addressWithoutUpdates.address = req.body.street_short + addressWithoutUpdates.mid + req.body.address_short + addressWithoutUpdates.mid + req.body.city;
 addressWithoutUpdates.address = Addrr; 
 addressWithoutUpdates.citystatezip = zipCode;
-
 addressWithoutUpdates.formatted_address = req.body.formatted_address;
 
-
-
 console.log('830-PSC addressWithoutUpdates= ', addressWithoutUpdates); 
-
- // debugger; 
 
         var somethingelse = zillow.get('GetSearchResults', addressWithoutUpdates).then(function (firstRes) {
             
               console.log('781-S  propertiesSearchAPI firstRes = ', firstRes);
               console.log('781-S  propertiesSearchAPI firstRes zip = ', firstRes.response.results.result[0].zpid);
-              // return firstRes.response.results.result[0].zpid;
               var zip =  firstRes.response.results.result[0].zpid;
         callback (null, zip);
           });
