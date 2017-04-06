@@ -725,9 +725,7 @@ console.log( '483---calling  sendEmailTemplate___');
 
 var Zillow  = require('node-zillow')
 var fs=require('fs');
-var Q=require('Q');
-
-var Promise = require('promise');
+// var Promise = require('promise');
 
 
 var zwsid = 'X1-ZWz1fq2lnurjez_2kpit';
