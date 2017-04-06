@@ -771,9 +771,59 @@ console.log('772-PSC --- req.body = ', req.body)
 addressWithoutUpdates.address = req.body.street_short + addressWithoutUpdates.mid + req.body.address_short + addressWithoutUpdates.mid + req.body.city;
 addressWithoutUpdates.citystatezip = req.body.postal;
 
+addressWithoutUpdates.formatted_address = req.body.formatted_address;
+
+
+
+
+
+// addressWithoutUpdates.new_CityStateZip = ;
+
 console.log('Inside fun 2   addressWithoutUpdates =', addressWithoutUpdates);
       // var zpid = addressWithoutUpdates.response.results.result[0].zpid[0];
-     
+ console.log('Inside fun 2   req.body =', req.body);
+
+
+
+
+
+// new 
+var a = req.body.formatted_address; 
+console.log( ' 781-PSC   a =', a); 
+
+
+var split_formatted_address = a.split(',');
+console.log(' split_formatted_address =', split_formatted_address); 
+
+var address = split_formatted_address[0]; 
+console.log( '1962-C address = ', address);
+// grab the rest of the string from the a. 
+
+var City = split_formatted_address[1]; 
+console.log( 'City= ', City); 
+
+var StateStr = split_formatted_address[2]; 
+console.log( 'StateStr= ', StateStr); 
+
+var stateSplit = StateStr.match(/[a-zA-Z]+|[0-9]+/g)
+console.log( 'stateSplit= ', stateSplit); 
+
+var State = stateSplit[0];
+console.log( ' STate = ', State); 
+
+var zip = stateSplit[1];
+console.log( ' zip = ', zip); 
+
+var Addrr = address +','+ City; 
+console.log( '1987-  adder  = ', adder );
+
+var zip = stateSplit[1];
+console.log( ' zip = ', zip);
+ 
+// new 
+
+ debugger; 
+
         var somethingelse = zillow.get('GetSearchResults', addressWithoutUpdates).then(function (firstRes) {
             
               console.log('781-S  propertiesSearchAPI firstRes = ', firstRes);
