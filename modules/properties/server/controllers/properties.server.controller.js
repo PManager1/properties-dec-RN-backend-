@@ -765,14 +765,6 @@ function _function1 (req) {
 
 function _function2(req, callback) {
     
-var addressWithoutUpdates = {};
-addressWithoutUpdates.mid = ' ';
-console.log('772-PSC --- req.body = ', req.body)
-addressWithoutUpdates.address = req.body.street_short + addressWithoutUpdates.mid + req.body.address_short + addressWithoutUpdates.mid + req.body.city;
-addressWithoutUpdates.citystatezip = req.body.postal;
-
-addressWithoutUpdates.formatted_address = req.body.formatted_address;
-
 
 
 
@@ -815,14 +807,29 @@ var zip = stateSplit[1];
 console.log( ' zip = ', zip); 
 
 var Addrr = address +','+ City; 
-console.log( '1987-  adder  = ', adder );
+console.log( '1987-  adder  = ', Addrr );
 
-var zip = stateSplit[1];
-console.log( ' zip = ', zip);
+var zipCode = stateSplit[1];
+console.log( ' zip = ', zipCode);
  
 // new 
 
- debugger; 
+
+
+var addressWithoutUpdates = {};
+// addressWithoutUpdates.mid = ' ';
+// console.log('772-PSC --- req.body = ', req.body)
+// addressWithoutUpdates.address = req.body.street_short + addressWithoutUpdates.mid + req.body.address_short + addressWithoutUpdates.mid + req.body.city;
+addressWithoutUpdates.address = Addrr; 
+addressWithoutUpdates.citystatezip = zipCode;
+
+addressWithoutUpdates.formatted_address = req.body.formatted_address;
+
+
+
+console.log('830-PSC addressWithoutUpdates= ', addressWithoutUpdates); 
+
+ // debugger; 
 
         var somethingelse = zillow.get('GetSearchResults', addressWithoutUpdates).then(function (firstRes) {
             
