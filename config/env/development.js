@@ -61,12 +61,12 @@ module.exports = {
     sandbox: true
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'MAILER_FROM',
+    from: process.env.MAILER_FROM || 'recherryapp@gmail.com',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'gmail',
+      service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
       auth: {
-        user: process.env.MAILER_EMAIL_ID || 'libertytrustgroup@gmail.com',
-        pass: process.env.MAILER_PASSWORD || 'sharereifax9'
+        user: process.env.MAILER_EMAIL_ID || 'recherryapp@gmail.com',
+        pass: process.env.MAILER_PASSWORD || 'Password9$'
       }
     }
   },
