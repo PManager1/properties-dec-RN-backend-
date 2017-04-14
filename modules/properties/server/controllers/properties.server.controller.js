@@ -44,6 +44,8 @@ exports.CohortPropertiesList = function(req, res) {
  * Create a Property
  */
 exports.create = function(req, res) {
+  console.log(' 47- PSC -  property . create');
+  debugger; 
   var property = new Property(req.body);
   property.user = req.user;
 
@@ -57,6 +59,29 @@ exports.create = function(req, res) {
     }
   });
 };
+
+
+
+exports.createProperty = function(req, res) {
+  console.log(' 47- PSC -  createProperty   req.body =', req.body);
+  // debugger; 
+  var property = new Property(req.body);
+  // property.user = req.user;
+
+// console.log(' 71- PSC -  createProperty   property =', property);
+  property.save(function(err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log(' 78- PSC-  property created', property);
+      res.jsonp(property);
+    }
+  });
+};
+
+
 
 /**
  * Show the current Property

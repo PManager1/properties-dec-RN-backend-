@@ -18,6 +18,13 @@ module.exports = function(app) {
   //   .post(properties.create);
 
 
+  app.route('/api/Property/:newProperty').all(propertiesPolicy.isAllowed)
+    .post(properties.createProperty);
+
+  app.param('newProperty', properties.createProperty);
+
+
+
   app.route('/api/propertiesListByUser/:userId').all(propertiesPolicy.isAllowed)
     .get(properties.propertiesListByUser)
     .post(properties.create);
@@ -77,8 +84,11 @@ module.exports = function(app) {
   // .post(properties.forgoto);
 
 
+
+
   // Finish by binding the Property middleware
   app.param('propertyId', properties.propertyByID);
+
   app.param('userId', properties.propertiesListByUser);  
   app.param('date', properties.propertiesListByToday);  
   app.param('Searchquery', properties.propertiesSearchAPI);  
