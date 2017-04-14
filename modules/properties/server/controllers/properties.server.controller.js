@@ -173,7 +173,8 @@ console.log( '%%%%%%%%%%%%%%%%^^^^^^^^^^^^^%%%%%%%%%');
 async.waterfall([
 
     function(callback){
-                  User.findOne({email: email }).sort('-created').populate('user', 'displayName').exec(function (err, user) {
+      console.log(' 176-C =  inside first waterfall fun  id =', id);
+                  User.findOne({email: id }).sort('-created').populate('user', 'displayName').exec(function (err, user) {
                   if (err || user === null ) {
                     console.log( ' sorry no user found with this ');
                     callback(err,null); 
@@ -191,10 +192,10 @@ async.waterfall([
         var username = req.body.username; 
         var email = req.body.email; 
 
-        console.log( ' username = ', username);
-        console.log( ' email = ', email);
+        console.log( ' inside third waterfal fun  = ', username);
+        console.log( ' 196-C inside third waterfal fun => id = ', id);
 
-              Property.find({user_logged_email: email }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
+              Property.find({user_logged_email: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
                         if (err) {
                           callback(err,null); 
                           return; 
@@ -214,6 +215,7 @@ async.waterfall([
                             message: errorHandler.getErrorMessage(err)
                           });
     }
+    console.log( '217-PSC properties = ', result);
     res.jsonp(result);
   }
   )
