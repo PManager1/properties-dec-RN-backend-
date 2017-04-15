@@ -350,10 +350,9 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 
 exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
 
-  console.log(chalk.white('354-PSC - - Environment:  inside  Later_Today_P_prioritySearch  '));
+  console.log(chalk.white('354-PSC - - Environment:  inside  Later_Today_P_prioritySearch  id=',id));
 
   console.log(chalk.white('364-PSC - - req.body.username ', req.body.username));
-
 
 
   Property.find({ Later_Today_P : 'true', user_logged_email : req.body.username }).exec(function(err, properties) {
