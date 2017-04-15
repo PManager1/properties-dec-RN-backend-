@@ -350,6 +350,7 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 
 
 exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
+  
   Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {
 
     if (err) {
@@ -367,7 +368,7 @@ exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
 
 
 exports.queryPrioritySearch = function(req, res, next, id) {
-console.log( '192- PSC  id = ', id);
+console.log( '192- PSC   queryPrioritySearch id = ', id);
 console.log( ' queryPrioritySearch query_P  req.params  = ', req.params);
 
 
@@ -396,20 +397,12 @@ console.log('224-psc FollowUpSearch-API  id = ', id);
 
 var ho = id.toString();
 
-console.log('229- PSC  ho = ', ho);
-console.log( '  typeof stringValue ho  ', typeof ho)
+// console.log('229- PSC  ho = ', ho);
+// console.log( '  typeof stringValue ho  ', typeof ho)
 
+// console.log('403-psc FollowUpSearch-API  req.params = ', req.params);
+// console.log('403-psc FollowUpSearch-API  req.body = ', req.body);
 
-console.log('403-psc FollowUpSearch-API  req.params = ', req.params);
-console.log('403-psc FollowUpSearch-API  req.body = ', req.body);
-
-
-
-console.log(chalk.green('Environment:     ' + 'process.env.NODE_ENV'));
-
-//  working 
-   // Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {
-// user_logged_email usernameOrEmail
   Property.find({ FollowUp_Call_Date : ho, user_logged_email : req.body.usernameOrEmail }).exec(function(err, properties) {    
 
     if (err) {
