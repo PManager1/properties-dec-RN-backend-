@@ -15,7 +15,7 @@ var path = require('path'),
   async = require('async'),
   crypto = require('crypto'),
   chalk = require('chalk');
-    
+
 
 var smtpTransport = nodemailer.createTransport(config.mailer.options);
 
@@ -24,7 +24,7 @@ var smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 /**
  * List of Properties
- 
+
 exports.CohortPropertiesList = function(req, res) {
   Property.find().sort('-created').populate('user', 'displayName').exec(function(err, properties) {
     if (err) {
@@ -45,7 +45,7 @@ exports.CohortPropertiesList = function(req, res) {
  */
 exports.create = function(req, res) {
   console.log(' 47- PSC -  property . create');
-  debugger; 
+  debugger;
   var property = new Property(req.body);
   property.user = req.user;
 
@@ -64,8 +64,8 @@ exports.create = function(req, res) {
 
 exports.createProperty = function(req, res) {
   console.log(' 47- PSC -  createProperty   req.body =', req.body);
-  // debugger; 
-  
+  // debugger;
+
   var property = new Property(req.body);
 
   property.user_logged_email = "libertytrustgroupllc@gmail.com";
@@ -161,12 +161,12 @@ exports.list = function(req, res) {
 
 
 var verifyUser = function (req, res, info) {
-  
+
   console.log( ' checking   verify User');
 
-  var email = info; 
+  var email = info;
   User.findOne({email: email }).sort('-created').populate('user', 'displayName').exec(function (err, user) {
-    
+
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -175,8 +175,8 @@ var verifyUser = function (req, res, info) {
 
     else{
     // console.log( '151- psc   users =', user);
-    // res.json(user);    
-    // return user; 
+    // res.json(user);
+    // return user;
     return true;
     }
 
@@ -194,48 +194,48 @@ return true;
 
 exports.propertiesListByUser = function(req, res, next, id) {
 
-console.log( '128- PSC propertiesListByUser   id = ', id); 
-console.log( '130-psc  propertiesListByUser   req.body  = ', req.body); 
-console.log( '%%%%%%%%%%%%%%%%^^^^^^^^^^^^^%%%%%%%%%'); 
-  var username = req.body.username; 
-  var email = req.body.email; 
+// console.log( '128- PSC propertiesListByUser   id = ', id);
+// console.log( '130-psc  propertiesListByUser   req.body  = ', req.body);
+// console.log( '%%%%%%%%%%%%%%%%^^^^^^^^^^^^^%%%%%%%%%');
+  var username = req.body.username;
+  var email = req.body.email;
 
 async.waterfall([
 
     function(callback){
-      console.log(' 176-C =  inside first waterfall fun  id =', id);
+      // console.log(' 176-C =  inside first waterfall fun  id =', id);
                   User.findOne({email: id }).sort('-created').populate('user', 'displayName').exec(function (err, user) {
                   if (err || user === null ) {
                     console.log( ' sorry no user found with this ');
-                    callback(err,null); 
-                    return; 
+                    callback(err,null);
+                    return;
                         // return res.status(422).send({
                         //     message: errorHandler.getErrorMessage(err)
                         //   });
                   }
-                  console.log( ' usre found =', user);
+                  // console.log( ' user found =', user);
                   callback(null, user);
             }); //end User.findOne
   },
 
   function (user, callback) {
-        var username = req.body.username; 
-        var email = req.body.email; 
+        var username = req.body.username;
+        var email = req.body.email;
 
         console.log( ' inside third waterfal fun  = ', username);
         console.log( ' 196-C inside third waterfal fun => id = ', id);
 
               Property.find({user_logged_email: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
                         if (err) {
-                          callback(err,null); 
-                          return; 
+                          callback(err,null);
+                          return;
                         }
                         callback(null, properties);
-                  }); 
+                  });
         },
 
 
- ], 
+ ],
   function (err, result) {
     if ( err ){
       // console.log( '240-  err = ', err);
@@ -285,11 +285,14 @@ exports.propertyByID = function(req, res, next, id) {
 // Property.find({ next_call_Date: {$regex : id}}).exec(function(err, properties) {
   // Property.find({user_logged_in: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
 
-    // user_logged_email: id 
+    // user_logged_email: id
     // IT HAS TO SEND USER_LOGGED_EMAIL IN BACKEND to get data back
 
 exports.propertiesListByToday = function(req, res, next, id) {
-  console.log( '148--- propertiesListByToday id = ', id); 
+  
+  console.log(chalk.green('148--- propertiesListByToday id:' + id));
+
+  // debugger;
   // Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
   Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
     if (err) {
@@ -305,7 +308,7 @@ exports.propertiesListByToday = function(req, res, next, id) {
 
 
 exports.singlePropertySearchAPI = function(req, res, next, id) {
-  console.log('164-psc - inside the singlePropertySearchAPI id=',id); 
+  console.log('164-psc - inside the singlePropertySearchAPI id=',id);
 
   Property.find({"address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {
     if (err) {
@@ -321,16 +324,16 @@ exports.singlePropertySearchAPI = function(req, res, next, id) {
 
 
 
-// properteis SEARCH API  VIA MODAL 
+// properteis SEARCH API  VIA MODAL
 
 
 
 exports.propertiesSearchAPI = function(req, res, next, id) {
-  console.log( '186-psc -- calling  propertiesSearchAPI',id); 
+  console.log( '186-psc -- calling  propertiesSearchAPI',id);
 
   // Property.find({"agent_name" : {$regex : ".*"+id+"*"}}).exec(function(err, properties) {
 
-  Property.find( { $or: [ {"agent_name" : {$regex : ".*"+id+"*"}}, {"address" : {$regex : ".*"+id+"*"}} ] }  ).exec(function(err, properties) {    
+  Property.find( { $or: [ {"agent_name" : {$regex : ".*"+id+"*"}}, {"address" : {$regex : ".*"+id+"*"}} ] }  ).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -342,8 +345,8 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 };
 
 
-exports.Later_Today_P_prioritySearch = function(req, res, next, id) {  
-  Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {  
+exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
+  Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {
 
     if (err) {
       // console.log( ' err =', err);
@@ -351,7 +354,7 @@ exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      // console.log( ' properties =', properties);      
+      // console.log( ' properties =', properties);
       res.jsonp(properties);
     }
   });
@@ -359,23 +362,23 @@ exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
 
 
 
-exports.queryPrioritySearch = function(req, res, next, id) { 
-console.log( '192- PSC  id = ', id); 
-console.log( ' queryPrioritySearch query_P  req.params  = ', req.params); 
+exports.queryPrioritySearch = function(req, res, next, id) {
+console.log( '192- PSC  id = ', id);
+console.log( ' queryPrioritySearch query_P  req.params  = ', req.params);
 
-var id_2  = id; 
+var id_2  = id;
 var dynamicId={};
 dynamicId[id_2]=true;
 
-Property.find(dynamicId).exec(function(err, properties) { 
+Property.find(dynamicId).exec(function(err, properties) {
 // Property.find(Left_VM_P).exec(function(err, properties) {  //works
 // Property.find({ Left_VM_P : true }).exec(function(err, properties) {  //works
-  // Property.find( { $where: "this.Left_VM_P == true" } ).exec(function(err, properties) {     
-    if (err) {   
+  // Property.find( { $where: "this.Left_VM_P == true" } ).exec(function(err, properties) {
+    if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else { 
+    } else {
       res.jsonp(properties);
     }
   });
@@ -385,22 +388,22 @@ Property.find(dynamicId).exec(function(err, properties) {
 exports.FollowUpSearch = function(req, res, next, id) {
 
 console.log('224-psc FollowUpSearch-API  id = ', id);
-// var today = new Date(); 
+// var today = new Date();
 
-var ho = id.toString(); 
+var ho = id.toString();
 
-console.log('229- PSC  ho = ', ho); 
+console.log('229- PSC  ho = ', ho);
 console.log( '  typeof stringValue ho  ', typeof ho)
 
 
 
 // db.properties.find({"FollowUp_Call_Date" : {$gt: '2017-03-12T'}}).pretty();
 
-   // Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {  
+   // Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {
 
-   // Property.find({ "FollowUp_Call_Date": {$gt: '2017-03-22'} }).exec(function(err, properties) {  
+   // Property.find({ "FollowUp_Call_Date": {$gt: '2017-03-22'} }).exec(function(err, properties) {
 
-   Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {  
+   Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {
 
 
     if (err) {
@@ -430,10 +433,10 @@ exports.sendEmail = function(req, res, next, id) {
         });
 
         function myFirstFunction(callback) {
-                              console.log( ' myFirstFunction'); 
+                              console.log( ' myFirstFunction');
 
-             Property.find({"address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {  
-             // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {                
+             Property.find({"address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {
+             // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {
                 if (err) {
                   // console.log(err);
                   return res.status(400).send({
@@ -442,32 +445,32 @@ exports.sendEmail = function(req, res, next, id) {
                 } else {
                   // console.log('properties = ', properties);
                   // res.jsonp(properties);
-                  
-                  callback(null, properties, 'two');  
-                }
-              });                  
 
-            
+                  callback(null, properties, 'two');
+                }
+              });
+
+
         }
         function mySecondFunction(properties, arg2, callback) {
             // arg1 now equals 'one' and arg2 now equals 'two'
-          console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
-          // console.log( ' my-2-Function arg2 =', arg2);      
-    
-          // console.log('282- psc --- mySecondFunction  properties = ', properties); 
+          console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);
+          // console.log( ' my-2-Function arg2 =', arg2);
+
+          // console.log('282- psc --- mySecondFunction  properties = ', properties);
           var httpTransport = 'http://';
           if (config.secure && config.secure.ssl === true) {
               httpTransport = 'https://';
           }
           var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
-          
-          // console.log( '288-psc  baseUrl = ', baseUrl); 
+
+          // console.log( '288-psc  baseUrl = ', baseUrl);
 
           res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
               // name: properties[0].agent_name,
-              name: properties[0].agent_name,              
+              name: properties[0].agent_name,
               appName: properties[0].agent_name,
-              address: properties[0].address, 
+              address: properties[0].address,
               city: properties[0].city,
               url: 'baseUrl'
           }, function(err, emailHTML) {
@@ -486,26 +489,26 @@ exports.sendEmail = function(req, res, next, id) {
         }
 
         function myLastFunction(emailHTML, properties, callback) {
-            console.log( '347 - myLastFunction '); 
+            console.log( '347 - myLastFunction ');
       var mailOptions = {
         to: properties[0].email_address,  // REPLACE IT WITH THE  properties[0].email_address
         // to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
         from: config.mailer.from,
         subject: 'still available ?'+properties[0].address+'  '+properties[0].city,
-        address: properties[0].address,        
+        address: properties[0].address,
         html: emailHTML
       };
       smtpTransport.sendMail(mailOptions, function (err) {
 
         if (!err) {
-          console.log( ' 359- psc   = inside smtp Transport - i.e no error'); 
+          console.log( ' 359- psc   = inside smtp Transport - i.e no error');
         // return res.send();
        return   res.send({
             message: 'Email sent to => '+properties[0].agent_name
           });
 
         } else {
-          console.log( ' 366- psc   = inside Else with  ERR', err);        
+          console.log( ' 366- psc   = inside Else with  ERR', err);
           return res.status(400).send({
             message: 'Failure sending email'+properties[0].agent_name
           });
@@ -524,11 +527,11 @@ exports.sendEmail = function(req, res, next, id) {
 
 exports.SvcEmail_SendMeDistressedListings = function(req, res, next, id) {
 
-console.log( '359- S  calling   SvcEmail_SendMeDistressedListings   '); 
-console.log( ' 359 - id =  ', id); 
-console.log( ' 360 - req.body  =  ', req.body); 
+console.log( '359- S  calling   SvcEmail_SendMeDistressedListings   ');
+console.log( ' 359 - id =  ', id);
+console.log( ' 360 - req.body  =  ', req.body);
  // req.body.eSub  req.body.eBody
-console.log( '363---calling  sendEmailTemplate___'); 
+console.log( '363---calling  sendEmailTemplate___');
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
@@ -538,10 +541,10 @@ console.log( '363---calling  sendEmailTemplate___');
         });
 
         function myFirstFunction(callback) {
-                              console.log( ' myFirstFunction'); 
+                              console.log( ' myFirstFunction');
 
-             Property.find({"email_address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {  
-             // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {                
+             Property.find({"email_address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {
+             // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {
                 if (err) {
                   // console.log(err);
                   return res.status(400).send({
@@ -550,33 +553,33 @@ console.log( '363---calling  sendEmailTemplate___');
                 } else {
                   // console.log('properties = ', properties);
                   // res.jsonp(properties);
-                  
-                  callback(null, properties, 'two');  
+
+                  callback(null, properties, 'two');
                 }
               });
         }
 
         function mySecondFunction(properties, arg2, callback) {
             // arg1 now equals 'one' and arg2 now equals 'two'
-          console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
-          // console.log( ' my-2-Function arg2 =', arg2);      
-    
-          // console.log('282- psc --- mySecondFunction  properties = ', properties); 
+          console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);
+          // console.log( ' my-2-Function arg2 =', arg2);
+
+          // console.log('282- psc --- mySecondFunction  properties = ', properties);
           var httpTransport = 'http://';
           if (config.secure && config.secure.ssl === true) {
               httpTransport = 'https://';
           }
           var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
-          
-          // console.log( '288-psc  baseUrl = ', baseUrl); 
+
+          // console.log( '288-psc  baseUrl = ', baseUrl);
 
           // res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
           res.render(path.resolve('modules/users/server/templates/SendMeDistressedListing'), {
 
               // name: properties[0].agent_name,
-              name: properties[0].agent_name,              
+              name: properties[0].agent_name,
               appName: properties[0].agent_name,
-              address: properties[0].address, 
+              address: properties[0].address,
               city: properties[0].city,
               url: 'baseUrl'
           }, function(err, emailHTML) {
@@ -595,28 +598,28 @@ console.log( '363---calling  sendEmailTemplate___');
         }
 
         function myLastFunction(emailHTML, properties, callback) {
-            console.log( '347 - myLastFunction '); 
-      
+            console.log( '347 - myLastFunction ');
+
       var mailOptions = {
         to: properties[0].email_address,  // REPLACE IT WITH THE  properties[0].email_address
         // to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
         from: config.mailer.from,
         subject: 'we talked over the phone about'+properties[0].address+'  '+properties[0].city,
-        // subject: req.body.eSub;        
-        address: properties[0].address,        
+        // subject: req.body.eSub;
+        address: properties[0].address,
         html: emailHTML
       };
       smtpTransport.sendMail(mailOptions, function (err) {
 
         if (!err) {
-          console.log( ' 359- psc   = inside smtp Transport - i.e no error'); 
+          console.log( ' 359- psc   = inside smtp Transport - i.e no error');
         // return res.send();
        return   res.send({
             message: 'An email has been sent to the provided email with further instructions.'
           });
 
         } else {
-          console.log( ' 366- psc   = inside Else with  ERR', err);        
+          console.log( ' 366- psc   = inside Else with  ERR', err);
           return res.status(400).send({
             message: 'Failure sending email'
           });
@@ -646,11 +649,11 @@ console.log( '363---calling  sendEmailTemplate___');
 
 exports.sendEmailTemplate = function(req, res, next, id) {
 
-console.log( ' 359 - id =  ', id); 
-console.log( ' 360 - req.body  =  ', req.body); 
-console.log( ' 483 -  req.body.emailBody,  = ', req.body.eBody); 
+console.log( ' 359 - id =  ', id);
+console.log( ' 360 - req.body  =  ', req.body);
+console.log( ' 483 -  req.body.emailBody,  = ', req.body.eBody);
  // req.body.eSub  req.body.eBody
-console.log( '483---calling  sendEmailTemplate___'); 
+console.log( '483---calling  sendEmailTemplate___');
         async.waterfall([
             myFirstFunction,
             mySecondFunction,
@@ -660,10 +663,10 @@ console.log( '483---calling  sendEmailTemplate___');
         });
 
         function myFirstFunction(callback) {
-                              console.log( ' myFirstFunction'); 
+                              console.log( ' myFirstFunction');
 
-             Property.find({"email_address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {  
-             // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {                
+             Property.find({"email_address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {
+             // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {
                 if (err) {
                   // console.log(err);
                   return res.status(400).send({
@@ -672,35 +675,35 @@ console.log( '483---calling  sendEmailTemplate___');
                 } else {
                   // console.log('properties = ', properties);
                   // res.jsonp(properties);
-                  
-                  callback(null, properties, 'two');  
+
+                  callback(null, properties, 'two');
                 }
               });
         }
 
         function mySecondFunction(properties, arg2, callback) {
             // arg1 now equals 'one' and arg2 now equals 'two'
-          // console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);     
-          // console.log( ' my-2-Function arg2 =', arg2);      
-    
-          // console.log('282- psc --- mySecondFunction  properties = ', properties); 
+          // console.log( ' my-2-Function properties.agent_name =', properties[0].email_address);
+          // console.log( ' my-2-Function arg2 =', arg2);
+
+          // console.log('282- psc --- mySecondFunction  properties = ', properties);
           var httpTransport = 'http://';
           if (config.secure && config.secure.ssl === true) {
               httpTransport = 'https://';
           }
           var baseUrl = req.app.get('domain') || httpTransport + req.headers.host;
-          
-          // console.log( '288-psc  baseUrl = ', baseUrl); 
+
+          // console.log( '288-psc  baseUrl = ', baseUrl);
 
           // res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
           res.render(path.resolve('modules/users/server/templates/sendEmailTemplate'), {
-                                                                  
+
               // name: properties[0].agent_name,
 
               content: req.body.eBody,
-              name: properties[0].agent_name,              
+              name: properties[0].agent_name,
               appName: properties[0].agent_name,
-              address: properties[0].address, 
+              address: properties[0].address,
               city: properties[0].city,
               url: 'baseUrl'
           }, function(err, emailHTML) {
@@ -719,28 +722,28 @@ console.log( '483---calling  sendEmailTemplate___');
         }
 
         function myLastFunction(emailHTML, properties, callback) {
-            console.log( '347 - myLastFunction '); 
-      
+            console.log( '347 - myLastFunction ');
+
       var mailOptions = {
         to: properties[0].email_address,  // REPLACE IT WITH THE  properties[0].email_address
         // to: 'jpca999@gmail.com',  // REPLACE IT WITH THE  properties[0].email_address
         from: config.mailer.from,
         // subject: 'we talked over the phone about'+properties[0].address+'  '+properties[0].city,
-        subject: req.body.eSub,        
-        address: properties[0].address,        
+        subject: req.body.eSub,
+        address: properties[0].address,
         html: emailHTML
       };
       smtpTransport.sendMail(mailOptions, function (err) {
 
         if (!err) {
-          console.log( ' 565- psc   = inside smtp Transport - i.e no error'); 
+          console.log( ' 565- psc   = inside smtp Transport - i.e no error');
         // return res.send();
        return   res.send({
             message: 'An email has been sent to the provided email with further instructions.'
           });
 
         } else {
-          console.log( ' 366- psc   = inside Else with  ERR', err);        
+          console.log( ' 366- psc   = inside Else with  ERR', err);
           return res.status(400).send({
             message: 'Failure sending email'
           });
@@ -765,11 +768,11 @@ var zillow = new Zillow(zwsid);
 
 
 exports.grabCmpAPI = function(req, res, next, id) {
-console.log('734-PSC  hi coming from  grabCmpAPI placeDetails id = ', id); 
+console.log('734-PSC  hi coming from  grabCmpAPI placeDetails id = ', id);
 
 
-console.log('736-PSC  hi coming from  req.body= ', req.body); 
-console.log('736-PSC  BEFORE req.body.street_short = ', req.body.street_short); 
+console.log('736-PSC  hi coming from  req.body= ', req.body);
+console.log('736-PSC  BEFORE req.body.street_short = ', req.body.street_short);
 
 
 
@@ -783,11 +786,11 @@ addressWithoutUpdates.address = req.body.street_short + addressWithoutUpdates.mi
 addressWithoutUpdates.citystatezip = req.body.postal;
 // addressWithoutUpdates.citystatezip = "94085";
 
-console.log( ' 741-PSC   addressWithoutUpdates =', addressWithoutUpdates); 
+console.log( ' 741-PSC   addressWithoutUpdates =', addressWithoutUpdates);
 
 
 function _function1 (req) {
-  
+
     return function (callback) {
       console.log( ' insdie fun 1  addressWithoutUpdates', addressWithoutUpdates);
         // var something = req.body;
@@ -796,7 +799,7 @@ function _function1 (req) {
 }
 
 function _function2(req, callback) {
-    
+
 
 
 
@@ -811,59 +814,59 @@ console.log('Inside fun 2   addressWithoutUpdates =', addressWithoutUpdates);
 
 
 
-// new 
-var a = req.body.formatted_address; 
-console.log( ' 781-PSC   a =', a); 
+// new
+var a = req.body.formatted_address;
+console.log( ' 781-PSC   a =', a);
 
 
 var split_formatted_address = a.split(',');
-console.log(' split_formatted_address =', split_formatted_address); 
+console.log(' split_formatted_address =', split_formatted_address);
 
-var address = split_formatted_address[0]; 
+var address = split_formatted_address[0];
 console.log( '1962-C address = ', address);
-// grab the rest of the string from the a. 
+// grab the rest of the string from the a.
 
-var City = split_formatted_address[1]; 
-console.log( 'City= ', City); 
+var City = split_formatted_address[1];
+console.log( 'City= ', City);
 
-var StateStr = split_formatted_address[2]; 
-console.log( 'StateStr= ', StateStr); 
+var StateStr = split_formatted_address[2];
+console.log( 'StateStr= ', StateStr);
 
 var stateSplit = StateStr.match(/[a-zA-Z]+|[0-9]+/g)
-console.log( 'stateSplit= ', stateSplit); 
+console.log( 'stateSplit= ', stateSplit);
 
 var State = stateSplit[0];
-console.log( ' STate = ', State); 
+console.log( ' STate = ', State);
 
 var zip = stateSplit[1];
-console.log( ' zip = ', zip); 
+console.log( ' zip = ', zip);
 
-var Addrr = address +','+ City; 
+var Addrr = address +','+ City;
 console.log( '1987-  adder  = ', Addrr );
 
 var zipCode = stateSplit[1];
 console.log( ' zip = ', zipCode);
- 
-// new 
+
+// new
 
 
 
 var addressWithoutUpdates = {};
-addressWithoutUpdates.address = Addrr; 
+addressWithoutUpdates.address = Addrr;
 addressWithoutUpdates.citystatezip = zipCode;
 addressWithoutUpdates.formatted_address = req.body.formatted_address;
 
-console.log('830-PSC addressWithoutUpdates= ', addressWithoutUpdates); 
+console.log('830-PSC addressWithoutUpdates= ', addressWithoutUpdates);
 
         var somethingelse = zillow.get('GetSearchResults', addressWithoutUpdates).then(function (firstRes) {
-            
+
               console.log('781-S  propertiesSearchAPI firstRes = ', firstRes);
               console.log('781-S  propertiesSearchAPI firstRes zip = ', firstRes.response.results.result[0].zpid);
               var zip =  firstRes.response.results.result[0].zpid;
         callback (null, zip);
           });
 
-       
+
 }
 
 function _function3(something, callback) {
@@ -877,7 +880,7 @@ function _function3(something, callback) {
 
 
         var somethingelse = zillow.get('GetDeepComps', addressWithupdates).then(function (secondRes) {
-            
+
               console.log('781-S  propertiesSearchAPI firstRes = ', secondRes);
 
                callback (null, secondRes);
@@ -898,17 +901,17 @@ function _function3(something, callback) {
         console.log('success  ! = ', message);
 
 
-           var backComps = {}; 
-            backComps.zpid = message.request.zpid; 
+           var backComps = {};
+            backComps.zpid = message.request.zpid;
           console.log('796-psc   backComps.zpid =', backComps.zpid);
 
-          
+
                 backComps.propLat = message.response.properties.principal[0].address[0].latitude;
                 backComps.propLong = message.response.properties.principal[0].address[0].longitude;
                 backComps.cmpArr = message.response.properties.comparables[0].comp;
-              
-              console.log('803 - backComps = ', backComps); 
-                // var 
+
+              console.log('803 - backComps = ', backComps);
+                // var
 
                 res.jsonp(backComps);
 
@@ -922,14 +925,4 @@ function _function3(something, callback) {
 
 
 
-}   //  END  grabCompAPI 
-
-
-
-
-
-
-
-
-
-
+}   //  END  grabCompAPI
