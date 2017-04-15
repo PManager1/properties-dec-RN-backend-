@@ -350,7 +350,24 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 
 
 exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
-  
+
+  console.log(chalk.white('354-PSC - - Environment:  inside  Later_Today_P_prioritySearch  '));
+
+console.log(chalk.white('356-PSC - - req.body  ', req.body));
+var stri_body = JSON.stringify(req.body)
+console.log(chalk.white('358-PSC - - stri_body   ', stri_body));
+
+
+console.log(chalk.white('356-PSC - - req.params  ', req.params));
+
+var stringy = JSON.stringify(req.params)
+
+console.log(chalk.white('356-PSC - - stringy   ', stringy));
+
+console.log(chalk.white('356-PSC - - stringy Later_Today_P   ', stringy.Later_Today_P));
+
+
+
   Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {
 
     if (err) {

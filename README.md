@@ -329,4 +329,21 @@ How to send data with get request.
 
 exports.propertiesListByToday = function(req, res, next, id) {
 
+=============
+all the unncessary http post  http calls can be replaced with http get following this examplw 
+
+exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
+=============
+how to use chalk 
+
+console.log(chalk.white('356-PSC - - req.params  ', req.params));
+
+
+=============
+
+
+
+=============
+
+
 
