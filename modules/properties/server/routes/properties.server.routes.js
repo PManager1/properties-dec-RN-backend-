@@ -18,10 +18,10 @@ module.exports = function(app) {
   //   .post(properties.create);
 
 
-  app.route('/api/Property/:newProperty').all(propertiesPolicy.isAllowed)
+  app.route('/api/Property/:newPropParam').all(propertiesPolicy.isAllowed)
     .post(properties.createProperty);
 
-  app.param('newProperty', properties.createProperty);
+  app.param('newPropParam', properties.createProperty);
 
 
 
