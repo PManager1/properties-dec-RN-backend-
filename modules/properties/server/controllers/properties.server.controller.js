@@ -35,7 +35,6 @@ exports.CohortPropertiesList = function(req, res) {
     }
   });
 };
-
 */
 
 
@@ -60,9 +59,7 @@ exports.create = function(req, res) {
 };
 
 
-
 exports.createProperty = function(req, res) {
-
   console.log(' 47- PSC -  createProperty   req.body =', req.body);
   console.log(' 47- PSC -  createProperty   req.params =', req.params.newPropParam);
   // debugger;
@@ -350,7 +347,7 @@ exports.propertiesSearchAPI = function(req, res, next, id) {
 
 exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
 
-  console.log(chalk.white('354-PSC - - Environment:  inside  Later_Today_P_prioritySearch  id=',id));
+  console.log(chalk.white('354-PSC - exports.Later_Today_P_prioritySearch :  inside  Later_Today_P_prioritySearch  id=',id));
 
   console.log(chalk.white('364-PSC - - req.body.username ', req.body.username));
 
@@ -372,13 +369,16 @@ exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
 
 
 exports.queryPrioritySearch = function(req, res, next, id) {
-console.log( '192- PSC   queryPrioritySearch id = ', id);
+
+console.log(chalk.white('192- PSC   queryPrioritySearch id  id=',id));
+// console.log( '192- PSC   queryPrioritySearch id = ', id);
 console.log( ' queryPrioritySearch query_P  req.params  = ', req.params);
 
 
 var id_2  = id;
 var dynamicId={};
 dynamicId[id_2]=true;
+
 
 Property.find(dynamicId).exec(function(err, properties) {
 // Property.find(Left_VM_P).exec(function(err, properties) {  //works
@@ -400,12 +400,6 @@ exports.FollowUpSearch = function(req, res, next, id) {
 console.log('224-psc FollowUpSearch-API  id = ', id);
 
 var ho = id.toString();
-
-// console.log('229- PSC  ho = ', ho);
-// console.log( '  typeof stringValue ho  ', typeof ho)
-
-// console.log('403-psc FollowUpSearch-API  req.params = ', req.params);
-// console.log('403-psc FollowUpSearch-API  req.body = ', req.body);
 
   Property.find({ FollowUp_Call_Date : ho, user_logged_email : req.body.usernameOrEmail }).exec(function(err, properties) {    
 

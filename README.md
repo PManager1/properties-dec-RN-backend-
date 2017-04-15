@@ -340,6 +340,14 @@ console.log(chalk.white('356-PSC - - req.params  ', req.params));
 
 
 =============
+mongo search 
+mongoose search   https://goo.gl/vxwrAf
+
+var id_2=id;
+var filter={};
+filter[id_2]=true;
+filter["user_logged_email"]="libraryemail@gmail.com";
+
 
 
 
