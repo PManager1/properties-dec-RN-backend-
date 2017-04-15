@@ -289,11 +289,10 @@ exports.propertyByID = function(req, res, next, id) {
     // IT HAS TO SEND USER_LOGGED_EMAIL IN BACKEND to get data back
 
 exports.propertiesListByToday = function(req, res, next, id) {
-  
-  // console.log(chalk.green('148--- propertiesListByToday id:' + id));
-  // console.log(chalk.green('205--- propertiesListByToday id.date:' + id.date));
 
-  console.log( ' 300 -  req.body =  req.params  = ', req.params);
+  console.log( ' 300 -   req.params  = ', req.params);
+  
+
 
   // var new_id =  JSON.stringify(id);
 
