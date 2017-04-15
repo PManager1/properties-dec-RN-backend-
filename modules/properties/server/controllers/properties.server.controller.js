@@ -64,12 +64,9 @@ exports.create = function(req, res) {
 
 exports.createProperty = function(req, res) {
 
-
   console.log(' 47- PSC -  createProperty   req.body =', req.body);
-
   console.log(' 47- PSC -  createProperty   req.params =', req.params.newPropParam);
   // debugger;
-
 
   var property = new Property(req.body);
   property.user_logged_email = req.params.newPropParam;
