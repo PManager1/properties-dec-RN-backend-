@@ -393,7 +393,6 @@ Property.find(dynamicId).exec(function(err, properties) {
 exports.FollowUpSearch = function(req, res, next, id) {
 
 console.log('224-psc FollowUpSearch-API  id = ', id);
-// var today = new Date();
 
 var ho = id.toString();
 
