@@ -31,7 +31,9 @@ module.exports = function(app) {
 
 
   app.route('/api/propertiesListByToday/:date').all(propertiesPolicy.isAllowed)
-    .get(properties.propertiesListByToday); 
+    .post(properties.propertiesListByToday); 
+  app.param('date', properties.propertiesListByToday); 
+
 
 
   app.route('/api/propertiesSearchAPI/:Searchquery').all(propertiesPolicy.isAllowed)
@@ -89,8 +91,7 @@ module.exports = function(app) {
   // Finish by binding the Property middleware
   app.param('propertyId', properties.propertyByID);
 
-  app.param('userId', properties.propertiesListByUser);  
-  app.param('date', properties.propertiesListByToday);  
+  app.param('userId', properties.propertiesListByUser);   
   app.param('Searchquery', properties.propertiesSearchAPI);  
   app.param('singlePropSearch_term', properties.singlePropertySearchAPI);    
   app.param('Later_Today_P', properties.Later_Today_P_prioritySearch); 

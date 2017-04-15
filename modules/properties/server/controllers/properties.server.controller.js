@@ -288,19 +288,23 @@ exports.propertyByID = function(req, res, next, id) {
     // user_logged_email: id
     // IT HAS TO SEND USER_LOGGED_EMAIL IN BACKEND to get data back
 
+// todaylistuser
 exports.propertiesListByToday = function(req, res, next, id) {
 
+
   console.log( ' 300 -   req.params  = ', req.params);
+  console.log( ' 300 -   req.params  = ', req.params);
+  console.log( ' 301 -   req.params.date  = ', req.params.date);
+
+  console.log( ' 302 -   req.params.data  = ', req.params.data);
+
+  console.log( ' 303 -   req.params.date[0]  = ', req.params.date[0]);
   
 
+console.log( ' 304 -   propertiesListByToday  req.body  = ', req.body);
 
-  // var new_id =  JSON.stringify(id);
+  var id = "2017-04-15";
 
-  // console.log(chalk.green('148--- propertiesListByToday new_id:' + new_id));
-  // console.log(chalk.green('148--- propertiesListByToday new_id:' + new_id.date));
-
-  // debugger;
-  // Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
   Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
@@ -372,6 +376,7 @@ exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
 exports.queryPrioritySearch = function(req, res, next, id) {
 console.log( '192- PSC  id = ', id);
 console.log( ' queryPrioritySearch query_P  req.params  = ', req.params);
+
 
 var id_2  = id;
 var dynamicId={};
