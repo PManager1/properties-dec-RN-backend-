@@ -16,7 +16,6 @@ var path = require('path'),
   crypto = require('crypto'),
   chalk = require('chalk');
 
-
 var smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 
