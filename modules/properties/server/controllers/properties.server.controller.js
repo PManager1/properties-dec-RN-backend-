@@ -410,7 +410,6 @@ console.log( '  typeof stringValue ho  ', typeof ho)
 
    Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {
 
-
     if (err) {
       // console.log(err);
       return res.status(400).send({
