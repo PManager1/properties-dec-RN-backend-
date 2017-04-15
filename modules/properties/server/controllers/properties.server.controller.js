@@ -353,22 +353,11 @@ exports.Later_Today_P_prioritySearch = function(req, res, next, id) {
 
   console.log(chalk.white('354-PSC - - Environment:  inside  Later_Today_P_prioritySearch  '));
 
-console.log(chalk.white('356-PSC - - req.body  ', req.body));
-var stri_body = JSON.stringify(req.body)
-console.log(chalk.white('358-PSC - - stri_body   ', stri_body));
-
-
-console.log(chalk.white('356-PSC - - req.params  ', req.params));
-
-var stringy = JSON.stringify(req.params)
-
-console.log(chalk.white('356-PSC - - stringy   ', stringy));
-
-console.log(chalk.white('356-PSC - - stringy Later_Today_P   ', stringy.Later_Today_P));
+  console.log(chalk.white('364-PSC - - req.body.username ', req.body.username));
 
 
 
-  Property.find({ Later_Today_P : 'true' }).exec(function(err, properties) {
+  Property.find({ Later_Today_P : 'true', user_logged_email : req.body.username }).exec(function(err, properties) {
 
     if (err) {
       // console.log( ' err =', err);
