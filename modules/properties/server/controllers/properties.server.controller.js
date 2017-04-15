@@ -245,7 +245,7 @@ async.waterfall([
                             message: errorHandler.getErrorMessage(err)
                           });
     }
-    console.log( '217-PSC properties = ', result);
+    // console.log( '217-PSC properties = ', result);
     res.jsonp(result);
   }
   )
@@ -292,20 +292,10 @@ exports.propertyByID = function(req, res, next, id) {
 exports.propertiesListByToday = function(req, res, next, id) {
 
 
-  console.log( ' 300 -   req.params  = ', req.params);
-  console.log( ' 300 -   req.params  = ', req.params);
-  console.log( ' 301 -   req.params.date  = ', req.params.date);
-
-  console.log( ' 302 -   req.params.data  = ', req.params.data);
-
-  console.log( ' 303 -   req.params.date[0]  = ', req.params.date[0]);
-  
-
 console.log( ' 304 -   propertiesListByToday  req.body  = ', req.body);
 
-  var id = "2017-04-15";
 
-  Property.find({ last_date_email_sent_on : id }).exec(function(err, properties) {
+  Property.find({ last_date_email_sent_on : req.body.date }).exec(function(err, properties) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
