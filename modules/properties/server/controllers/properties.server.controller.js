@@ -400,14 +400,17 @@ console.log('229- PSC  ho = ', ho);
 console.log( '  typeof stringValue ho  ', typeof ho)
 
 
+console.log('403-psc FollowUpSearch-API  req.params = ', req.params);
+console.log('403-psc FollowUpSearch-API  req.body = ', req.body);
 
-// db.properties.find({"FollowUp_Call_Date" : {$gt: '2017-03-12T'}}).pretty();
 
+
+console.log(chalk.green('Environment:     ' + 'process.env.NODE_ENV'));
+
+//  working 
    // Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {
-
-   // Property.find({ "FollowUp_Call_Date": {$gt: '2017-03-22'} }).exec(function(err, properties) {
-
-   Property.find({ "FollowUp_Call_Date": ho }).exec(function(err, properties) {
+// user_logged_email usernameOrEmail
+  Property.find({ FollowUp_Call_Date : ho, user_logged_email : req.body.usernameOrEmail }).exec(function(err, properties) {    
 
     if (err) {
       // console.log(err);
