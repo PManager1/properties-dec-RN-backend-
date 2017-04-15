@@ -295,7 +295,10 @@ exports.propertiesListByToday = function(req, res, next, id) {
 console.log( ' 304 -   propertiesListByToday  req.body  = ', req.body);
 
 
-  Property.find({ last_date_email_sent_on : req.body.date }).exec(function(err, properties) {
+  // Property.find({ last_date_email_sent_on : req.body.date }).exec(function(err, properties) {
+  // Property.find({ last_date_email_sent_on : req.body.date }).exec(function(err, properties) {
+
+  Property.find({ last_date_email_sent_on : req.body.date, user_logged_email : req.body.email }).exec(function(err, properties) {    
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
