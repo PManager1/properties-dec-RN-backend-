@@ -65,12 +65,17 @@ exports.create = function(req, res) {
 exports.createProperty = function(req, res) {
   console.log(' 47- PSC -  createProperty   req.body =', req.body);
   // debugger; 
+  
   var property = new Property(req.body);
+
+  property.user_logged_email = "libertytrustgroupllc@gmail.com";
+
   // property.user = req.user;
 
 // console.log(' 71- PSC -  createProperty   property =', property);
   property.save(function(err) {
     if (err) {
+      console.log(' 74- ERR found', err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });

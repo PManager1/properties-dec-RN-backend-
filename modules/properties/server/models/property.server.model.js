@@ -319,4 +319,11 @@ Counter_P: {
   }
 });
 
+
+PropertySchema.index({ address: 1, city: 1 }, { unique: true });
+
 mongoose.model('Property', PropertySchema);
+
+PropertySchema.index({ address: 1, city: 1 }, { unique: true });
+// PropertySchema.index({ address: 1, city: 1 });
+
