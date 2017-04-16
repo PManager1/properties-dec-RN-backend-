@@ -431,9 +431,7 @@ exports.sendEmail = function(req, res, next, id) {
 
         function myFirstFunction(callback) {
                               console.log( ' myFirstFunction');
-
              Property.find({"address" : {$regex : '.*'+id+'*'}}).exec(function(err, properties) {
-             // Property.find({"address" : {$regex : "asfd"}}).exec(function(err, properties) {
                 if (err) {
                   // console.log(err);
                   return res.status(400).send({
@@ -464,7 +462,7 @@ exports.sendEmail = function(req, res, next, id) {
           // console.log( '288-psc  baseUrl = ', baseUrl);
 
           res.render(path.resolve('modules/users/server/templates/statusOfProperty'), {
-              // name: properties[0].agent_name,
+              emailContent: properties[0].emailTemplate,
               name: properties[0].agent_name,
               appName: properties[0].agent_name,
               address: properties[0].address,

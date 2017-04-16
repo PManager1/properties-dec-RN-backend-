@@ -7,9 +7,16 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Property Schema
+ * Property
+  Schema
  */
 var PropertySchema = new Schema({
+  emailTemplate: {
+    type: String,
+    default: 'EmailTemplate',
+    required: 'Please fill Content',
+    trim: true
+  },  
   address: {
     type: String,
     default: 'address',

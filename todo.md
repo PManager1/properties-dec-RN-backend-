@@ -1,3 +1,11 @@
+
+create a seperate mongo schema for emial templates linked with each user. 
+
+
+
+
+============== EMAIL TEMPLATES ==============
+
 exports.propertiesListByUser
 
 use this service to return back the resultes, after getting the user's email in the 
