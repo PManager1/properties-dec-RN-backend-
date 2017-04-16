@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Property = mongoose.model('Property'),
+  Comps = mongoose.model('Comps'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
   config = require(path.resolve('./config/config')),
@@ -764,12 +765,12 @@ var zwsid = 'X1-ZWz1fq2lnurjez_2kpit';
 var zillow = new Zillow(zwsid);
 
 
-exports.grabCmpAPI = function(req, res, next, id) {
-console.log('734-PSC  hi coming from  grabCmpAPI placeDetails id = ', id);
+exports. CmpAPI = function(req, res, next, id) {
+  
+    console.log('734-PSC  hi coming from  grabCmpAPI placeDetails id = ', id);
 
-
-console.log('736-PSC  hi coming from  req.body= ', req.body);
-console.log('736-PSC  BEFORE req.body.street_short = ', req.body.street_short);
+    console.log('736-PSC  hi coming from  req.body= ', req.body);
+    console.log('736-PSC  BEFORE req.body.street_short = ', req.body.street_short);
 
 
 
