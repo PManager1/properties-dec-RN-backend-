@@ -34,7 +34,7 @@ var CompsSchema = new Schema({
     required: false
   },
    Data: {
-    type: array,
+    type: String,
     required: 'Please fill Data '
   }
 });
