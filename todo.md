@@ -1,7 +1,7 @@
 
 create a seperate mongo schema for emial templates linked with each user. 
 
-
+use pdf js by mozilla to display the pdf. 
 
 
 ============== EMAIL TEMPLATES ==============
