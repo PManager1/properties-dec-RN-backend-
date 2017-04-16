@@ -79,6 +79,12 @@ if you need replace the gulpfile.js
 
 add capistrano files 
 ====================================
+Additional Packages 
+
+pdfmake
+
+====================================
+
 
 node version = 6.4.0 
 
