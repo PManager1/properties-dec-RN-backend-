@@ -773,8 +773,6 @@ console.log('736-PSC  BEFORE req.body.street_short = ', req.body.street_short);
 
 
 
-
-
 var addressWithoutUpdates = {};
 addressWithoutUpdates.mid = ' ';
 
