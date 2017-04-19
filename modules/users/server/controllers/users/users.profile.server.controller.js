@@ -11,7 +11,7 @@ var _ = require('lodash'),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
   User = mongoose.model('User'),
-    chalk = require('chalk'),
+  chalk = require('chalk'),
   validator = require('validator');
 
 var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
@@ -20,6 +20,9 @@ var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
  * Update user details
  */
 exports.update = function (req, res) {
+
+console.log(chalk.white('25- UPSC  calling exports.update '));
+
   // Init Variables
   var user = req.user;
 
