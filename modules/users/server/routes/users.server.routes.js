@@ -5,7 +5,8 @@ module.exports = function (app) {
   var users = require('../controllers/users.server.controller');
 
   // Setting up the users profile api
-  app.route('/api/users/me').get(users.me);
+  // app.route('/api/users/me').get(users.me);
+  app.route('/api/users/me/:usr').get(users.me)
   app.route('/api/users').put(users.update);
   app.route('/api/users/accounts').delete(users.removeOAuthProvider);
   app.route('/api/users/password').post(users.changePassword);
@@ -13,4 +14,17 @@ module.exports = function (app) {
 
   // Finish by binding the user middleware
   app.param('userId', users.userByID);
+
+// jay new for me
+  app.param('usr', users.me);
 };
+
+
+
+// app.route('/api/Property/:newPropParam').all(propertiesPolicy.isAllowed)
+//     .post(properties.createProperty);
+
+  // app.param('newPropParam', properties.createProperty);
+
+
+  

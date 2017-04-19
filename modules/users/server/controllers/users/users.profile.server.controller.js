@@ -11,6 +11,7 @@ var _ = require('lodash'),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
   User = mongoose.model('User'),
+  chalk = require('chalk'),
   validator = require('validator');
 
 var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
@@ -141,7 +142,18 @@ exports.changeProfilePicture = function (req, res) {
 /**
  * Send User
  */
-exports.me = function (req, res) {
+exports.me = function (req, res, id) {
+  console.log(chalk.white('MEMEMMEMEME - calling inside the expoerts.me service  id=', id));
+  
+  // console.log( '147-UPS req.body.user =', req.body.user);
+
+  console.log( '147-UPS req.params =', req.params);
+
+debugger; 
+
+
+  // {$or:[{username: req.body.username.toLowerCase()}, {email: req.body.username }]
+
   // Sanitize the user - short term solution. Copied from core.server.controller.js
   // TODO create proper passport mock: See https://gist.github.com/mweibel/5219403
   var safeUserObject = null;
