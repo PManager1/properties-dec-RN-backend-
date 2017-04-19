@@ -219,7 +219,7 @@ async.waterfall([
         var email = req.body.email;
 
         console.log( ' inside third waterfal fun  = ', username);
-        console.log( ' 196-C inside third waterfal fun => id = ', id);
+        console.log( ' 222-C inside third waterfal fun => id = ', id);
 
               Property.find({user_logged_email: id }).sort('-created').populate('user', 'displayName').exec(function(err, properties) {
                         if (err) {
