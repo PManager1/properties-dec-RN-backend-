@@ -11,6 +11,7 @@ var _ = require('lodash'),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
   User = mongoose.model('User'),
+    chalk = require('chalk'),
   validator = require('validator');
 
 var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
@@ -21,6 +22,8 @@ var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
 exports.update = function (req, res) {
   // Init Variables
   var user = req.user;
+
+  console.log(chalk.white('25- UPSC  user=',user));
 
   if (user) {
     // Update whitelisted fields only
