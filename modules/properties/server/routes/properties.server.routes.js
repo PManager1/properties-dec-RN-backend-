@@ -82,6 +82,10 @@ module.exports = function(app) {
   .post(properties.sendEmailTemplate);
 
 
+  app.route('/api/grabCmpAPI_RN/:propCmp').all(propertiesPolicy.isAllowed)
+  // .post(properties.grabCmpAPI_RN);
+  .post(properties.sendEmailTemplate);
+
   // app.route('/api/forgoto').all(propertiesPolicy.isAllowed)
   // .post(properties.forgoto);
 
@@ -103,6 +107,7 @@ module.exports = function(app) {
   app.param('etemplate', properties.sendEmailTemplate); 
 // Comps
   app.param('propObj', properties.grabCmpAPI);  
+  app.param('propCmp', properties.grabCmpAPI_RN);  
 
 
 };

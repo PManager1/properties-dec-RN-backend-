@@ -764,6 +764,8 @@ var zwsid = 'X1-ZWz1fq2lnurjez_2kpit';
 var zillow = new Zillow(zwsid);
 
 
+
+
 exports.grabCmpAPI = function(req, res, next, id) {
 console.log('734-PSC  hi coming from  grabCmpAPI placeDetails id = ', id);
 
@@ -916,10 +918,176 @@ function _function3(something, callback) {
 
     });
 
+}   //  END  grabCompAPI
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+exports.grabCmpAPI_RN = function(req, res, next, id) {
+
+   console.log('938----  NEW NEW  grabCmpAPI_RN '); 
+
+      console.log('938-PSC  hi coming from  grabCmpAPI placeDetails id = ', id);
+
+
+      console.log('941-PSC  hi coming from  req.body= ', req.body);
+      console.log('942-PSC  BEFORE req.body.street_short = ', req.body.street_short);
+
+
+      var addressWithoutUpdates = {};
+      addressWithoutUpdates.mid = ' ';
+
+      addressWithoutUpdates.address = req.body.street_short + addressWithoutUpdates.mid + req.body.address_short + addressWithoutUpdates.mid + req.body.city;
+      // addressWithoutUpdates.address = "615 Bernal Ave, Sunnyvale";
+      addressWithoutUpdates.citystatezip = req.body.postal;
+      // addressWithoutUpdates.citystatezip = "94085";
+
+      console.log( ' 953-PSC   addressWithoutUpdates =', addressWithoutUpdates);
+
+
+      function _function1 (req) {
+
+          return function (callback) {
+            console.log( ' insdie fun 1  addressWithoutUpdates', addressWithoutUpdates);
+              // var something = req.body;
+              callback (null, req);
+         }
+      }
+
+      function _function2(req, callback) {
+
+
+
+
+
+      // addressWithoutUpdates.new_CityStateZip = ;
+
+      console.log('Inside fun 2   addressWithoutUpdates =', addressWithoutUpdates);
+            // var zpid = addressWithoutUpdates.response.results.result[0].zpid[0];
+       console.log('Inside fun 2   req.body =', req.body);
+
+
+
+
+
+      // new
+      var a = req.body.formatted_address;
+      console.log( ' 781-PSC   a =', a);
+
+
+      var split_formatted_address = a.split(',');
+      console.log(' split_formatted_address =', split_formatted_address);
+
+      var address = split_formatted_address[0];
+      console.log( '1962-C address = ', address);
+      // grab the rest of the string from the a.
+
+      var City = split_formatted_address[1];
+      console.log( 'City= ', City);
+
+      var StateStr = split_formatted_address[2];
+      console.log( 'StateStr= ', StateStr);
+
+      var stateSplit = StateStr.match(/[a-zA-Z]+|[0-9]+/g)
+      console.log( 'stateSplit= ', stateSplit);
+
+      var State = stateSplit[0];
+      console.log( ' STate = ', State);
+
+      var zip = stateSplit[1];
+      console.log( ' zip = ', zip);
+
+      var Addrr = address +','+ City;
+      console.log( '1987-  adder  = ', Addrr );
+
+      var zipCode = stateSplit[1];
+      console.log( ' zip = ', zipCode);
+
+      // new
+
+
+
+      var addressWithoutUpdates = {};
+      addressWithoutUpdates.address = Addrr;
+      addressWithoutUpdates.citystatezip = zipCode;
+      addressWithoutUpdates.formatted_address = req.body.formatted_address;
+
+      console.log('830-PSC addressWithoutUpdates= ', addressWithoutUpdates);
+
+              var somethingelse = zillow.get('GetSearchResults', addressWithoutUpdates).then(function (firstRes) {
+
+                    console.log('781-S  propertiesSearchAPI firstRes = ', firstRes);
+                    console.log('781-S  propertiesSearchAPI firstRes zip = ', firstRes.response.results.result[0].zpid);
+                    var zip =  firstRes.response.results.result[0].zpid;
+              callback (null, zip);
+                });
+
+
+      }
+
+      function _function3(something, callback) {
+          console.log( ' inside fun 3,  param something ', something);
+
+
+            var addressWithupdates = {};
+            addressWithupdates.zpid = something;
+            addressWithupdates.count = 25;
+
+
+
+              var somethingelse = zillow.get('GetDeepComps', addressWithupdates).then(function (secondRes) {
+
+                    console.log('781-S  propertiesSearchAPI firstRes = ', secondRes);
+
+                     callback (null, secondRes);
+                });
+
+      }
+
+
+
+         async.waterfall([
+              _function1(req),
+              _function2,
+              _function3,
+          ], function (error, message) {
+              if (error) { console.log('Something is wrong!'); }
+              // return alert('Done!');
+              console.log(' Done!');
+              console.log('success  ! = ', message);
+
+
+                 var backComps = {};
+                  backComps.zpid = message.request.zpid;
+                console.log('796-psc   backComps.zpid =', backComps.zpid);
+
+
+                      backComps.propLat = message.response.properties.principal[0].address[0].latitude;
+                      backComps.propLong = message.response.properties.principal[0].address[0].longitude;
+                      backComps.cmpArr = message.response.properties.comparables[0].comp;
+
+                    console.log('803 - backComps = ', backComps);
+                      // var
+
+                      res.jsonp(backComps);
+
+
+
+          });
 
 }   //  END  grabCompAPI
+
+
+
+
+
