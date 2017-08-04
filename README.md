@@ -1,4 +1,7 @@
+to run with pm2  
+ sudo gulp pm2   ( before this have the mongo installed )
 
+========
 either i can copy the lib foler to the new folder from the old one. 
 
 or i can individually copy the files there. 
